@@ -14,6 +14,15 @@
 	    background-color: white;
 	    margin: 6px 0;
 	}
+    .show{
+        display: none;
+    }
+    .show-text{
+        display: none;
+    }
+	.gone-depend{
+		display: block;
+	}
 	.div-kh-chat{
 		width: 200px;
 		margin: 0 auto;
@@ -23,7 +32,7 @@
 		font-size: 28px;
 		color: white;
 	}
-	.image{
+	.profile{
 		width: 46px;
 		height: 46px;
 		border-radius: 23px;
@@ -33,21 +42,43 @@
 	.user-chat{
 		display: hidden;
 	}
+    .name-user{
+        display: none;
+    }
 	.contain-chat{
 		height: 100px;
-		background-color: gray;
+		background-color: yellow;
 	}
+
 }
 @media all and (min-width: 770px) {
 	.div-btn-menu{
 		display: hidden;
 	}
+	.gone-depend{
+		display: none;
+	}
+    .show{
+        display: block;
+    }
+    .show-text{
+        display: block;
+    }
+	.div-btn-menu{
+		margin-top: 4px;
+	}
+	.btn-menu{
+		width: 30px;
+		height: 3px;
+		background-color: white;
+		margin: 6px 0;
+	}
 	.kh-chat{
-		margin-left: 30px;
+		margin-left: 70px;
 		font-size: 30px;
 		color: white;
 	}
-	.image{
+	.profile{
 		margin-top: -27px;
 		width: 50px;
 		height: 50px;
@@ -56,17 +87,62 @@
 	}
 	.user-chat{
 		background-color: #2c2c2c;
-		height: 100px;
+        border: 1px solid white;
+        padding: 0px;
+		height: 94.5vh;
 	}
+    .user{
+        width:100%;
+        height: 90px;
+        /*margin-top: -1px;*/
+        margin-left: -1px;
+        border: 1px solid white;
+        /*background: white;*/
+    }
+    .photo-user{
+        float: left;
+        height: 65px;
+        width: 65px;
+        border-radius: 32.5px;
+        margin-top: 12px;
+        margin-left: 10px;
+        background: white;
+    }
+    .info-user{
+        padding: 8px;
+        float: left;
+        height:100%;
+        width: 50%;
+    }
+    .name-user{
+        margin-left: 10px;
+        color: white;
+    }
+    .detail-user{
+        margin-left: 10px;
+        color: #545151;
+    }
+    .user-online{
+        width:10%;
+        height:100%;
+        float: right;
+    }
+    .online-signal {
+        height: 100%;
+        vertical-align: middle;
+    }
+    .online{
+        width: 12px;
+        height:12px;
+        background: green;
+        border-radius: 6px;
+    }
+
 	.contain-chat{
 		height: 100px;
-		background-color: green;
+		background-color: yellow;
 	}
 }
-
-
-
-
 
 
 
