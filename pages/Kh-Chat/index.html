@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="./public/vendors/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./public/css/kh-chat.css">
+</head>
+<body>
+	<div id="mySidenav" class="sidenav">
+  		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  		<a href="#">About</a>
+		<a href="#">Services</a>
+		<a href="#">Clients</a>
+		<a href="#">Contact</a>
+	</div>
+	<div id="main" style="padding: 0px;">
+		<nav class="navbar navbar-default nav">
+			<div class="container-fluid" style="height: 100%;">
+			    <div style="float: left;" class="div-btn-menu">
+			      	<a class="navbar-brand gone-depend" href="#" onclick="openNav()">
+			      		<div class="btn-menu"></div>
+						<div class="btn-menu"></div>
+						<div class="btn-menu"></div>
+			      	</a>
+			    </div>
+			    <div class="div-kh-chat">
+			      	<h3 class="kh-chat">KH_Chat</h3>
+			    </div> 
+			    <div class="" style="float: right; margin-top: -40px;">
+			    	<a class="navbar-brand" href="#">
+				    	<div class="profile"></div>
+			      	</a>
+			    </div>
+			</div>
+		</nav>
+		<div class="container-fluid">
+	  		<div class="row" style="margin-top: -22px;">
+	    		<div class="col-md-2 user-chat">
+					<div class="user">
+						<div class="photo-user show"></div>
+						<div class="info-user show">
+							<h4 class="name-user show-text">SE Kimsour</h4>
+							<h4 class="detail-user show-text">ITC</h4>
+						</div>
+						<div class="user-online show">
+							<table class="online-signal"><tr><td>
+							<div class="online show"></div>
+							</td></tr></table>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+
+				</div>
+	    		<div class="col-md-10 contain-chat"></div>
+	  		</div>
+		</div>
+	</div>
+
+
+	<script>
+		/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+		function openNav() {
+		    document.getElementById("mySidenav").style.width = "250px";
+		    document.getElementById("main").style.marginLeft = "250px";
+		}
+
+		/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+		function closeNav() {
+		    document.getElementById("mySidenav").style.width = "0";
+		    document.getElementById("main").style.marginLeft = "0";
+		}
+	</script>
+ 	<script src="./public/vendors/jquery/jquery-3.1.1.min.js"></script>
+	<script src="./public/vendors/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

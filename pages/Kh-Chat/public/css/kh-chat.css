@@ -1,0 +1,217 @@
+.nav{
+	height: 75px;
+	background-color: #0a090a;
+	box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2),0 6px 40px 0 rgba(0,0,0,0.10);
+}
+
+@media all and (max-width: 991px) {
+	.div-btn-menu{
+		margin-top: 4px;
+	}
+	.btn-menu{
+		width: 30px;
+	    height: 3px;
+	    background-color: white;
+	    margin: 6px 0;
+	}
+    .show{
+        display: none;
+    }
+    .show-text{
+        display: none;
+    }
+	.gone-depend{
+		display: block;
+	}
+	.div-kh-chat{
+		width: 200px;
+		margin: 0 auto;
+	}
+	.kh-chat{
+		text-align: center;
+		font-size: 28px;
+		color: white;
+	}
+	.profile{
+		width: 46px;
+		height: 46px;
+		border-radius: 23px;
+		margin-top: -25px;
+		background-color: white;
+	}
+	.user-chat{
+		display: hidden;
+	}
+    .name-user{
+        display: none;
+    }
+	.contain-chat{
+		height: 100px;
+		background-color: yellow;
+	}
+
+}
+@media all and (min-width: 992px) {
+    .search{
+        margin-top: 30px;
+    }
+    .input{
+
+        border-radius: 10px;
+        margin-left: 500px;
+        height: 30px;
+        width: 500px;
+
+
+    }
+   .add{
+       margin-top: 70px;
+       margin-left: 750px;
+   }
+
+	.div-btn-menu{
+		display: hidden;
+	}
+	.gone-depend{
+		display: none;
+	}
+    .show{
+        display: block;
+    }
+    .show-text{
+        display: block;
+    }
+	.div-btn-menu{
+		margin-top: 4px;
+	}
+	.btn-menu{
+		width: 30px;
+		height: 3px;
+		background-color: white;
+		margin: 6px 0;
+	}
+	.kh-chat{
+		margin-left: 70px;
+		font-size: 30px;
+		color: white;
+	}
+	.profile{
+		margin-top: -27px;
+		width: 50px;
+		height: 50px;
+		border-radius: 45px;
+		background-color: white;
+	}
+	.user-chat{
+		background-color: #2c2c2c;
+        border: 1px solid white;
+        padding: 0px;
+		height: 94.5vh;
+	}
+    .user{
+        width:100%;
+        height: 90px;
+        /*margin-top: -1px;*/
+        margin-left: -1px;
+        border: 1px solid white;
+        /*background: white;*/
+    }
+    .photo-user{
+        float: left;
+        height: 65px;
+        width: 65px;
+        border-radius: 32.5px;
+        margin-top: 12px;
+        margin-left: 10px;
+        background: white;
+    }
+    .info-user{
+        padding: 8px;
+        float: left;
+        height:100%;
+        width: 50%;
+    }
+    .name-user{
+        margin-left: 10px;
+        color: white;
+    }
+    .detail-user{
+        margin-left: 10px;
+        color: #545151;
+    }
+    .user-online{
+        width:10%;
+        height:100%;
+        float: right;
+    }
+    .online-signal {
+        height: 100%;
+        vertical-align: middle;
+    }
+    .online{
+        width: 12px;
+        height:12px;
+        background: green;
+        border-radius: 6px;
+    }
+
+	.contain-chat{
+		height: 100px;
+		background-color: yellow;
+	}
+}
+
+
+
+
+
+
+/* The side navigation menu */
+.sidenav {
+	height: 100%; /* 100% Full-height */
+	width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #2c2c2c; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */	
+}
+
+/* The navigation menu links */
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+	/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
