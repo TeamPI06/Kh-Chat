@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="./public/vender/bootstrap3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./public/css/kh-chat.css">
+</head>
+<body>
+	<div id="mySidenav" class="sidenav">
+  		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  		<a href="#">About</a>
+		<a href="#">Services</a>
+		<a href="#">Clients</a>
+		<a href="#">Contact</a>
+	</div>
+	<div id="main" style="padding: 0px;">
+		<nav class="navbar navbar-default nav">
+			<div class="container-fluid" style="height: 100%;">
+			    <div style="float: left;" class="div-btn-menu" style="background-color: green;">
+			      	<a class="navbar-brand" href="#" onclick="openNav()">
+			      		<div class="btn-menu"></div>
+						<div class="btn-menu"></div>
+						<div class="btn-menu"></div>
+			      	</a>
+			    </div>
+			    <div class="div-kh-chat">
+			      	<h3 class="kh-chat">KH_Chat</h3>
+			    </div> 
+			    <div class="" style="float: right; margin-top: -40px;">
+			    	<a class="navbar-brand" href="#">
+				    	<div class="image"></div>
+			      	</a>
+			    </div>
+			</div>
+		</nav>
+		<div class="container-fluid">
+	  		<div class="row" style="margin-top: -22px;">
+	    		<div class="col-md-2 user-chat"></div>
+	    		<div class="col-md-10 contain-chat"></div>
+	  		</div>
+		</div>
+	</div>
+
+
+	<script>
+		/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+		function openNav() {
+		    document.getElementById("mySidenav").style.width = "250px";
+		    document.getElementById("main").style.marginLeft = "250px";
+		}
+
+		/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+		function closeNav() {
+		    document.getElementById("mySidenav").style.width = "0";
+		    document.getElementById("main").style.marginLeft = "0";
+		}
+	</script>
+ 	<script src="./public/js/masonry.js"></script>
+ 	<script src="./public/js/jquery.js"></script>
+	<script src="./public/vender/bootstrap3/js/bootstrap.min.js"></script>	
+</body>
+</html>
