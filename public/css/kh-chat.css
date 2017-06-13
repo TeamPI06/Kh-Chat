@@ -52,6 +52,23 @@
 
 }
 @media all and (min-width: 992px) {
+    .search{
+        margin-top: 30px;
+    }
+    .input{
+
+        border-radius: 10px;
+        margin-left: 500px;
+        height: 30px;
+        width: 500px;
+
+
+    }
+   .add{
+       margin-top: 70px;
+       margin-left: 750px;
+   }
+
 	.div-btn-menu{
 		display: hidden;
 	}
