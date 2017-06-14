@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search</title>
-</head>
-<body>
-<!DOCTYPE html>
 <html>
 <head>
     <title>Search</title>
@@ -36,13 +29,69 @@
         </div>
     </nav>
     <div class = "search">
-        <input class= "input">
-        <i class="fa fa-search" aria-hidden="true" ></i>
-
+        <form action="">
+            <input class= "input">
+            <i class="fa fa-search fa-4x "  style="margin-top: 60px" aria-hidden="true" ></i>
+        </form>
     </div>
     <div>
-        <i class="fa fa-plus-circle fa-5x" aria-hidden="true"></i>
+        <i class="fa fa-plus-circle fa-5x" data-toggle="modal" data-target="#myModal" aria-hidden="true"></i>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                        <div  class = "col-md-4" style="background: black">
+                            <form action="">
 
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search for...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="fa fa-search1 " aria-hidden="true" ></i>
+                                            </button>
+                                      </span>
+                                    </div><!-- /input-group -->
+                                <!-- /.col-lg-6 -->
+                            </form>
+                            <div class="photo-user show"></div>
+                                <div class="info-user show">
+                                 <h4 class="name-user show-text">SE Kimsour</h4>
+                                 <h4 class="detail-user show-text">ITC</h4>
+                                </div>
+                            <div class="user-online show">
+                                <table class="online-signal"><tr><td>
+                                    <div class="online show"></div>
+                                </td></tr></table>
+                            </div>
+                        </div>
+                        <div class = "col-md-8">
+                            <div>
+                                <h1>Room Chat</h1>
+                            </div>
+                            <form>
+                            <div>
+                                <h2>Room</h2>
+                                <input type="text" >
+                            </div>
+                            </form>
+                            <div>
+                                <div class="photo-user show"></div>
+                                    <div class="info-user show">
+                                        <h4 class="name-user show-text">SE Kimsour</h4>
+                                        <h4 class="detail-user show-text">ITC</h4>
+                                     </div>
+                                    <div class="user-online show">
+                                    <table class="online-signal"><tr><td>
+                                        <div class="online show"></div>
+                                    </td></tr></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -62,7 +111,5 @@
 </script>
 <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
 <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
-</body>
-</html>
 </body>
 </html>

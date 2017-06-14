@@ -55,11 +55,12 @@
     .search{
         margin-top: 30px;
     }
+
     .input{
 
-        border-radius: 50px;
+        border-radius: 100px;
         margin-left: 500px;
-        height: 30px;
+        height: 60px;
         width: 500px;
     }
     .fa-plus-circle{
