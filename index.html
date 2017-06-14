@@ -45,7 +45,7 @@
 				<h3 class="kh-chat">KH_Chat</h3>
 			</div>
 			<div class="" style="float: right; margin-top: -40px;">
-				<a class="navbar-brand" data-toggle="modal" data-target="#myModal">
+				<a class="navbar-brand" onclick="document.getElementById('id01').style.display='block'">
 					<div class="profile"></div>
 				</a>
 			</div>
@@ -91,26 +91,27 @@
 
 
 
-	<!-- Modal -->
-	<div class="modal fade modal-user-profile" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-				</div>
-				<div class="modal-body">
-					...
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
+	<!-- The Modal -->
+	<div id="id01" class="modal">
+		<form class="modal-content animate" action="/action_page.php">
+			<div class="view-profile">
+
 			</div>
-		</div>
+		</form>
 	</div>
 
+
 </div>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 <script>
 	/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
     function openNav() {
@@ -120,16 +121,8 @@
 
 	/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
     function closeNav() {
-//        alert(window.screen.availWidth);
-		if(window.screen.availWidth < 991) {
-            document.getElementById("mySidenav").style.width = "0px";
-            document.getElementById("main").style.marginLeft = "0px";
-		}
-		else{
-            document.getElementById("mySidenav").style.width = "350px";
-            document.getElementById("main").style.marginLeft = "350px";
-		}
-
+		document.getElementById("mySidenav").style.width = "0px";
+		document.getElementById("main").style.marginLeft = "0px";
     }
 </script>
 <script src="./public/vendors/jquery/jquery-3.1.1.min.js"></script>
