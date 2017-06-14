@@ -8,10 +8,10 @@
 <body>
 	<div id="mySidenav" class="sidenav">
   		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  		<a href="#">About</a>
-		<a href="#">Services</a>
-		<a href="#">Clients</a>
-		<a href="#">Contact</a>
+
+        <!--<div class="user gone-depend">-->
+        <!--</div>-->
+
 	</div>
 	<div id="main" style="padding: 0px;">
 		<nav class="navbar navbar-default nav">
@@ -33,30 +33,37 @@
 			    </div>
 			</div>
 		</nav>
-		<div class="container-fluid">
-	  		<div class="row" style="margin-top: -22px;">
-	    		<div class="col-md-2 user-chat">
-					<div class="user">
-						<div class="photo-user show"></div>
-						<div class="info-user show">
-							<h4 class="name-user show-text">SE Kimsour</h4>
-							<h4 class="detail-user show-text">ITC</h4>
-						</div>
-						<div class="user-online show">
-							<table class="online-signal"><tr><td>
-							<div class="online show"></div>
-							</td></tr></table>
-						</div>
-						<div style="clear: both"></div>
-					</div>
-
+		<div class="user-chat">
+			<div class="user">
+				<div class="photo-user show"></div>
+				<div class="info-user show">
+					<span class="name-user show-text">SE Kimsour</span>
+					<span class="detail-user show-text">ITC</span>
 				</div>
-	    		<div class="col-md-10 contain-chat"></div>
-	  		</div>
+				<div class="user-online show">
+					<table class="online-signal">
+						<tr>
+							<td>
+								<div class="online show"></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div style="clear: both"></div>
+			</div>
+		</div>
+		<div class="contain-chat">
+			<div class="write-message">
+				<div class="write">
+					<textarea class="write-text"></textarea>
+				</div>
+				<div class="send-message">
+					<div class="line"></div>
+					<img class="img-send" src="public/img/send.png">
+				</div>
+			</div>
 		</div>
 	</div>
-
-
 	<script>
 		/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
 		function openNav() {
