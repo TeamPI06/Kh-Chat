@@ -57,17 +57,15 @@
     }
     .input{
 
-        border-radius: 10px;
+        border-radius: 50px;
         margin-left: 500px;
         height: 30px;
         width: 500px;
-
-
     }
-   .add{
-       margin-top: 70px;
-       margin-left: 750px;
-   }
+    .fa-plus-circle{
+        margin-left: 700px;
+        margin-top: 60px;
+    }
 
 	.div-btn-menu{
 		display: hidden;
