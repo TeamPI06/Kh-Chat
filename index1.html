@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Landing Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="./public/vendors/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./public/css/font.css">
+	<link rel="stylesheet" type="text/css" href="./public/css/index.css">
+	<link rel="stylesheet" href="./public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="header">
+		<div id="menu-icon" class="mi-container" onclick="toggleMenuIcon(this)">
+		  <div class="bar1"></div>
+		  <div class="bar2"></div>
+		  <div class="bar3"></div>
+		</div>
+		<div class="title">
+			<span style="color: white">KH</span>_CHAT
+		</div>
+		<div class="profile">
+			<!-- profile here -->
+		</div>
+	</div>
+	<div class="sidebar">
+		<ul class="side-class">
+			<!-- li .... -->
+		</ul>
+	</div>
+	<div class="blocker"></div>
+	<div class="body">
+		<div class="content">
+			<div class="follow-sidebar"></div>
+			<div class="main">
+				<div class="main-content">
+					
+
+						<!-- chat content here -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="./public/vendors/jquery/jquery-3.1.1.min.js"></script>
+<script src="./public/vendors/bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+var sidebar = false;
+var menu;
+$(".blocker").click(function(){
+	menu.classList.toggle("change");
+	hideSideBar();
+	sidebar = false;
+});
+
+function toggleMenuIcon(x) {
+	menu = x;
+    x.classList.toggle("change");
+    if (sidebar) {
+    	hideSideBar();
+    	sidebar = false;
+    } else {
+    	showSideBar();
+    	sidebar = true;
+    }
+}
+
+function showSideBar() {
+	$(".sidebar").animate({
+		left: "0"
+	}, 300);
+	$(".follow-sidebar").animate({
+		width: "250px"
+	}, 300, function() {
+		msnry = new Masonry( document.querySelector('.homework-class'), {
+			itemSelector: '.note'
+		});
+	});
+	$(".blocker").css("height", "100vh");
+}
+
+function hideSideBar() {
+	$(".sidebar").animate({
+		left: "-250"
+	}, 300);
+	$(".follow-sidebar").animate({
+		width: "0px"
+	}, 300, function(){
+		msnry = new Masonry( document.querySelector('.homework-class'), {
+			itemSelector: '.note'
+		});
+	});
+	$(".blocker").css("height", "0vh");
+}
+</script>
+
+</html>
