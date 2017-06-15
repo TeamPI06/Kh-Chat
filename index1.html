@@ -20,12 +20,24 @@
 		<div class="title">
 			<span style="color: white;">KH CHAT</span>
 		</div>
-		<div class="profile">
-		</div>
+		<a onclick="document.getElementById('id01').style.display='block'">
+			<div class="profile"></div>
+		</a>
 	</div>
 	<div class="sidebar">
 		<ul class="side-class">
-			<!-- li .... -->
+			<li class="user-chat">
+				<div class="user-profile" style="border: 0px">
+					<img src="public/img/boy.png" class="photo-user">
+				</div>
+				<div class="user-name">
+					<span class="font-name" style="color: white;">SE kimsour</span><br>
+					<span class="font-de" style="color: #616161">ITC</span>
+				</div>
+				<div class="signal">
+					<div class="show-signal"></div>
+				</div>
+			</li>
 		</ul>
 	</div>
 	<div class="blocker"></div>
@@ -37,27 +49,63 @@
 
 
 					<div class="write-message">
-						<div class="write">
-							<textarea class="write-text"></textarea>
-						</div>
-						<div class="send-message">
-							<div class="line"></div>
-							<div class="icon-send">
-								<i class="fa fa-send" style="margin-left: 20px;"></i>
-							</div>
-						</div>
+						<!--<div class="write">-->
+							<!--<textarea class="write-text"></textarea>-->
+						<!--</div>-->
+						<!--<div class="send-message">-->
+							<!--<div class="line"></div>-->
+							<!--<div class="icon-send">-->
+								<!--<i class="fa fa-send" style="margin-left: 20px;"></i>-->
+							<!--</div>-->
+						<!--</div>-->
 					</div>
 
 
 				</div>
 			</div>
 		</div>
+
+		<!-- The Modal -->
+		<div id="id01" class="modal">
+			<form class="modal-content animate" action="/action_page.php">
+				<div class="view-profile">
+					<div class="photo">
+
+					</div>
+					<div class="name">
+						<div class="name1">
+							<span style="font-size: 15px; color: #0098fd">TANG Sokkang</span><br>
+							<span style="font-size: 13px; color: #95989a"> I am Hacker</span>
+						</div>
+
+					</div>
+					<div class="div-btn">
+						<div style="float: left;">
+							<button type="button" class="btn btn-default" style="width: 100px;">Log Out</button>
+						</div>
+						<div style="float: right;">
+							<button type="button" class="btn btn-default" style="width: 100px">Leave Room</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
 	</div>
 </body>
 
 <script src="./public/vendors/jquery/jquery-3.1.1.min.js"></script>
 <script src="./public/vendors/bootstrap/js/bootstrap.min.js"></script>
-
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 <script>
 var sidebar = false;
 var menu;
@@ -83,28 +131,31 @@ function showSideBar() {
 	$(".sidebar").animate({
 		left: "0"
 	}, 300);
-	$(".follow-sidebar").animate({
-		width: "250px"
-	}, 300);
-	$(".write-message").animate({
-		left: "300px",
-		width: "80%"
-	}, 300);
-
+	if($(window).width()>1035) {
+        $(".follow-sidebar").animate({
+            width: "250px"
+        }, 300);
+        $(".write-message").animate({
+            left: "30%",
+            width: "55%"
+        }, 300);
+    }
 	$(".blocker").css("height", "100vh");
 }
 
 function hideSideBar() {
 	$(".sidebar").animate({
-		left: "-250"
+		left: "-300"
 	}, 300);
-	$(".follow-sidebar").animate({
-		width: "0px"
-	}, 300);
-    $(".write-message").animate({
-        left: "50px",
-        width: "95%"
-    }, 300);
+    if($(window).width()>1035) {
+        $(".follow-sidebar").animate({
+            width: "0px"
+        }, 300);
+        $(".write-message").animate({
+            left: "20%",
+            width: "60%"
+        }, 300);
+    }
 	$(".blocker").css("height", "0vh");
 }
 </script>
