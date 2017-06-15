@@ -1,0 +1,260 @@
+body {
+	margin: 0;
+	background-color: #f7f7f7;
+	width: 1vw;
+	z-index: 0;
+}
+
+.header {
+	width: 100%;
+	height: 70px;
+	background-color: #0a090a;
+	padding: 10px 20px 10px;
+	box-shadow: 0px 3px 5px grey;
+	z-index: 2;
+	position: absolute;
+}
+
+.title {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: comfortaa, comfortaa_b;
+}
+
+.mi-container {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transform: scale(0.7, 0.7) ;
+    transform: scale(0.7, 0.7);
+    position: absolute;
+}
+
+.hi-container {
+	position: absolute;
+	left: 100px;
+	top: 15px;
+	color: white;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+
+@media all and (min-width: 1036px) {
+	.sidebar {
+		overflow-y: auto;
+		width: 250px;
+		height: 100vh;
+		z-index: 1;
+		position: fixed;
+		padding-top: 60px;
+		left: -250px;
+		background-color: #2c2c2c;
+	}
+
+	.home-onSide {
+		color: black;
+		width: 100%;
+		font-size: 30px;
+		text-align: right;
+		height: 0px;
+		visibility: hidden;
+	}
+
+	.blocker {
+		height: 0vh;
+		width: 100vw;
+		position: fixed;
+		z-index: -999;
+	}
+
+	.follow-sidebar {
+		display: inline-block !important;
+	}
+}
+
+@media all and (max-width: 1035px) {
+	.sidebar {
+		overflow-y: auto;
+		width: 250px;
+		height: 100vh;
+		z-index: 1000;
+		position: fixed;
+		/*padding-top: 60px;*/
+		left: -250px;
+		background-color: #2c2c2c;
+	}
+
+	.home-onSide {
+		color: black;
+		width: 100%;
+		font-size: 30px;
+		text-align: right;
+		height: 60px;
+		visibility: visible;
+	}
+
+	.blocker {
+		position: fixed;
+		height: 0vh;
+		width: 100vw;
+		z-index: 999;
+		background-color: black;
+		opacity: 0.5;
+	}
+
+	.follow-sidebar {
+		display: none !important;
+	}
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+.sidebar::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border-radius: 5px;
+}
+
+.follow-sidebar {
+	width: 0px;
+	height: 100%;
+	float: left;
+}
+
+.side-class {
+	font-family: comfortaa, comfortaa_l, sans-serif, arial, "Times New Roman";
+	list-style: none;
+	width: 250px;
+	padding-left: 0;
+}
+
+.side-item {
+	border-bottom: 1px solid lightgrey;
+}
+
+.side-subclass {
+	list-style: none;
+	padding-left: 20px;
+	margin: 10px 0px 10px;
+}
+
+.side-item div {
+	font-family: comfortaa_b;
+	font-weight: bold;
+	font-size: 20px;
+	color: black;
+	margin: 20px 10px 10px;
+	padding: 10px;
+}
+
+.side-subclass li {
+	color: grey;
+	font-size: 18px;
+	padding: 10px;
+}
+
+i {
+	margin-right: 30px;
+}
+
+.clickable:hover {
+	cursor: pointer;
+	background-color: #eaeaea;
+}
+
+.clickable-nobackground:hover {
+	cursor: pointer;
+}
+
+.body {
+	z-index: 0;
+}
+
+.content {
+	overflow-y: auto;
+	color: black;
+	position: fixed;
+	top: 60px;
+	width: 100%;
+	height: calc(100vh - 60px);
+	z-index: 0;
+}
+
+.main {
+	overflow-y: auto;
+	vertical-align: top;
+	text-align: left;
+	z-index: 0;
+}
+
+.main-content {
+	width: 100%;
+	/*border: 5px solid green;*/
+}
+
+@media screen and (min-width: 560px) {
+  .note {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 816px) {
+  .note {
+    width: 33.3%;
+  }
+}
+@media screen and (min-width: 1072px) {
+  .note {
+    width: 25%;
+  }
+}
+
+.name {
+	text-align: right;
+	border-radius: 30px 0px 0px 30px;
+	padding-right: 10px;
+	color: white;
+	z-index: 5;
+	font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman";
+	height: 30px;
+	font-size: 20px;
+	position: absolute;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+.normal-font {
+	font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman";
+}
