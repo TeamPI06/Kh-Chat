@@ -111,6 +111,15 @@ body {
 		top: calc(100vh -200px);
 		z-index: 100;
 	}
+	.write{
+		background-color: red;
+		width: 500px;
+		height: 100%;
+		border: 0px;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+
+	}
 	.user-chat{
 		border:1px solid gainsboro;
 		width: 300px;
@@ -391,14 +400,7 @@ i {
 }
 /*for write message*/
 
-.write{
-	width: calc(100vw - 500px);
-	height: 100%;
-	border: 0px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	display: inline-block;
-}
+
 .write-text{
 	font-size: 20px;
 	resize: none;
