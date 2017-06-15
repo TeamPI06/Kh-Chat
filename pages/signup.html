@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <title>Register for KH-Chat</title>
     <link rel="stylesheet" type="text/css" href="../public/vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../public/css/kh-chat.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/font.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/signup.css">
 </head>
 <body>
-    <div class="signup_div" style="">
-        <div class="col-md-3 col-md-6 col-md-3 signup_box" style="">
-            <div class="signup_label" style="size: 40px;">SIGN UP</div>
-            <div class="input-group" style="margin-bottom: 5px;">
-                <span class="input-group-addon" style="width: 137px">Username</span>
-                <input type="text" class="form-control" name="username" placeholder="Username">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon" style="width: 137px">Email</span>
-                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon" style="width: 137px">Password</span>
-                <input type="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon" style="width: 130px">Confirm Password</span>
-                <input id="msg" type="text" class="form-control" name="msg" placeholder="Additional Info">
-            </div>
-            <button class="btn btn-default" style="opacity: 1">SIGN UP</button>
-        </div>
+    <div class="signup-div">
+        <div class="signup-box">
+            <div class="signup-label row">SIGN UP</div>
+            <div class="signup-info row" style="">
+                <div class="signup-wrapper row" style="margin: auto">
+                    <div class="input-group" style="margin-bottom: 8px;">
+                        <label for="username" class="input-group-addon" style="width: 45%">Username</label>
+                        <input style="width: 130%" id="username" type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 8px;">
+                        <label for="email" class="input-group-addon" style="width: 45%">Email</label>
+                        <input style="width: 130%" id="email" type="text" class="form-control" name="email" placeholder="Email address">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 8px;">
+                        <label for="password" class="input-group-addon" style="width: 45%">Password</label>
+                        <input style="width: 130%" id="password" type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 8px;">
+                        <label for="confirmpwd" class="input-group-addon" style="width: 40%">Confirm Password</label>
+                        <input style="width: 105%" id="confirmpwd" type="password" class="form-control" name="confirm" placeholder="Confirm Password">
+                    </div>
+                </div>
 
-        <div style="clear: both"></div>
+            </div>
+            <button class="signup-btn" style="opacity: 1">SIGN UP</button>
+        </div>
     </div>
 </body>
 </html>

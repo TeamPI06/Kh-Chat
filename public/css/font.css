@@ -10,3 +10,7 @@
     font-family: comfortaa_r;
     src: url(../vendors/font/comfortaa/Comfortaa-Regular.ttf);
 }
+
+.page-font {
+    font-family: "Century Gothic", comfortaa_l, arial, "Times New Roman";
+}
