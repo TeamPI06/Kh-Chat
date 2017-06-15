@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background-color: #f7f7f7;
+	background-color: white;
 	width: 1vw;
 	z-index: 0;
 }
@@ -58,15 +58,17 @@ body {
 	height: 45px;
 	background: white;
 }
+
+/*big screeen*/
 @media all and (min-width: 1036px) {
 	.sidebar {
 		overflow-y: auto;
-		width: 250px;
+		width: 300px;
 		height: 100vh;
 		z-index: 1;
 		position: fixed;
 		padding-top: 60px;
-		left: -250px;
+		left: -300px;
 		background-color: #2c2c2c;
 	}
 
@@ -96,10 +98,72 @@ body {
 		font-weight: bold;
 		font-family: comfortaa, comfortaa_b;
 	}
+	.write-message{
+		position: fixed;
+		align-items: center;
+		border: 1px solid black;
+		background: white;
+		width: 60%;
+		left: 20%;
+		bottom: 20px;
+		height:60px;
+		border-radius: 10px;
+		top: calc(100vh -200px);
+		z-index: 100;
+	}
+	.write{
+		background-color: red;
+		width: 500px;
+		height: 100%;
+		border: 0px;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 
+	}
+	.user-chat{
+		border:1px solid gainsboro;
+		width: 300px;
+		height: 85px;
+	}
+	.user-profile{
+		margin-left: 5px;
+		padding: 8px;
+		float: left;
+		width: 75px;
+		height: 100%;
+	}
+	.photo-user{
+		border:0px;
+		width: 65px;
+		height: 65px;
+		border-radius: 32.5px;
+		background-color: white;
+	}
+	.user-name{
+		padding: 20px;
+		float: left;
+		width: 170px;
+		height: 100%;
+	}
+	.font-name{
+		font-size: 20px;
+	}
+	.signal{
+		float: right;
+		width: 40px;
+		height:100%;
+	}
+	.show-signal{
+		margin-top: 35px;
+		width: 15px;
+		height: 15px;
+		border-radius: 12.5px;
+		background-color: green;
+	}
 
 }
 
+/*small screen*/
 @media all and (max-width: 1035px) {
 	.sidebar {
 		overflow-y: auto;
@@ -141,8 +205,62 @@ body {
 		font-weight: bold;
 		font-family: comfortaa, comfortaa_b;
 	}
-
-
+	.write-message{
+		position: fixed;
+		align-items: center;
+		border: 1px solid black;
+		background: white;
+		width: 90%;
+		left: 5%;
+		bottom: 20px;
+		height:60px;
+		border-radius: 10px;
+		top: calc(100vh - 80px);
+		z-index: 100;
+	}
+	.user-chat{
+		border:1px solid gainsboro;
+		width: 250px;
+		height: 85px;
+	}
+	.user-profile{
+		margin-left: 2px;
+		padding: 8px;
+		float: left;
+		width: 75px;
+		height: 100%;
+	}
+	.photo-user{
+		margin-top: 4px;
+		border:0px;
+		width: 60px;
+		height: 60px;
+		border-radius: 30px;
+		background-color: white;
+	}
+	.user-name{
+		margin-left: -15px;
+		padding: 20px;
+		float: left;
+		width: 150px;
+		height: 100%;
+	}
+	.font-name{
+		font-size: 20px;
+	}
+	.signal{
+		float: right;
+		margin-right: 6px;
+		width: 15px;
+		height:100%;
+	}
+	.show-signal{
+		margin-top: 35px;
+		width: 14px;
+		height: 14px;
+		border-radius: 7px;
+		background-color: green;
+	}
 
 }
 
@@ -281,28 +399,8 @@ i {
 	font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman";
 }
 /*for write message*/
-.write-message{
-	position: fixed;
-	align-items: center;
-	border: 1px solid black;
-	background: white;
-	width: calc(100vw - 75px);
-	left: 50px;
-	bottom: 20px;
-	height:60px;
-	border-radius: 10px;
-	top: calc(100vh - 140px);
-	z-index: 100;
-}
-.write{
-	background-color: red;
-	width: calc(100vw - 500px);
-	height: 100%;
-	border: 0px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	display: inline-block;
-}
+
+
 .write-text{
 	font-size: 20px;
 	resize: none;
@@ -335,4 +433,74 @@ i {
 	height: 52px;
 	background: grey;
 	float: left;
+}
+/* The Modal (background) */
+.modal {
+	overflow-y: inherit;
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 2; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	/*height: 100%; !* Full height *!*/
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	/*padding-top: 60px;*/
+}
+
+/* Modal Content/Box */
+.modal-content {
+	z-index: 3;
+	background-color: white;
+	margin: 15vh auto;
+	/*margin: 500px auto; !* 15% from the top and centered *!*/
+	border: 1px solid #888;
+	width: 280px; /* Could be more or less, depending on screen size */
+	height: 340px;
+	border-radius: 13px;
+}
+/* Add Zoom Animation */
+.animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)}
+	to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+	from {transform: scale(0)}
+	to {transform: scale(1)}
+}
+.view-profile{
+	width: 100%;
+	height:130px;
+	padding: 15px;
+}
+.photo{
+	margin: 5px auto;
+	border: 0.5px solid grey;
+	width: 100px;
+	height:100px;
+	border-radius: 50px;
+	box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+}
+.name{
+	margin-top: 10px;
+	width: 100%;
+	height: 60px;
+}
+.name1{
+	width: 200px;
+	margin: 0px auto;
+	text-align: center;
+}
+.div-btn{
+	width: 100%;
+	height: 40px;
+	margin-top: 170px;
 }
