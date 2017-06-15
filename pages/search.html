@@ -28,14 +28,22 @@
             </div>
         </div>
     </nav>
-    <div class = "search">
+    <div class = "search" style="width: 50%">
         <form action="">
-            <input class= "input">
-            <i class="fa fa-search fa-4x "  style="margin-top: 60px" aria-hidden="true" ></i>
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." style="margin-top: 60px">
+                <span class="input-group-btn"style="margin-top: 60px">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search " aria-hidden="true" ></i>
+                    </button>
+                </span>
+            </div><!-- /input-group -->
+            <!-- /.col-lg-6 -->
         </form>
     </div>
     <div>
-        <i class="fa fa-plus-circle fa-5x" data-toggle="modal" data-target="#myModal" aria-hidden="true"></i>
+        <i class="fa fa-plus-circle fa-5x" data-toggle="modal" data-target="#myModal" aria-hidden="true" style="margin-left: 700px;margin-top: 60px"></i>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
