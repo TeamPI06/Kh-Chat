@@ -139,6 +139,7 @@
 </script>
 
 <script>
+    var mq = window.matchMedia( "(min-width: 1036px)" );
     var sidebar = false;
     var menu;
     $(".blocker").click(function(){
@@ -146,7 +147,6 @@
         hideSideBar();
         sidebar = false;
     });
-
     function toggleMenuIcon(x) {
         menu = x;
         x.classList.toggle("change");
@@ -158,38 +158,49 @@
             sidebar = true;
         }
     }
-
     function showSideBar() {
         $(".sidebar").animate({
             left: "0"
         }, 300);
         if($(window).width()>1035) {
-            $(".follow-sidebar").animate({
-                width: "250px"
-            }, 300);
-            $(".write-message").animate({
-                left: "30%",
-                width: "55%"
-            }, 300);
+            $(".follow-sidebar").css("width", "250px");
+            $(".write-message").css("left", "calc(20vw + 200px)");
+            $(".write-message").css("width", "calc(60vw - 100px)");
         }
         $(".blocker").css("height", "100vh");
     }
-
     function hideSideBar() {
         $(".sidebar").animate({
             left: "-300"
         }, 300);
         if($(window).width()>1035) {
-            $(".follow-sidebar").animate({
-                width: "0px"
-            }, 300);
-            $(".write-message").animate({
-                left: "20%",
-                width: "60%"
-            }, 300);
+            $(".follow-sidebar").css("width", "0px");
+            $(".write-message").css("left", "20vw");
+            $(".write-message").css("width", "60vw");
         }
         $(".blocker").css("height", "0vh");
     }
+
+
+    mq.addListener(function(changed) {
+        if(changed.matches) {
+            // big screen
+//            alert("big");
+            if(sidebar) {
+                $(".follow-sidebar").css("width", "250px");
+                $(".write-message").css("left", "calc(20vw + 200px)");
+                $(".write-message").css("width", "calc(60vw - 100px)");
+            } else {
+                $(".write-message").css("left", "20vw");
+                $(".write-message").css("width", "60vw");
+            }
+        } else {
+            // small screen
+//            alert("small");
+            $(".write-message").css("left", "5%");
+            $(".write-message").css("width", "90%");
+        }
+    });
 </script>
 
 </html>
