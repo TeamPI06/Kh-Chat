@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="../public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/kh-chat.css">
+    <link rel="stylesheet" type="text/css" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div id="main" style="padding: 0px;">
+    <nav class="navbar navbar-default nav">
+        <div class="container-fluid" style="height: 100%;">
+            <div style="float: left;" class="div-btn-menu">
+                <a class="navbar-brand gone-depend" href="#" onclick="openNav()">
+                    <div class="btn-menu"></div>
+                    <div class="btn-menu"></div>
+                    <div class="btn-menu"></div> 
+                </a>
+            </div>
+            <div class="div-kh-chat">
+                <h3 class="kh-chat">KH_Chat</h3>
+            </div>
+            <div class="" style="float: right; margin-top: -40px;">
+                <a class="navbar-brand" href="#">
+                    <div class="profile"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class = "search" style="width: 50%">
+        <form action="">
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." style="margin-top: 60px">
+                <span class="input-group-btn"style="margin-top: 60px">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search " aria-hidden="true" ></i>
+                    </button>
+                </span>
+            </div><!-- /input-group -->
+            <!-- /.col-lg-6 -->
+        </form>
+    </div>
+    <div>
+        <i class="fa fa-plus-circle fa-5x" data-toggle="modal" data-target="#myModal" aria-hidden="true" style="margin-left: 700px;margin-top: 60px"></i>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                        <div  class = "col-md-4" style="background: black">
+                            <form action="">
+
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search for...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="fa fa-search1 " aria-hidden="true" ></i>
+                                            </button>
+                                      </span>
+                                    </div><!-- /input-group -->
+                                <!-- /.col-lg-6 -->
+                            </form>
+                            <div class="photo-user show"></div>
+                                <div class="info-user show">
+                                 <h4 class="name-user show-text">SE Kimsour</h4>
+                                 <h4 class="detail-user show-text">ITC</h4>
+                                </div>
+                            <div class="user-online show">
+                                <table class="online-signal"><tr><td>
+                                    <div class="online show"></div>
+                                </td></tr></table>
+                            </div>
+                        </div>
+                        <div class = "col-md-8">
+                            <div>
+                                <h1>Room Chat</h1>
+                            </div>
+                            <form>
+                            <div>
+                                <h2>Room</h2>
+                                <input type="text" >
+                            </div>
+                            </form>
+                            <div>
+                                <div class="photo-user show"></div>
+                                    <div class="info-user show">
+                                        <h4 class="name-user show-text">SE Kimsour</h4>
+                                        <h4 class="detail-user show-text">ITC</h4>
+                                     </div>
+                                    <div class="user-online show">
+                                    <table class="online-signal"><tr><td>
+                                        <div class="online show"></div>
+                                    </td></tr></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+<script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
+<script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
