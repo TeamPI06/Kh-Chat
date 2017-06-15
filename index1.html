@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="./public/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="./public/css/font.css">
 	<link rel="stylesheet" type="text/css" href="./public/css/index.css">
-	<link rel="stylesheet" type="text/css" href="public/css/kh-chat.css">
+	<!--<link rel="stylesheet" type="text/css" href="./public/css/kh-chat.css">-->
 	<link rel="stylesheet" href="./public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -18,12 +18,9 @@
 		  <div class="bar3"></div>
 		</div>
 		<div class="title">
-			<span style="color: white">KH_CHAT</span>
+			<span style="color: white;">KH CHAT</span>
 		</div>
-		<div class="" style="float: right; margin-top: -40px;">
-			<a class="navbar-brand" onclick="document.getElementById('id01').style.display='block'">
-				<div class="profile"></div>
-			</a>
+		<div class="profile">
 		</div>
 	</div>
 	<div class="sidebar">
@@ -37,9 +34,20 @@
 			<div class="follow-sidebar"></div>
 			<div class="main">
 				<div class="main-content">
-					
 
-						<!-- chat content here -->
+
+					<div class="write-message">
+						<div class="write">
+							<textarea class="write-text"></textarea>
+						</div>
+						<div class="send-message">
+							<div class="line"></div>
+							<div class="icon-send">
+								<i class="fa fa-send" style="margin-left: 20px;"></i>
+							</div>
+						</div>
+					</div>
+
 
 				</div>
 			</div>
@@ -77,11 +85,12 @@ function showSideBar() {
 	}, 300);
 	$(".follow-sidebar").animate({
 		width: "250px"
-	}, 300, function() {
-		msnry = new Masonry( document.querySelector('.homework-class'), {
-			itemSelector: '.note'
-		});
-	});
+	}, 300);
+	$(".write-message").animate({
+		left: "300px",
+		width: "80%"
+	}, 300);
+
 	$(".blocker").css("height", "100vh");
 }
 
@@ -91,11 +100,11 @@ function hideSideBar() {
 	}, 300);
 	$(".follow-sidebar").animate({
 		width: "0px"
-	}, 300, function(){
-		msnry = new Masonry( document.querySelector('.homework-class'), {
-			itemSelector: '.note'
-		});
-	});
+	}, 300);
+    $(".write-message").animate({
+        left: "50px",
+        width: "95%"
+    }, 300);
 	$(".blocker").css("height", "0vh");
 }
 </script>
