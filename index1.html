@@ -1,112 +1,195 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Landing Page</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="./public/vendors/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./public/css/font.css">
-	<link rel="stylesheet" type="text/css" href="./public/css/index.css">
-	<!--<link rel="stylesheet" type="text/css" href="./public/css/kh-chat.css">-->
-	<link rel="stylesheet" href="./public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>Landing Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./public/css/font.css">
+    <link rel="stylesheet" type="text/css" href="./public/css/index.css">
+    <!--<link rel="stylesheet" type="text/css" href="./public/css/kh-chat.css">-->
+    <link rel="stylesheet" href="./public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<div class="header">
-		<div id="menu-icon" class="mi-container" onclick="toggleMenuIcon(this)">
-		  <div class="bar1"></div>
-		  <div class="bar2"></div>
-		  <div class="bar3"></div>
-		</div>
-		<div class="title">
-			<span style="color: white;">KH CHAT</span>
-		</div>
-		<div class="profile">
-		</div>
-	</div>
-	<div class="sidebar">
-		<ul class="side-class">
-			<!-- li .... -->
-		</ul>
-	</div>
-	<div class="blocker"></div>
-	<div class="body">
-		<div class="content">
-			<div class="follow-sidebar"></div>
-			<div class="main">
-				<div class="main-content">
+<div class="header">
+    <div id="menu-icon" class="mi-container" onclick="toggleMenuIcon(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+    <div class="title">
+        <span style="color: white;">KH CHAT</span>
+    </div>
+    <a onclick="document.getElementById('id01').style.display='block'">
+        <div class="profile"></div>
+    </a>
+</div>
+<div class="sidebar">
+    <ul class="side-class">
+        <li class="user-chat">
+            <div class="user-profile" style="border: 0px">
+                <a onclick="document.getElementById('id02').style.display='block'">
+                    <img src="public/img/boy.png" class="photo-user">
+                </a>
+            </div>
+            <div class="user-name">
+                <span class="font-name" style="color: white;">SE kimsour</span><br>
+                <span class="font-de" style="color: #616161">ITC</span>
+            </div>
+            <div class="signal">
+                <div class="show-signal"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="blocker"></div>
+<div class="body">
+    <div class="content">
+        <div class="follow-sidebar"></div>
+        <div class="main">
+            <div class="main-content">
+                <div class="main-chat">
 
+                </div>
 
-					<div class="write-message">
-						<div class="write">
-							<textarea class="write-text"></textarea>
-						</div>
-						<div class="send-message">
-							<div class="line"></div>
-							<div class="icon-send">
-								<i class="fa fa-send" style="margin-left: 20px;"></i>
-							</div>
-						</div>
-					</div>
+                <div class="write-message">
+                    <div class="write">
+                        <textarea class="write-text"></textarea>
+                    </div>
+                    <div class="send-message">
+                        <div class="line"></div>
+                        <div class="icon-send">
+                            <img class="send" src="public/img/send.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- The Modal -->
+    <div id="id01" class="modal">
+        <form class="modal-content animate">
+            <div class="view-profile">
+                <div class="photo">
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+                <div class="name">
+                    <div class="name1">
+                        <span style="font-size: 15px; color: #0098fd">TANG Sokkang</span><br>
+                        <span style="font-size: 13px; color: #95989a"> I am Hacker</span>
+                    </div>
+
+                </div>
+                <div class="div-btn">
+                    <div style="float: left;">
+                        <button type="button" class="btn btn-default" style="width: 100px;">Log Out</button>
+                    </div>
+                    <div style="float: right;">
+                        <button type="button" class="btn btn-default" style="width: 100px">Leave Room</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="id02" class="modal1">
+        <form class="modal-content1 animate1">
+            <div class="view-profile">
+                <div class="photo"></div>
+                <div class="user-online" style="width: 100%; text-align: center;">
+                    <span style="font-size: 15px; color: #0098fd">TANG Sokkang</span><br>
+                    <span style="font-size: 10px; color: green">Online</span><br><br>
+                    <span>I am Hacker</span>
+                </div>
+                <div style="margin-top: 45px;">
+                    <div style="width: 101px; margin: 0 auto">
+                        <button type="button" class="btn btn-default" style="width: 100px;">Challenge</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
 </body>
 
 <script src="./public/vendors/jquery/jquery-3.1.1.min.js"></script>
 <script src="./public/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    // Get the modal
+    var modal1 = document.getElementById('id02');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+        }
+    }
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 
 <script>
-var sidebar = false;
-var menu;
-$(".blocker").click(function(){
-	menu.classList.toggle("change");
-	hideSideBar();
-	sidebar = false;
-});
+    var sidebar = false;
+    var menu;
+    $(".blocker").click(function(){
+        menu.classList.toggle("change");
+        hideSideBar();
+        sidebar = false;
+    });
 
-function toggleMenuIcon(x) {
-	menu = x;
-    x.classList.toggle("change");
-    if (sidebar) {
-    	hideSideBar();
-    	sidebar = false;
-    } else {
-    	showSideBar();
-    	sidebar = true;
+    function toggleMenuIcon(x) {
+        menu = x;
+        x.classList.toggle("change");
+        if (sidebar) {
+            hideSideBar();
+            sidebar = false;
+        } else {
+            showSideBar();
+            sidebar = true;
+        }
     }
-}
 
-function showSideBar() {
-	$(".sidebar").animate({
-		left: "0"
-	}, 300);
-	$(".follow-sidebar").animate({
-		width: "250px"
-	}, 300);
-	$(".write-message").animate({
-		left: "300px",
-		width: "80%"
-	}, 300);
+    function showSideBar() {
+        $(".sidebar").animate({
+            left: "0"
+        }, 300);
+        if($(window).width()>1035) {
+            $(".follow-sidebar").animate({
+                width: "250px"
+            }, 300);
+            $(".write-message").animate({
+                left: "30%",
+                width: "55%"
+            }, 300);
+        }
+        $(".blocker").css("height", "100vh");
+    }
 
-	$(".blocker").css("height", "100vh");
-}
-
-function hideSideBar() {
-	$(".sidebar").animate({
-		left: "-250"
-	}, 300);
-	$(".follow-sidebar").animate({
-		width: "0px"
-	}, 300);
-    $(".write-message").animate({
-        left: "50px",
-        width: "95%"
-    }, 300);
-	$(".blocker").css("height", "0vh");
-}
+    function hideSideBar() {
+        $(".sidebar").animate({
+            left: "-300"
+        }, 300);
+        if($(window).width()>1035) {
+            $(".follow-sidebar").animate({
+                width: "0px"
+            }, 300);
+            $(".write-message").animate({
+                left: "20%",
+                width: "60%"
+            }, 300);
+        }
+        $(".blocker").css("height", "0vh");
+    }
 </script>
 
 </html>
