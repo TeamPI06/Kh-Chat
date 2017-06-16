@@ -1,3 +1,4 @@
+
 *, *:before, *:after {
     box-sizing: border-box;
 }
@@ -8,7 +9,7 @@ html {
 
 body {
     background: rgba(243, 229, 243, 0.5);
-    font-family: 'Titillium Web', sans-serif;
+    font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman", sans-serif;
 }
 
 a {
@@ -25,39 +26,12 @@ a:hover {
 .form {
     background: rgba(0, 0, 0, .8);
     padding: 40px;
-    max-width: 600px;
-    margin: 40px auto;
-    margin-top: 40px;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px;
     border-radius: 4px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
-
-.tab-group {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 40px 0;
-}
-.tab-group:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.tab-group li a {
-    display: block;
-    text-decoration: none;
-    padding: 15px;
-    background: rgba(160, 179, 176, 0.25);
-    color: #a0b3b0;
-    font-size: 20px;
-    float: left;
-    width: 50%;
-    text-align: center;
-    cursor: pointer;
-    -webkit-transition: .5s ease;
-    transition: .5s ease;
-    border-radius: 5px;
-}
-
 
 .tab-content > div:last-child {
     display: none;
@@ -70,39 +44,8 @@ h1 {
     margin: 0 0 40px;
 }
 
-label {
-    position: absolute;
-    -webkit-transform: translateY(6px);
-    transform: translateY(6px);
-    left: 13px;
-    color: rgba(255, 255, 255, 0.5);
-    -webkit-transition: all 0.25s ease;
-    transition: all 0.25s ease;
-    -webkit-backface-visibility: hidden;
-    pointer-events: none;
-    font-size: 22px;
-}
-label .req {
-    margin: 2px;
-    color: #1ab188;
-}
-
-label.active {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-    left: 2px;
-    font-size: 14px;
-}
-label.active .req {
-    opacity: 0;
-}
-
-label.highlight {
-    color: #ffffff;
-}
-
 input, textarea {
-    font-size: 22px;
+    font-size: 18px;
     display: block;
     width: 100%;
     height: 100%;
@@ -117,7 +60,7 @@ input, textarea {
 }
 input:focus, textarea:focus {
     outline: 0;
-    border-color: #1ab188;
+    border-color: #fffff9;
 }
 
 textarea {
@@ -127,21 +70,7 @@ textarea {
 
 .field-wrap {
     position: relative;
-    margin-bottom: 30px;
-}
-
-.top-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.top-row > div {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-}
-.top-row > div:last-child {
-    margin: 0;
+    margin-bottom: 20px;
 }
 
 .button {
@@ -149,28 +78,28 @@ textarea {
     outline: none;
     border-radius: 0;
     padding: 15px 0;
-    font-size: 2rem;
+    margin: auto;
+    font-size: 15px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .1em;
-    background: #1ab188;
+    background:  rgba(0, 0, 0, .6);
     color: #ffffff;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
     -webkit-appearance: none;
+    box-shadow: 0 4px 10px 4px rgba(9, 9, 24, 0.4);
 }
 .button:hover, .button:focus {
-    background: #179b77;
+    background: rgba(0, 0, 0, .7);
+
 }
+
 
 .button-block {
     display: block;
-    width: 100%;
+    width: 80%;
 }
 
-.forgot {
-    margin-top: -20px;
-    text-align: right;
-}
 
 
