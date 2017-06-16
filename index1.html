@@ -74,16 +74,14 @@
             </div>
             <!-- Modal Content -->
             <div class="view-profile">
-                <div class="photo">
-
-                </div>
-                <div class="name">
+                <div class="photo"></div>
+                <div class="name-shoe">
                     <div class="name1">
                         <span style="font-size: 25px; color: #0098fd">TANG Sokkang</span><br>
                         <span style="font-size: 20px; color: #95989a"> I am Hacker</span>
                     </div>
-
                 </div>
+                <div class="description"></div>
                 <div class="div-btn">
                     <div style="float: left;">
                         <button type="button" class="btn btn-default" style="width: 100px;">Log Out</button>
@@ -138,7 +136,9 @@
     function viewuser() {
         document.getElementById('id02').style.display='block';
         if($(window).width()<1036) {
+            menu.classList.toggle("change");
             hideSideBar();
+            sidebar = false;
         }
     }
 </script>
