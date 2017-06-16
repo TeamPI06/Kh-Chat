@@ -291,6 +291,13 @@ body {
         z-index: -999;
     }
 
+    .blocker1{
+        height: 0vh;
+        width: 100vw;
+        position: fixed;
+        z-index: -999;
+    }
+
     .follow-sidebar {
         display: inline-block !important;
     }
