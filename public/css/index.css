@@ -353,6 +353,7 @@ body {
         top: calc(100vh - 100px);
         z-index: 100;
     }
+
     .write{
         float: left;
         width: 90%;
