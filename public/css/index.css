@@ -291,7 +291,7 @@ body {
         z-index: -999;
     }
 
-    .blocker1{
+    .blocker {
         height: 0vh;
         width: 100vw;
         position: fixed;
