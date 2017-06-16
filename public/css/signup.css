@@ -37,7 +37,7 @@ h1 {
     text-align: center;
     color: #ffffff;
     font-weight: 300;
-    margin: 0 0 40px;
+    margin: 0 0 20px;
 }
 
 input, textarea {
@@ -75,7 +75,7 @@ textarea {
     border-radius: 0;
     padding: 15px 0;
     margin: auto;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .1em;
@@ -91,11 +91,54 @@ textarea {
 
 }
 
-
 .button-block {
     display: block;
-    width: 80%;
+    width: 50%;
 }
 
+.google-button {
+    margin-left: 35px;
+    width: 80%;
+    height: 40px;
+    border-width: 0;
+    background: white;
+    color: #737373;
+    border-radius: 5px;
+    white-space: nowrap;
+    box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.05);
+    -webkit-transition-property: background-color, box-shadow;
+    transition-property: background-color, box-shadow;
+    -webkit-transition-duration: 150ms;
+    transition-duration: 150ms;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    padding: 0;
+}
+.google-button:focus, .google-button:hover {
+    box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+}
+.google-button:active {
+    background-color: #e5e5e5;
+    box-shadow: none;
+    -webkit-transition-duration: 10ms;
+    transition-duration: 10ms;
+}
 
+.google-button__icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 8px 0 8px 15px;
+    width: 20px;
+    height: 18px;
+    box-sizing: border-box;
+}
+
+.google-button__text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto',arial,sans-serif;
+}
 
