@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../public/css/signup.css">
 </head>
 <body>
-    <div class="form" style="margin: auto;">
+    <div class="form">
 
         <div class="tab-content">
             <div id="signup">
@@ -28,7 +28,7 @@
                         <input id="signup-confirm" type="password"  placeholder="Confirm Password" required autocomplete="off"/>
                     </div>
 
-                    <div class="" style="margin-bottom: 30px; text-align: right">
+                    <div class="" style="margin-bottom: 20px; text-align: right">
                         <span class="tab signin active"><a href="#login">Already have an account?Sign in!</a></span>
                     </div>
 
@@ -72,45 +72,10 @@
 
     </div> <!-- /form -->
     <script>
-        $('.form').find('input, textarea').on('keyup blur focus', function (e) {
+        $('#login').click(function () {
 
-            var $this = $(this),
-                label = $this.prev('label');
-
-            if (e.type === 'keyup') {
-                if ($this.val() === '') {
-                    label.removeClass('active highlight');
-                } else {
-                    label.addClass('active highlight');
-                }
-            } else if (e.type === 'blur') {
-                if( $this.val() === '' ) {
-                    label.removeClass('active highlight');
-                } else {
-                    label.removeClass('highlight');
-                }
-            } else if (e.type === 'focus') {
-
-                if( $this.val() === '' ) {
-                    label.removeClass('highlight');
-                }
-                else if( $this.val() !== '' ) {
-                    label.addClass('highlight');
-                }
-            }
-
-        });
-
-        $('.tab a').on('click', function (e) {
-
-            e.preventDefault();
-
-            $(this).parent().addClass('active');
-            $(this).parent().siblings().removeClass('active');
-
-            target = $(this).attr('href');
-
-            $('.tab-content > div').not(target).hide();
+            $('#signup').hide();
+            $('#login').show();
 
             $(target).fadeIn(600);
 
