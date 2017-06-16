@@ -17,11 +17,11 @@ body {
 }
 
 .mi-container {
-    display: inline-block;
-    cursor: pointer;
-    -webkit-transform: scale(0.7, 0.7) ;
-    transform: scale(0.7, 0.7);
-    position: absolute;
+	display: inline-block;
+	cursor: pointer;
+	-webkit-transform: scale(0.7, 0.7) ;
+	transform: scale(0.7, 0.7);
+	position: absolute;
 }
 
 .hi-container {
@@ -32,23 +32,23 @@ body {
 }
 
 .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: white;
-    margin: 6px 0;
-    transition: 0.4s;
+	width: 35px;
+	height: 5px;
+	background-color: white;
+	margin: 6px 0;
+	transition: 0.4s;
 }
 
 .change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
-    transform: rotate(-45deg) translate(-9px, 6px) ;
+	-webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+	transform: rotate(-45deg) translate(-9px, 6px) ;
 }
 
 .change .bar2 {opacity: 0;}
 
 .change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
-    transform: rotate(45deg) translate(-8px, -8px) ;
+	-webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+	transform: rotate(45deg) translate(-8px, -8px) ;
 }
 .profile{
 	position: absolute;
@@ -148,7 +148,7 @@ body {
 		bottom: 20px;
 		height:60px;
 		border-radius: 10px;
-		top: calc(100vh - 200px);
+		top: calc(100vh - 100px);
 		z-index: 100;
 	}
 	.write{
@@ -179,7 +179,7 @@ body {
 		display: inline-block;
 	}
 	.line{
-        background-color: black;
+		background-color: black;
 		float: left;
 		width: 1%;
 		height: 52px;
@@ -191,19 +191,95 @@ body {
 		float: left;
 	}
 	.send{
-        margin-top: 1.3vh;
-        margin-left: 2vw;
+		margin-top: 1.3vh;
+		margin-left: 2vw;
 		width: 35px;
 		height: 35px;
 	}
-    .main-chat{
-        background-color: red;
-        width: 80%;
-        margin-left: 10%;
-        height: 100vh;
-        z-index: 1000;
 
-    }
+	.main-chat{
+		background-color: red;
+		width: 80%;
+		margin-left: 10%;
+		height: 100vh;
+		z-index: 1000;
+
+	}
+	/*modal*/
+	/*for modal*/
+	.modal {
+		overflow-y: inherit;
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 2; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		/*height: 100%; !* Full height *!*/
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		/*padding-top: 60px;*/
+	}
+
+	/* Modal Content/Box */
+	.modal-content {
+		z-index: 3;
+		background-color: white;
+		margin: 15vh auto;
+		/*margin: 500px auto; !* 15% from the top and centered *!*/
+		border: 1px solid #888;
+		width: 480px; /* Could be more or less, depending on screen size */
+		height: 540px;
+		border-radius: 13px;
+	}
+	/* Add Zoom Animation */
+	.animate {
+		-webkit-animation: animatezoom 0.6s;
+		animation: animatezoom 0.6s
+	}
+
+	@-webkit-keyframes animatezoom {
+		from {-webkit-transform: scale(0)}
+		to {-webkit-transform: scale(1)}
+	}
+
+	@keyframes animatezoom {
+		from {transform: scale(0)}
+		to {transform: scale(1)}
+	}
+	/*profile*/
+	.view-profile{
+		width: 100%;
+		height:130px;
+		padding: 15px;
+	}
+	.photo{
+		margin: 5px auto;
+		border: 0.5px solid grey;
+		width: 170px;
+		height:170px;
+		border-radius: 85px;
+		box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+	}
+	.name{
+		margin-top: 10px;
+		width: 100%;
+		height: 60px;
+	}
+	.name1{
+		width: 200px;
+		margin: 0px auto;
+		text-align: center;
+	}
+	.div-btn{
+		width: 100%;
+		height: 40px;
+		margin-top: 170px;
+	}
+
+
+
 }
 /*small screen*/
 @media all and (max-width: 1035px) {
@@ -291,89 +367,133 @@ body {
 		background-color: green;
 	}
 
-    .write-message{
-        position: fixed;
-        align-items: center;
-        border: 1px solid black;
-        background: white;
-        width: 90%;
-        left: 5%;
-        bottom: 15px;
-        height:55px;
-        border-radius: 10px;
-        top: calc(100vh - 75px);
-        z-index: 100;
-    }
-    .write{
-        float: left;
-        width: 85%;
-        height: 100%;
-        border: 0px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+	.write-message{
+		position: fixed;
+		align-items: center;
+		border: 1px solid black;
+		background: white;
+		width: 90%;
+		left: 5%;
+		bottom: 15px;
+		height:55px;
+		border-radius: 10px;
+		top: calc(100vh - 75px);
+		z-index: 100;
+	}
+	.write{
+		float: left;
+		width: 85%;
+		height: 100%;
+		border: 0px;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 
-    }
-    .write-text {
-        /*background-color: black;*/
-        font-size: 20px;
-        resize: none;
-        border: 0px;
-        width: 100%;
-        height: 100%;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
-    .send-message{
-        /*background-color: green;*/
-        float: right;
-        width:15%;
-        height: 100%;
-        align-items: center;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        display: inline-block;
-    }
-    .line{
-        background-color: black;
-        float: left;
-        width: 1%;
-        height: 45px;
-        margin-top: 0.5vh;
-    }
-    .icon-send{
-        width: 99%;
-        height: 100%;
-        float: left;
-    }
-    .send{
-        margin-top: 1.8vh;
-        margin-left: 3vw;
-        width: 30px;
-        height: 30px;
-    }
+	}
+	.write-text {
+		/*background-color: black;*/
+		font-size: 20px;
+		resize: none;
+		border: 0px;
+		width: 100%;
+		height: 100%;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+	}
+	.send-message{
+		/*background-color: green;*/
+		float: right;
+		width:15%;
+		height: 100%;
+		align-items: center;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		display: inline-block;
+	}
+	.line{
+		background-color: black;
+		float: left;
+		width: 1%;
+		height: 45px;
+		margin-top: 0.5vh;
+	}
+	.icon-send{
+		width: 99%;
+		height: 100%;
+		float: left;
+	}
+	.send{
+		margin-top: 1.8vh;
+		margin-left: 3vw;
+		width: 30px;
+		height: 30px;
+	}
 
-    .main-chat{
-        background-color: red;
-        width: 96%;
-        margin-left: 2%;
-        height: 100vh;
-        z-index: 1000;
+	.main-chat{
+		background-color: red;
+		width: 100%;
+		height: 100vh;
+		z-index: 1000;
 
-    }
+	}
+
+	/*for modal*/
+	.modal {
+		overflow-y: inherit;
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 2; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		/*height: 100%; !* Full height *!*/
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		/*padding-top: 60px;*/
+	}
+
+	/* Modal Content/Box */
+	.modal-content {
+		z-index: 3;
+		background-color: white;
+		margin: 15vh auto;
+		/*margin: 500px auto; !* 15% from the top and centered *!*/
+		border: 1px solid #888;
+		width: 280px; /* Could be more or less, depending on screen size */
+		height: 340px;
+		border-radius: 13px;
+	}
+	/* Add Zoom Animation */
+	.animate {
+		-webkit-animation: animatezoom 0.6s;
+		animation: animatezoom 0.6s
+	}
+
+	@-webkit-keyframes animatezoom {
+		from {-webkit-transform: scale(0)}
+		to {-webkit-transform: scale(1)}
+	}
+
+	@keyframes animatezoom {
+		from {transform: scale(0)}
+		to {transform: scale(1)}
+	}
+
+
 }
 
 .sidebar::-webkit-scrollbar {
-    width: 7px;
+	width: 7px;
 }
- 
+
 .sidebar::-webkit-scrollbar-track {
-    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+	/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-  border-radius: 5px;
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+	border-radius: 5px;
 }
 
 .follow-sidebar {
@@ -455,19 +575,19 @@ i {
 }
 
 @media screen and (min-width: 560px) {
-  .note {
-    width: 50%;
-  }
+	.note {
+		width: 50%;
+	}
 }
 @media screen and (min-width: 816px) {
-  .note {
-    width: 33.3%;
-  }
+	.note {
+		width: 33.3%;
+	}
 }
 @media screen and (min-width: 1072px) {
-  .note {
-    width: 25%;
-  }
+	.note {
+		width: 25%;
+	}
 }
 
 .name {
@@ -484,114 +604,16 @@ i {
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-    from {opacity: 0;} 
-    to {opacity: 1;}
+	from {opacity: 0;}
+	to {opacity: 1;}
 }
 
 @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+	from {opacity: 0;}
+	to {opacity:1 ;}
 }
 
 .normal-font {
 	font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman";
-}
-
-/*for modal*/
-.modal {
-	overflow-y: inherit;
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 2; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	/*height: 100%; !* Full height *!*/
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	/*padding-top: 60px;*/
-}
-
-/* Modal Content/Box */
-.modal-content {
-	z-index: 3;
-	background-color: white;
-	margin: 15vh auto;
-	/*margin: 500px auto; !* 15% from the top and centered *!*/
-	border: 1px solid #888;
-	width: 280px; /* Could be more or less, depending on screen size */
-	height: 340px;
-	border-radius: 13px;
-}
-.modal1 {
-    overflow-y: inherit;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 5; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 972px;
-    /*height: 100%; !* Full height *!*/
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    /*padding-top: 60px;*/
-}
-
-/* Modal Content/Box */
-.modal-content1 {
-    z-index: 3;
-    background-color: white;
-    margin: 15vh auto;
-    /*margin: 500px auto; !* 15% from the top and centered *!*/
-    border: 1px solid #888;
-    width: 280px; /* Could be more or less, depending on screen size */
-    height: 300px;
-    border-radius: 13px;
-}
-/* Add Zoom Animation */
-.animate {
-	-webkit-animation: animatezoom 0.6s;
-	animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-	from {-webkit-transform: scale(0)}
-	to {-webkit-transform: scale(1)}
-}
-
-@keyframes animatezoom {
-	from {transform: scale(0)}
-	to {transform: scale(1)}
-}
-.view-profile{
-	width: 100%;
-	height:130px;
-	padding: 15px;
-}
-.photo{
-	margin: 5px auto;
-	border: 0.5px solid grey;
-	width: 100px;
-	height:100px;
-	border-radius: 50px;
-	box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
-}
-.name{
-	margin-top: 10px;
-	width: 100%;
-	height: 60px;
-}
-.name1{
-	width: 200px;
-	margin: 0px auto;
-	text-align: center;
-}
-.div-btn{
-	width: 100%;
-	height: 40px;
-	margin-top: 170px;
 }
 
