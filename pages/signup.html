@@ -6,19 +6,20 @@
     <link rel="stylesheet" type="text/css" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../public/css/font.css">
     <link rel="stylesheet" type="text/css" href="../public/css/signup.css">
+    <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
 </head>
 <body>
     <div class="form">
 
         <div class="tab-content">
-            <div id="signup">
+            <div id="signup" style="display: none;">
                 <h1>Sign Up for Free</h1>
 
                 <form action="/" method="post">
 
                     <div class="field-wrap">
                         <input id="signup-email" type="email" placeholder="Email Address" required autocomplete="off"/>
-            </div>
+                    </div>
 
                     <div class="field-wrap">
                         <input id="signup-pwd" type="password" placeholder="Password" required autocomplete="off"/>
@@ -29,7 +30,7 @@
                     </div>
 
                     <div class="" style="margin-bottom: 20px; text-align: right">
-                        <span class="tab signin active"><a href="#login">Already have an account?Sign in!</a></span>
+                        <span class="tab signin"><a href="#" id="login-link" onclick="replace('login')" >Already have an account?Sign in!</a></span>
                     </div>
 
                     <div class="row">
@@ -41,28 +42,28 @@
 
             </div>
 
-            <div id="login">
+            <div id="login" style="display: block">
                 <h1>Welcome Back!</h1>
 
                 <form action="/" method="post">
 
                     <div class="field-wrap">
-                        <label>
-                            Email Address<span class="req">*</span>
-                        </label>
-                        <input type="email"required autocomplete="off"/>
+                        <input type="email" placeholder="Email Address" required autocomplete="off"/>
                     </div>
 
                     <div class="field-wrap">
-                        <label>
-                            Password<span class="req">*</span>
-                        </label>
-                        <input type="password"required autocomplete="off"/>
+                        <input type="password" placeholder="Password" required autocomplete="off"/>
                     </div>
 
-                    <p class="forgot"><a href="#">Forgot Password?</a></p>
+                    <div style="margin-bottom: 10px">
+                        <a href="#" id="forgot-link">Forgot Password?</a>
+                    </div>
 
-                    <button class="button button-block"/>Log In</button>
+                    <button type="submit" class="button button-block" style="border-radius: 5px; margin-bottom: 15px"/>Log In</button>
+
+                    <div>
+                        <a href="#" id="signup-link" onclick="replace('signup')">Sign up for free!</a>
+                    </div>
 
                 </form>
 
@@ -72,15 +73,25 @@
 
     </div> <!-- /form -->
     <script>
-        $('#login').click(function () {
-
-            $('#signup').hide();
-            $('#login').show();
-
-
-            $(target).fadeIn(600);
-
+        $('#login-link').click(function () {
+            $('#signup').css("display", "none");
+            $('#login').css("display", "block");
+           // $(target).fadeIn(600);
         });
+        $('#signup-link').click(function(){
+            $('#login').css("display", "none");
+            $('#signup').css("display", "block");
+        });
+//        function replace(id) {
+//            if(id== 'signup'){
+//            document.getElementById("login").style.display="none";
+//            document.getElementById("signup").style.display="block";}
+//            else if(id == 'login' ){
+//                document.getElementById("login").style.display="block";
+//                document.getElementById("signup").style.display="none";
+//            }
+//        }
+
     </script>
 </body>
 </html>

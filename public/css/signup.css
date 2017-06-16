@@ -25,16 +25,12 @@ a:hover {
 
 .form {
     background: rgba(0, 0, 0, .8);
-    padding: 40px;
+    padding: 30px;
     max-width: 400px;
     margin: auto;
     margin-top: 100px;
     border-radius: 4px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-}
-
-.tab-content > div:last-child {
-    display: none;
 }
 
 h1 {
