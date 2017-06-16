@@ -1,10 +1,12 @@
+/*@media only screen and (min-width: 500px){*/
+    /*body{*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
+
 
 *, *:before, *:after {
     box-sizing: border-box;
-}
-
-html {
-    overflow-y: scroll;
 }
 
 body {
@@ -23,14 +25,26 @@ a:hover {
     text-decoration: underline;
 }
 
-.form {
-    background: rgba(0, 0, 0, .8);
-    padding: 30px;
-    max-width: 400px;
-    margin: auto;
-    margin-top: 100px;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+@media all and (max-width: 600px) {
+    .form {
+        background: rgba(0, 0, 0, .8);
+        padding: 30px;
+        width: 100vw;
+        height: 100vh;
+        margin: auto;
+    }
+}
+
+@media all and (min-width: 601px) {
+    .form {
+        background: rgba(0, 0, 0, .8);
+        padding: 30px;
+        max-width: 400px;
+        margin: auto;
+        margin-top: 50px;
+        border-radius: 4px;
+        box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    }
 }
 
 h1 {
@@ -47,7 +61,7 @@ input, textarea {
     height: 100%;
     padding: 5px 10px;
     background: none;
-    background-image: none;
+    /*background-image: none;*/
     border: 1px solid #a0b3b0;
     color: #ffffff;
     border-radius: 0;
@@ -97,8 +111,8 @@ textarea {
 }
 
 .google-button {
-    margin-left: 35px;
-    width: 80%;
+    margin: auto;
+    width: 70%;
     height: 40px;
     border-width: 0;
     background: white;
@@ -127,7 +141,7 @@ textarea {
 .google-button__icon {
     display: inline-block;
     vertical-align: middle;
-    margin: 8px 0 8px 15px;
+    margin: 5px 0 5px 5px;
     width: 20px;
     height: 18px;
     box-sizing: border-box;
@@ -136,7 +150,7 @@ textarea {
 .google-button__text {
     display: inline-block;
     vertical-align: middle;
-    padding: 0 24px;
+    padding: 0 15px;
     font-size: 14px;
     font-weight: bold;
     font-family: 'Roboto',arial,sans-serif;
