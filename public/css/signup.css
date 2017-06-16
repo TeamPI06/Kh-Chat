@@ -1,108 +1,176 @@
-body{
-    overflow-x: hidden;
-    -webkit-perspective: 400;
+*, *:before, *:after {
+    box-sizing: border-box;
 }
-.signup-div {
-    background-color: #0a090a;
-    height: 100vh;
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background: rgba(243, 229, 243, 0.5);
+    font-family: 'Titillium Web', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #e1d5c3;
+    -webkit-transition: .5s ease;
+    transition: .5s ease;
+}
+a:hover {
+    color: #d4c8b6;
+    text-decoration: underline;
+}
+
+.form {
+    background: rgba(0, 0, 0, .8);
+    padding: 40px;
+    max-width: 600px;
+    margin: 40px auto;
+    margin-top: 40px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+.tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+}
+.tab-group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: #a0b3b0;
+    font-size: 20px;
+    float: left;
+    width: 50%;
     text-align: center;
-    font-family: "Century Gothic", comfortaa, comfortaa-b;
-}
-.signup-box{
-    background-color: #0f0f0f;
-    width: 500px;
-    height: 60%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-.signup-info{
-    font-family: "Century Gothic", comfortaa, comfortaa-b;
-}
-.signup-label{
-    font-weight: bolder;
-    font-family: "Century Gothic", comfortaa, comfortaa-b;
-    font-size: 30px;
-    color: #f1f1f1;
-}
-.signup-wrapper{
-    margin: auto;
-}
-.signup-btn{
-    color: #fff;
-    background-color: #538fbe;
-    font-weight: bold;
-    border: 1px solid #2d6898;
-    font-size: 16px;
-    text-shadow: 0px -1px 0px rgba(0,0,0,.5);
-    box-shadow: 0px 6px 0px #2b638f;
-    -webkit-box-shadow: 0px 6px 0px #2b638f;
-    -moz-box-shadow: 0px 6px 0px #2b638f;
-
-    -webkit-transform: rotateX(20deg);
-
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-
-    background-image: linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
-
-    background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0, rgb(73, 132, 180)),
-        color-stop(1, rgb(97, 155, 203))
-    );
-}
-.signup-btn:hover{
-    background-image: linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
-
-    background-image: -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(79,142,191)),
-            color-stop(1, rgb(102,166,214))
-    );
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    cursor: pointer;
+    -webkit-transition: .5s ease;
+    transition: .5s ease;
     border-radius: 5px;
 }
-.signup-btn:active{
-    background-image: linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
 
-    background-image: -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(88, 154, 204)),
-            color-stop(1, rgb(90, 150, 199))
-    );
 
-    -webkit-box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-
-    -webkit-transform: translate(0, 4px);
-    -moz-transform: translate(0, 4px);
-    transform: translate(0, 4px);
-
-    -webkit-transition: all .1s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-
-    -webkit-transform: translate(0, 4px) rotateX(20deg);
-    -moz-transform: translate(0, 4px);
-    transform: translate(0, 4px);
+.tab-content > div:last-child {
+    display: none;
 }
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: 300;
+    margin: 0 0 40px;
+}
+
+label {
+    position: absolute;
+    -webkit-transform: translateY(6px);
+    transform: translateY(6px);
+    left: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+    -webkit-backface-visibility: hidden;
+    pointer-events: none;
+    font-size: 22px;
+}
+label .req {
+    margin: 2px;
+    color: #1ab188;
+}
+
+label.active {
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+    left: 2px;
+    font-size: 14px;
+}
+label.active .req {
+    opacity: 0;
+}
+
+label.highlight {
+    color: #ffffff;
+}
+
+input, textarea {
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    background: none;
+    background-image: none;
+    border: 1px solid #a0b3b0;
+    color: #ffffff;
+    border-radius: 0;
+    -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+    transition: border-color .25s ease, box-shadow .25s ease;
+}
+input:focus, textarea:focus {
+    outline: 0;
+    border-color: #1ab188;
+}
+
+textarea {
+    border: 2px solid #a0b3b0;
+    resize: vertical;
+}
+
+.field-wrap {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.top-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.top-row > div {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+}
+.top-row > div:last-child {
+    margin: 0;
+}
+
+.button {
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background: #1ab188;
+    color: #ffffff;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+}
+.button:hover, .button:focus {
+    background: #179b77;
+}
+
+.button-block {
+    display: block;
+    width: 100%;
+}
+
+.forgot {
+    margin-top: -20px;
+    text-align: right;
+}
+
 
