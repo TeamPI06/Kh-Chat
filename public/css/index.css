@@ -62,7 +62,7 @@ body {
 
 
 /*small screen*/
-@media all and (max-width: 1035px) {
+@media all and (max-width: 414px) {
 	.sidebar {
 		overflow-y: auto;
 		width: 250px;
@@ -202,10 +202,10 @@ body {
 		float: left;
 	}
 	.send{
-		margin-top: 1.8vh;
+		margin-top: 1.9vh;
 		margin-left: 3vw;
-		width: 30px;
-		height: 30px;
+		width: 25px;
+		height: 25px;
 	}
 
 	.main-chat{
@@ -239,8 +239,8 @@ body {
 		margin: 15vh auto;
 		/*margin: 500px auto; !* 15% from the top and centered *!*/
 		border: 1px solid #888;
-		width: 280px; /* Could be more or less, depending on screen size */
-		height: 340px;
+		width: 250px; /* Could be more or less, depending on screen size */
+		height: 300px;
 		border-radius: 13px;
 	}
 	/* Add Zoom Animation */
@@ -258,11 +258,62 @@ body {
 		from {transform: scale(0)}
 		to {transform: scale(1)}
 	}
+    /*profile*/
+    .view-profile{
+        width: 100%;
+        height:80px;
+    }
+    .photo{
+        margin: 0px auto;
+        border: 0.5px solid grey;
+        width: 80px;
+        height:80px;
+        border-radius: 40px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+    }
+    .name-show{
+        margin-top: 10px;
+        width: 100%;
+        height: 25px;
+    }
+    .name1{
+        width: 200px;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .description{
+        text-align: center;
+        width: 100%;
+        height: 110px;
+    }
+    .font-name-show{
+        font-size: 13px;
+    }
+    .font-description{
+        font-size: 8px;
+    }
+    .div-btn{
+        width: 100%;
+        height: 20px;
+    }
+    .font-btn{
+        font-size: 11px;
+    }
 
+    .btn-width-left{
+        width: 90px;
+        margin-left: 10px;
+
+    }
+    .btn-width-right{
+        width: 90px;
+        margin-right: 10px;
+    }
 }
+/*End small screen*/
 
-/*middle screeen*/
-@media all and (min-width: 1036px) {
+/*ipad screen*/
+@media all and (min-width: 415px) and (max-width: 768px) {
     .sidebar {
         overflow-y: auto;
         width: 300px;
@@ -341,6 +392,253 @@ body {
         height:100%;
     }
     .show-signal{
+        background-color: green;
+        margin-top: 35px;
+        width: 15px;
+        height: 15px;
+        border-radius: 12.5px;
+    }
+    .write-message{
+        position: fixed;
+        align-items: center;
+        border: 1px solid black;
+        background: white;
+        width: 80vw;
+        left: 10vw;
+        bottom: 20px;
+        height:60px;
+        border-radius: 10px;
+        top: calc(100vh - 100px);
+        z-index: 100;
+    }
+
+    .write{
+        float: left;
+        width: 90%;
+        height: 100%;
+        border: 0px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+
+    }
+    .write-text {
+        font-size: 20px;
+        resize: none;
+        border: 0px;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .send-message{
+        float: right;
+        width:10%;
+        height: 100%;
+        align-items: center;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        display: inline-block;
+    }
+    .line{
+        background-color: black;
+        float: left;
+        width: 1%;
+        height: 52px;
+        margin-top: 0.3vh;
+    }
+    .icon-send{
+        width: 99%;
+        height: 100%;
+        float: left;
+    }
+    .send{
+        margin-top: 1vh;
+        margin-left: 1.5vw;
+        width: 35px;
+        height: 35px;
+    }
+
+    .main-chat{
+        background-color: red;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+
+    }
+    /*for modal*/
+    .modal {
+        overflow-y: inherit;
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        /*height: 100%; !* Full height *!*/
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        /*padding-top: 60px;*/
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        z-index: 3;
+        background-color: white;
+        margin: 15vh auto;
+        /*margin: 500px auto; !* 15% from the top and centered *!*/
+        border: 1px solid #888;
+        width: 350px; /* Could be more or less, depending on screen size */
+        height: 410px;
+        border-radius: 13px;
+    }
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)}
+        to {-webkit-transform: scale(1)}
+    }
+
+    @keyframes animatezoom {
+        from {transform: scale(0)}
+        to {transform: scale(1)}
+    }
+    /*profile*/
+    .view-profile{
+        width: 100%;
+        height:120px;
+        padding: 15px;
+    }
+    .photo{
+        margin: 0px auto;
+        border: 0.5px solid grey;
+        width: 120px;
+        height:120px;
+        border-radius: 60px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+    }
+    .name-show{
+        margin-top: 10px;
+        width: 100%;
+        height: 25px;
+    }
+    .name1{
+        width: 200px;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .description{
+        text-align: center;
+        width: 100%;
+        height: 156px;
+    }
+    .font-name-show{
+        font-size: 18px;
+    }
+    .font-description{
+        font-size: 13px;
+    }
+    .div-btn{
+        width: 100%;
+        height: 20px;
+    }
+    .btn-width-left{
+        width: 100px;
+        margin-left: 10px
+
+    }
+    .btn-width-right{
+        width: 100px;
+        margin-right: 10px
+    }
+}
+
+
+/*middle screeen*/
+@media all and (min-width: 769px) and (max-width: 1280px) {
+    .sidebar {
+        overflow-y: auto;
+        width: 300px;
+        height: 100vh;
+        z-index: 1;
+        position: fixed;
+        padding-top: 60px;
+        left: -300px;
+        background-color: #2c2c2c;
+    }
+
+    .home-onSide {
+        color: black;
+        width: 100%;
+        font-size: 30px;
+        text-align: right;
+        height: 0px;
+        visibility: hidden;
+    }
+
+    .blocker {
+        height: 0vh;
+        width: 100vw;
+        position: fixed;
+        z-index: -999;
+    }
+
+    .blocker {
+        height: 0vh;
+        width: 100vw;
+        position: fixed;
+        z-index: -999;
+    }
+
+    .follow-sidebar {
+        display: inline-block !important;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: comfortaa, comfortaa_b;
+    }
+    .user-chat{
+        border:1px solid gainsboro;
+        width: 300px;
+        height: 85px;
+    }
+    .user-profile{
+        margin-left: 5px;
+        padding: 8px;
+        float: left;
+        width: 75px;
+        height: 100%;
+    }
+    .photo-user{
+        border:0px;
+        width: 65px;
+        height: 65px;
+        border-radius: 32.5px;
+        background-color: white;
+    }
+    .user-name{
+        padding: 20px;
+        float: left;
+        width: 170px;
+        height: 100%;
+    }
+    .font-name{
+        font-size: 20px;
+    }
+    .signal{
+        float: right;
+        width: 40px;
+        height:100%;
+    }
+    .show-signal{
+        background-color: green;
         margin-top: 35px;
         width: 15px;
         height: 15px;
@@ -354,7 +652,7 @@ body {
         width: 60vw;
         left: 20vw;
         bottom: 20px;
-        height:40px;
+        height:60px;
         border-radius: 10px;
         top: calc(100vh - 100px);
         z-index: 100;
@@ -414,7 +712,6 @@ body {
         z-index: 1000;
 
     }
-    /*modal*/
     /*for modal*/
     .modal {
         overflow-y: inherit;
@@ -438,8 +735,8 @@ body {
         margin: 15vh auto;
         /*margin: 500px auto; !* 15% from the top and centered *!*/
         border: 1px solid #888;
-        width: 480px; /* Could be more or less, depending on screen size */
-        height: 540px;
+        width: 350px; /* Could be more or less, depending on screen size */
+        height: 410px;
         border-radius: 13px;
     }
     /* Add Zoom Animation */
@@ -460,22 +757,21 @@ body {
     /*profile*/
     .view-profile{
         width: 100%;
-        height:130px;
+        height:120px;
         padding: 15px;
     }
     .photo{
-        margin: 5px auto;
+        margin: 0px auto;
         border: 0.5px solid grey;
-        width: 170px;
-        height:170px;
-        border-radius: 85px;
+        width: 120px;
+        height:120px;
+        border-radius: 60px;
         box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
     }
-    .name{
-        background-color: red;
+    .name-show{
         margin-top: 10px;
         width: 100%;
-        height: 60px;
+        height: 25px;
     }
     .name1{
         width: 200px;
@@ -483,16 +779,36 @@ body {
         text-align: center;
     }
     .description{
+        text-align: center;
         width: 100%;
-        height: 60px;
-        background-color: yellow;
+        height: 156px;
+    }
+    .font-name-show{
+        font-size: 18px;
+    }
+    .font-description{
+        font-size: 13px;
     }
     .div-btn{
         width: 100%;
-        height: 40px;
-        margin-top: 170px;
+        height: 20px;
+    }
+    .btn-width-left{
+        width: 100px;
+        margin-left: 10px
+
+    }
+    .btn-width-right{
+        width: 100px;
+        margin-right: 10px
     }
 }
+/*middle screeen*/
+
+
+
+
+
 /*big screeen*/
 @media all and (min-width: 1281px) {
     .sidebar {
@@ -566,6 +882,7 @@ body {
         height:100%;
     }
     .show-signal{
+        background-color: green;
         margin-top: 35px;
         width: 15px;
         height: 15px;
@@ -695,11 +1012,10 @@ body {
         border-radius: 85px;
         box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
     }
-    .name{
-        background-color: red;
+    .name-show{
         margin-top: 10px;
         width: 100%;
-        height: 60px;
+        height: 30px;
     }
     .name1{
         width: 200px;
@@ -708,17 +1024,29 @@ body {
     }
     .description{
         width: 100%;
-        height: 60px;
-        background-color: yellow;
+        height: 200px;
+        text-align: center;
+    }
+    .font-name-show{
+        font-size: 25px;
+    }
+    .font-description{
+        font-size: 20px;
     }
     .div-btn{
+        margin-top: 30px;
         width: 100%;
         height: 40px;
-        margin-top: 170px;
     }
+    .btn-width-left{
+        width: 100px;
+        margin-left: 10px
 
-
-
+    }
+    .btn-width-right{
+        width: 100px;
+        margin-right: 10px
+    }
 }
 
 .sidebar::-webkit-scrollbar {
