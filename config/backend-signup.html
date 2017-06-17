@@ -70,15 +70,18 @@
     function signupwithemail() {
         var email = $("#email").val();
         var password = $("#password").val();
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        var user = null;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function(response) {
+                sendEmailVerification();
+                createUser(response);
+            }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             alert("Error " + errorCode + " : " + errorMessage);
             ifSuccess = false;
         });
-
-        sendEmailVerification();
     }
 
     function signinwithgoogle() {
@@ -136,15 +139,13 @@
 
     function createUser(user) {
         const dbRefObject = firebase.database().ref().child('user');
-        var userRef = dbRefObject.push();
-        var rkey = userRef.key;
-        var user = firebase.auth().currentUser;
 
-        dbRefObject.child(rkey).set({
+        dbRefObject.child(user.uid).set({
             displayName: user.displayName,
             email: user.email,
 //            dateOFbirth: ,
             profile: user.photoURL,
+            isVerified: user.emailVerified,
             room: null
         });
     }

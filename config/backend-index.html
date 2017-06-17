@@ -32,6 +32,7 @@
 //                if (already have room) {
 //                    window.location = "pages/chat.html";
 //                }
+                markVerify(user.uid);
                 setUserLocation(user);
             }
         });
@@ -122,7 +123,7 @@
 //        });
 
         var user = {};
-        user[userId+"sad"] = "Leader";
+        user[userId] = "Leader";
 
         firebase.database().ref('room/'+rkey+"/members").update(user);
 
@@ -163,7 +164,7 @@
     function setUserLocation(user) {
         var timeStamp = firebase.database.ServerValue.TIMESTAMP;
         var d = new Date(timeStamp);
-        alert(d.getUTCDay() + ", " + d.getUTCDate() + "-" + d.getUTCMonth() + "-" + d.getUTCFullYear() + ", " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds());
+//        alert(d.getUTCDay() + ", " + d.getUTCDate() + "-" + d.getUTCMonth() + "-" + d.getUTCFullYear() + ", " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds());
         var userId = user.uid;
         navigator.geolocation.watchPosition(function(position) {
             firebase.database().ref("location/"+userId).set({
@@ -172,6 +173,12 @@
                 timeStamp: timeStamp
             });
         });
+    }
+
+    function markVerify(uid) {
+        var user = {};
+        user["isVerified"] = true;
+        firebase.database().ref('user/'+uid).update(user);
     }
 </script>
 </body>
