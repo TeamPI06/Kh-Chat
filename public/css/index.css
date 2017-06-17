@@ -183,67 +183,42 @@ body {
 		background-color: green;
 	}
 
-	.write-message{
-		position: fixed;
-		align-items: center;
-		border: 1px solid black;
-		background: white;
-		width: 90%;
-		left: 5%;
-		bottom: 15px;
-		height:55px;
-		border-radius: 10px;
-		top: calc(100vh - 75px);
-		z-index: 100;
-	}
-	.write{
-		float: left;
-		width: 85%;
-		height: 100%;
-		border: 0px;
-		border-top-left-radius: 10px;
-		border-bottom-left-radius: 10px;
+    .write-message{
+        position: fixed;
+        align-items: center;
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 90vw;
+        left: 5vw;
+        bottom: 20px;
+        height:60px;
+        border-radius: 10px;
+        top: calc(100vh - 80px);
+        z-index: 100;
+    }
+    .input-group{
+        height: 50px;
+    }
+    .write-text {
+        font-size: 20px;
+        resize: none;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .icon-send{
+        margin-top: -6px;
+        height: 44px;
+        width: 100%;
+        border: 1px solid black;
+    }
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
 
-	}
-	.write-text {
-		/*background-color: black;*/
-		font-size: 20px;
-		resize: none;
-		border: 0px;
-		width: 100%;
-		height: 100%;
-		border-top-left-radius: 10px;
-		border-bottom-left-radius: 10px;
-	}
-	.send-message{
-		/*background-color: green;*/
-		float: right;
-		width:15%;
-		height: 100%;
-		align-items: center;
-		border-top-right-radius: 10px;
-		border-bottom-right-radius: 10px;
-		display: inline-block;
-	}
-	.line{
-		background-color: black;
-		float: left;
-		width: 1%;
-		height: 45px;
-		margin-top: 0.5vh;
-	}
-	.icon-send{
-		width: 99%;
-		height: 100%;
-		float: left;
-	}
-	.send{
-		margin-top: 1.9vh;
-		margin-left: 3vw;
-		width: 25px;
-		height: 25px;
-	}
-
+    }
 	.main-chat{
 		background-color: red;
 		width: 100%;
@@ -437,61 +412,35 @@ body {
     .write-message{
         position: fixed;
         align-items: center;
-        border: 1px solid black;
-        background: white;
-        width: 80vw;
-        left: 10vw;
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 90vw;
+        left: 5vw;
         bottom: 20px;
         height:60px;
         border-radius: 10px;
         top: calc(100vh - 100px);
         z-index: 100;
     }
-
-    .write{
-        float: left;
-        width: 90%;
-        height: 100%;
-        border: 0px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-
-    }
     .write-text {
         font-size: 20px;
         resize: none;
-        border: 0px;
+        border: 1px solid black;
         width: 100%;
         height: 100%;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
     }
-    .send-message{
-        float: right;
-        width:10%;
-        height: 100%;
-        align-items: center;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        display: inline-block;
-    }
-    .line{
-        background-color: black;
-        float: left;
-        width: 1%;
-        height: 52px;
-        margin-top: 0.3vh;
-    }
     .icon-send{
-        width: 99%;
-        height: 100%;
-        float: left;
+        margin-top: -4.5px;
+        height: 62.5px;
+        width: 100%;
+        border: 1px solid black;
     }
-    .send{
-        margin-top: 1vh;
-        margin-left: 1.5vw;
-        width: 35px;
-        height: 35px;
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
+
     }
 
     .main-chat{
@@ -683,61 +632,35 @@ body {
     .write-message{
         position: fixed;
         align-items: center;
-        border: 1px solid black;
-        background: white;
-        width: 60vw;
-        left: 20vw;
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 70vw;
+        left: 15vw;
         bottom: 20px;
-        height:60px;
+        height:10px;
         border-radius: 10px;
         top: calc(100vh - 100px);
         z-index: 100;
     }
-
-    .write{
-        float: left;
-        width: 90%;
-        height: 100%;
-        border: 0px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-
-    }
     .write-text {
         font-size: 20px;
         resize: none;
-        border: 0px;
+        border: 1px solid black;
         width: 100%;
         height: 100%;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
     }
-    .send-message{
-        float: right;
-        width:10%;
-        height: 100%;
-        align-items: center;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        display: inline-block;
-    }
-    .line{
-        background-color: black;
-        float: left;
-        width: 1%;
-        height: 52px;
-        margin-top: 0.3vh;
-    }
     .icon-send{
-        width: 99%;
-        height: 100%;
-        float: left;
+        margin-top: -4.5px;
+        height: 62.5px;
+        width: 100%;
+        border: 1px solid black;
     }
-    .send{
-        margin-top: 1.3vh;
-        margin-left: 2vw;
-        width: 35px;
-        height: 35px;
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
+
     }
 
     .main-chat{
@@ -937,15 +860,6 @@ body {
         top: calc(100vh - 100px);
         z-index: 100;
     }
-    .write{
-        float: left;
-        width: 90%;
-        height: 100%;
-        border: 0px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-
-    }
     .write-text {
         font-size: 20px;
         resize: none;
@@ -955,34 +869,17 @@ body {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
     }
-    .send-message{
-        float: right;
-        width:10%;
-        height: 100%;
-        align-items: center;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        display: inline-block;
-    }
-    .line{
-        background-color: black;
-        float: left;
-        width: 1%;
-        height: 52px;
-        margin-top: 0.3vh;
-    }
     .icon-send{
-        width: 99%;
-        height: 100%;
-        float: left;
+        margin-top: -4.5px;
+        height: 62.5px;
+        width: 100%;
+        border: 1px solid black;
     }
-    .send{
-        margin-top: 1.3vh;
-        margin-left: 2vw;
-        width: 35px;
-        height: 35px;
-    }
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
 
+    }
     .main-chat{
         background-color: red;
         width: 80%;
