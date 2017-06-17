@@ -167,7 +167,7 @@
 
     function viewuser() {
         document.getElementById('id02').style.display='block';
-        if($(window).width()<1036) {
+        if($(window).width()<769) {
             menu.classList.toggle("change");
             hideSideBar();
             sidebar = false;
@@ -177,7 +177,7 @@
 
 
 <script>
-    var mq = window.matchMedia( "(min-width: 1036px)" );
+    var mediumScreenSize = window.matchMedia( "(min-width: 769px)" );
     var sidebar = false;
     var menu;
     $(".blocker").click(function(){
@@ -200,8 +200,9 @@
         $(".sidebar").animate({
             left: "0"
         }, 300);
-        if($(window).width()>1035) {
-            $(".follow-sidebar").css("width", "250px");
+        if($(window).width()>768) {
+            $(".follow-sidebar").css("width", "300px");
+            $(".main").css("width", "calc(95vw - 300px)");
             $(".write-message").css("left", "calc(20vw + 200px)");
             $(".write-message").css("width", "calc(60vw - 100px)");
         }
@@ -211,8 +212,9 @@
         $(".sidebar").animate({
             left: "-300"
         }, 300);
-        if($(window).width()>1035) {
+        if($(window).width()>768) {
             $(".follow-sidebar").css("width", "0px");
+            $(".main").css("width", "95vw");
             $(".write-message").css("left", "20vw");
             $(".write-message").css("width", "60vw");
         }
@@ -220,23 +222,27 @@
     }
 
 
-    mq.addListener(function(changed) {
+    mediumScreenSize.addListener(function(changed) {
         if(changed.matches) {
             // big screen
 //            alert("big");
             if(sidebar) {
-                $(".follow-sidebar").css("width", "250px");
+                $(".follow-sidebar").css("width", "300px");
                 $(".write-message").css("left", "calc(20vw + 200px)");
                 $(".write-message").css("width", "calc(60vw - 100px)");
+                $(".main").css("width", "calc(95vw - 300px)");
             } else {
                 $(".write-message").css("left", "20vw");
                 $(".write-message").css("width", "60vw");
+                $(".main").css("width", "95vw");
             }
         } else {
             // small screen
 //            alert("small");
             $(".write-message").css("left", "5%");
             $(".write-message").css("width", "90%");
+            $(".follow-sidebar").css("width", "0px");
+            $(".main").css("width", "95vw");
         }
     });
 </script>
