@@ -21,7 +21,9 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                window.location = "backend-index.html";
+                if(user.emailVerified){
+                    window.location = "backend-index.html";
+                }
             }
         });
     </script>
@@ -49,7 +51,7 @@
     <div class="row">
         <div class="input-group signup-input">
             <label class="input-group-addon" for="password">Password:</label>
-            <input class="form-control" type="text" id="password">
+            <input class="form-control" type="password" id="password">
         </div>
     </div>
     <div class="row" style="text-align: center; margin-top: 10px">
@@ -58,6 +60,9 @@
     </div>
     <div class="row" style="text-align: center; margin-top: 10px">
         <button class="btn btn-default" onclick="signinwithgoogle()"><i class="fa fa-google-plus"> </i>Sign in with google</button>
+    </div>
+    <div class="row" style="text-align: center">
+        <a href="" onclick="sendPasswordReset()">Forget password</a>
     </div>
 </form>
 
@@ -72,6 +77,8 @@
             alert("Error " + errorCode + " : " + errorMessage);
             ifSuccess = false;
         });
+
+        sendEmailVerification();
     }
 
     function signinwithgoogle() {
@@ -108,22 +115,39 @@
 
     }
 
-//    function sendEmailVerification() {
-//        firebase.auth().currentUser.sendEmailVerification().then(function() {
-//            alert('Email Verification Sent!');
-//        });
-//    }
-//
-//    function sendPasswordReset() {
-//        var email = document.getElementById('email').value;
-//        firebase.auth().sendPasswordResetEmail(email).then(function() {
-//            alert('Password Reset Email Sent!');
-//        }).catch(function(error) {
-//            var errorCode = error.code;
-//            var errorMessage = error.message;
-//            alert("Error " + errorCode + " : " + errorMessage);
-//        });
-//    }
+    function sendEmailVerification() {
+        firebase.auth().currentUser.sendEmailVerification().then(function() {
+            alert('Email Verification Sent!');
+        }, function(error) {
+            // An error happened.
+        });
+    }
+
+    function sendPasswordReset() {
+        var email = $("#email").val();
+        firebase.auth().sendPasswordResetEmail(email).then(function() {
+            alert('Password Reset Email Sent!');
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Error " + errorCode + " : " + errorMessage);
+        });
+    }
+
+    function createUser(user) {
+        const dbRefObject = firebase.database().ref().child('user');
+        var userRef = dbRefObject.push();
+        var rkey = userRef.key;
+        var user = firebase.auth().currentUser;
+
+        dbRefObject.child(rkey).set({
+            displayName: user.displayName,
+            email: user.email,
+//            dateOFbirth: ,
+            profile: user.photoURL,
+            room: null
+        });
+    }
 </script>
 </body>
 </html>

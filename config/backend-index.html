@@ -26,9 +26,13 @@
             if (!user) {
                 window.location = "backend-signup.html";
             } else {
+                if(!user.emailVerified){
+                    window.location = "backend-signup.html";
+                }
 //                if (already have room) {
 //                    window.location = "pages/chat.html";
 //                }
+                setUserLocation(user);
             }
         });
 
@@ -112,10 +116,15 @@
 
         var memberRefObject = firebase.database().ref('room/'+rkey).child('members');
 
-        firebase.database().ref('room/'+rkey+"/members/"+userId).set({
-            join_at : timeStamp,
-            position : "Leader"
-        });
+//        firebase.database().ref('room/'+rkey+"/members/"+userId).set({
+//            join_at : timeStamp,
+//            position : "Leader"
+//        });
+
+        var user = {};
+        user[userId+"sad"] = "Leader";
+
+        firebase.database().ref('room/'+rkey+"/members").update(user);
 
         var memberRefObject = firebase.database().ref('room/'+rkey).child('chat');
 
@@ -148,6 +157,20 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             alert("Error " + errorCode + " : " + errorMessage);
+        });
+    }
+
+    function setUserLocation(user) {
+        var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        var d = new Date(timeStamp);
+        alert(d.getUTCDay() + ", " + d.getUTCDate() + "-" + d.getUTCMonth() + "-" + d.getUTCFullYear() + ", " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds());
+        var userId = user.uid;
+        navigator.geolocation.watchPosition(function(position) {
+            firebase.database().ref("location/"+userId).set({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                timeStamp: timeStamp
+            });
         });
     }
 </script>
