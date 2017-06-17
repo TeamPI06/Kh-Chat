@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic function of KH Chat</title>
+    <link rel="stylesheet" href="../../Kh-Chat%20function%202/public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Kh-Chat%20function%202/public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="../../Kh-Chat%20function%202/public/vendors/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../Kh-Chat%20function%202/public/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
+            authDomain: "kh-chat-ef625.firebaseapp.com",
+            databaseURL: "https://kh-chat-ef625.firebaseio.com",
+            projectId: "kh-chat-ef625",
+            storageBucket: "kh-chat-ef625.appspot.com",
+            messagingSenderId: "508589901866"
+        };
+        firebase.initializeApp(config);
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                window.location = "backend-index.html";
+            }
+        });
+    </script>
+    <style>
+        .signup-title {
+            text-align: center;
+        }
+        .signup-input {
+            width: 500px;
+            margin: auto;
+            margin-top: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<form action="#">
+    <div class="row signup-title"><h2>Register new account</h2></div>
+    <div class="row">
+        <div class="input-group signup-input">
+            <label class="input-group-addon" for="email">Email:</label>
+            <input class="form-control" type="text" id="email">
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-group signup-input">
+            <label class="input-group-addon" for="password">Password:</label>
+            <input class="form-control" type="text" id="password">
+        </div>
+    </div>
+    <div class="row" style="text-align: center; margin-top: 10px">
+        <input class="btn btn-primary" type="button" value="Sign Up" onclick="signupwithemail()">
+        <input class="btn btn-success" type="button" value="Sign In" onclick="signinwithemail()">
+    </div>
+    <div class="row" style="text-align: center; margin-top: 10px">
+        <button class="btn btn-default" onclick="signinwithgoogle()"><i class="fa fa-google-plus"> </i>Sign in with google</button>
+    </div>
+</form>
+
+<script>
+    function signupwithemail() {
+        var email = $("#email").val();
+        var password = $("#password").val();
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Error " + errorCode + " : " + errorMessage);
+            ifSuccess = false;
+        });
+    }
+
+    function signinwithgoogle() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
+
+    }
+
+    function signinwithemail() {
+        var email = $("#email").val();
+        var password = $("#password").val();
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Error " + errorCode + " : " + errorMessage);
+        });
+
+    }
+
+//    function sendEmailVerification() {
+//        firebase.auth().currentUser.sendEmailVerification().then(function() {
+//            alert('Email Verification Sent!');
+//        });
+//    }
+//
+//    function sendPasswordReset() {
+//        var email = document.getElementById('email').value;
+//        firebase.auth().sendPasswordResetEmail(email).then(function() {
+//            alert('Password Reset Email Sent!');
+//        }).catch(function(error) {
+//            var errorCode = error.code;
+//            var errorMessage = error.message;
+//            alert("Error " + errorCode + " : " + errorMessage);
+//        });
+//    }
+</script>
+</body>
+</html>

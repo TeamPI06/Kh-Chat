@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic function of KH Chat</title>
+    <link rel="stylesheet" href="../../Kh-Chat%20function%202/public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Kh-Chat%20function%202/public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="../../Kh-Chat%20function%202/public/vendors/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../Kh-Chat%20function%202/public/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
+            authDomain: "kh-chat-ef625.firebaseapp.com",
+            databaseURL: "https://kh-chat-ef625.firebaseio.com",
+            projectId: "kh-chat-ef625",
+            storageBucket: "kh-chat-ef625.appspot.com",
+            messagingSenderId: "508589901866"
+        };
+        firebase.initializeApp(config);
+
+        // Get a reference to the database service
+        var database = firebase.database();
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            // if not yet have room
+//            if (!user) {
+//                window.location = "../index.html";
+//            }
+        });
+    </script>
+    <style>
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div style="width: calc(100% - 50px); display: inline-block">
+            <input type="text" class="form-control">
+        </div>
+        <div style="width: 10px; display: inline-block">
+            <button class="btn btn-primary"><i class="fa fa-send"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function  signout() {
+        firebase.auth().signOut();
+    }
+
+    function sendEmailVerification() {
+        firebase.auth().currentUser.sendEmailVerification().then(function() {
+            alert('Email Verification Sent!');
+        });
+    }
+
+    function sendPasswordReset() {
+        var email = document.getElementById('email').value;
+        firebase.auth().sendPasswordResetEmail(email).then(function() {
+            alert('Password Reset Email Sent!');
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Error " + errorCode + " : " + errorMessage);
+        });
+    }
+</script>
+</body>
+</html>

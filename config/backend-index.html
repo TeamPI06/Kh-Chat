@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic function of KH Chat</title>
+    <link rel="stylesheet" href="../../Kh-Chat%20function%202/public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Kh-Chat%20function%202/public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="../../Kh-Chat%20function%202/public/vendors/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../Kh-Chat%20function%202/public/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
+            authDomain: "kh-chat-ef625.firebaseapp.com",
+            databaseURL: "https://kh-chat-ef625.firebaseio.com",
+            projectId: "kh-chat-ef625",
+            storageBucket: "kh-chat-ef625.appspot.com",
+            messagingSenderId: "508589901866"
+        };
+        firebase.initializeApp(config);
+
+        // Get a reference to the database service
+        var database = firebase.database();
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                window.location = "backend-signup.html";
+            } else {
+//                if (already have room) {
+//                    window.location = "pages/chat.html";
+//                }
+            }
+        });
+
+    </script>
+    <style>
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+            </a>
+            <a class="navbar-brand" href="#">
+                <input type="button" class="btn btn-success" data-toggle="modal" data-target="#newroom" value="Create new room"">
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div style="width: calc(100% - 50px); display: inline-block">
+            <input type="text" class="form-control">
+        </div>
+        <div style="width: 10px; display: inline-block">
+            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="newroom" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create new room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomname">Room name : </label>
+                    <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomname" placeholder="Your chat room name">
+                </div>
+                <div class="row">
+                    <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomdescr">Description : </label>
+                    <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomdescr" placeholder="Description">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="createnewroom()">Create</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    function createnewroom() {
+        var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+
+        const dbRefObject = firebase.database().ref().child('room');
+        var roomRef = dbRefObject.push();
+        var rkey = roomRef.key;
+
+        var roomname = $("#roomname").val();
+        var roomdesc = $("#roomdescr").val();
+        var userId = firebase.auth().currentUser.uid;
+        $("#roomname").val("");
+        $("#roomdescr").val("");
+
+        firebase.database().ref('room/'+rkey).set({
+            name: roomname,
+            description: roomdesc,
+        });
+
+        var memberRefObject = firebase.database().ref('room/'+rkey).child('members');
+
+        firebase.database().ref('room/'+rkey+"/members/"+userId).set({
+            join_at : timeStamp,
+            position : "Leader"
+        });
+
+        var memberRefObject = firebase.database().ref('room/'+rkey).child('chat');
+
+        var memberRef = memberRefObject.push();
+        var chatKey = memberRef.key;
+
+        firebase.database().ref('room/'+rkey+"/chat/"+chatKey).set({
+            sender: "Robot",
+            time: timeStamp,
+            content: "This room is created",
+            html: ""
+        });
+    }
+
+    function  signout() {
+        firebase.auth().signOut();
+    }
+
+    function sendEmailVerification() {
+        firebase.auth().currentUser.sendEmailVerification().then(function() {
+            alert('Email Verification Sent!');
+        });
+    }
+
+    function sendPasswordReset() {
+        var email = document.getElementById('email').value;
+        firebase.auth().sendPasswordResetEmail(email).then(function() {
+            alert('Password Reset Email Sent!');
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Error " + errorCode + " : " + errorMessage);
+        });
+    }
+</script>
+</body>
+</html>
