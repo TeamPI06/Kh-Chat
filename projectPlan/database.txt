@@ -10,6 +10,7 @@
 		}
 		"reportBot": {
 			"profile": "",
+			...
 		}
 	},
 	
@@ -21,7 +22,7 @@
 			"leader": "uid",
 		}
 	},
-	
+
 	"room_member": {
 		"rid": {
 			"uid": {
