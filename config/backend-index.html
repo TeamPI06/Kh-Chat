@@ -21,7 +21,7 @@
 
         // Get a reference to the database service
         var database = firebase.database();
-
+        var currentUser;
         firebase.auth().onAuthStateChanged(function(user) {
             if (!user) {
                 window.location = "backend-signup.html";
@@ -32,8 +32,23 @@
 //                if (already have room) {
 //                    window.location = "pages/chat.html";
 //                }
-                markVerify(user.uid);
+                currentUser = user;
+
+                var usersRef = firebase.database().ref().child("user");
+                usersRef.child(user.uid).once('value', function(snapshot) {
+                    var exists = (snapshot.val() !== null);
+                    if (!exists) {
+                        createUser(user);
+                    } else {
+                        markVerify(user.uid);
+                    }
+                });
                 setUserLocation(user);
+
+                var userRef = firebase.database().ref().child("user/"+user.uid+"/displayName");
+                userRef.on("value", snap => {
+                    $("#displayName").html(snap.val());
+                });
             }
         });
 
@@ -45,13 +60,21 @@
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
-            </a>
-            <a class="navbar-brand" href="#">
-                <input type="button" class="btn btn-success" data-toggle="modal" data-target="#newroom" value="Create new room"">
-            </a>
+        <div class="navbar-header" style="width: 100%">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
+                <a class="navbar-brand" href="#">
+                    <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+                <a class="navbar-brand" href="#">
+                    <input type="button" class="btn btn-success" data-toggle="modal" data-target="#newroom" value="Create new room">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
+                <a id="displayName" href="#" style="font-size: 25px">
+                </a>
+            </div>
         </div>
     </div>
 </nav>
@@ -179,6 +202,20 @@
         var user = {};
         user["isVerified"] = true;
         firebase.database().ref('user/'+uid).update(user);
+    }
+
+    function createUser(user) {
+        const dbRefObject = firebase.database().ref().child('user');
+
+        dbRefObject.child(user.uid).set({
+            displayName: (user.displayName != null)?(user.displayName):(user.email),
+            email: user.email,
+//            dateOFbirth: ,
+            profile: (user.photoURL != null?(user.photoURL):("public/img/boy.png")),
+            isVerified: user.emailVerified,
+            room: "no room"
+        });
+        alert(user.uid + " user created in database");
     }
 </script>
 </body>
