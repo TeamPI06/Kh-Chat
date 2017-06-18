@@ -3,10 +3,10 @@
 		"uid": {
 			"username": "",
 			"email": "",
-			"dateOFbirth": "", 
+			"date_of_birth": "",
 			"profile": "",
 			"status": "I am a beginner",
-			"room": "null/pending/rid";
+			"have_room": false;
 		}
 		"reportBot": {
 			"profile": "",
@@ -26,7 +26,7 @@
 		"rid": {
 			"uid": {
 				"since": "timestamp",
-				
+				"requesting": false
 		}
 	},
 	
@@ -52,7 +52,7 @@
 		}
 	},
 	
-	"gameRecord": {
+	"game_record": {
 		"gameid": {
 			"score" : "uid";
 		}
@@ -64,6 +64,16 @@
 				"isSeen": true;
 			}
 	}
+
+	"location": {
+    		"uid”: {
+    			longitude:
+    			latitude:
+    			timestamp:
+    		}
+
+
+
 	
 	
 	
