@@ -13,31 +13,46 @@
 			...
 		}
 	},
+
+	"request_pending_list":{
+	    "uid":{
+	        "rid":{
+	            "timeStamp"
+	        }
+	    }
+	}
 	
 	"rooms": {
 		"rid": {
-			"title": "",
+			"name": "",
 			"description": "",
 			"created_on_date": "",
-			"leader": "uid",
+			"member":{
+			    "uid": position
+			}
+			"request_member":{
+
+			}
 		}
 	},
 
 	"room_member": {
 		"rid": {
 			"uid": {
-				"since": "timestamp",
-				"requesting": false
+				"since": "timestamp"
+				"position"
+				"accepted_by"
 		}
 	},
 	
 	"chat": {
 		"rid": {
-			"uid": {
-				"message": "",
-				"file": "",
-			}
-		}
+            "chat_id" : {
+                "content":
+                "html":
+                "sender":
+                "timestamp":
+            }
 	},
 	
 	"online_user": {
