@@ -135,9 +135,6 @@
         var userId = firebase.auth().currentUser.uid;
         $("#roomname").val("");
         $("#roomdescr").val("");
-//
-//        var user = {};
-//        user[userId] = "Leader";
 
         var room = {
             name: roomname,
@@ -150,10 +147,6 @@
 
         requestUserToRoom(userId, rkey);
         acceptUserToRoom(userId, rkey, "Leader", userId);
-
-//        firebase.database().ref().child("user/"+userId).update({
-//            room: rkey
-//        });
 
         var chatRefObject = firebase.database().ref().child('chat');
 
