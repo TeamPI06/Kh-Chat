@@ -1,0 +1,75 @@
+{
+	"users": {
+		"uid": {
+			"username": "",
+			"email": "",
+			"dateOFbirth": "", 
+			"profile": "",
+			"status": "I am a beginner",
+			"room": "null/pending/rid";
+		}
+		"reportBot": {
+			"profile": "",
+		}
+	},
+	
+	"rooms": {
+		"rid": {
+			"title": "",
+			"description": "",
+			"created_on_date": "",
+			"leader": "uid",
+		}
+	},
+	
+	"room_member": {
+		"rid": {
+			"uid": {
+				"since": "timestamp",
+				
+		}
+	},
+	
+	"chat": {
+		"rid": {
+			"uid": {
+				"message": "",
+				"file": "",
+			}
+		}
+	},
+	
+	"online_user": {
+		"uid": {
+			"isOnline": true,
+		}
+	},
+	
+	"game": {
+		"gameid": {
+			"title": "",
+			"url": "",
+		}
+	},
+	
+	"gameRecord": {
+		"gameid": {
+			"score" : "uid";
+		}
+	},
+	
+	"notification": {
+		"uid": {
+			"notifyId": {
+				"isSeen": true;
+			}
+	}
+	
+	
+	
+	
+				
+	
+			
+			
+		
