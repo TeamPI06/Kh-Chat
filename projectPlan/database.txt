@@ -54,6 +54,15 @@
                 "timestamp":
             }
 	},
+
+
+	"location": {
+        "uid”: {
+            longitude:
+            latitude:
+            timestamp:
+        }
+    }
 	
 	"online_user": {
 		"uid": {
@@ -80,13 +89,6 @@
 				"isSeen": true;
 			}
 	}
-
-	"location": {
-    		"uid”: {
-    			longitude:
-    			latitude:
-    			timestamp:
-    		}
 
 
 

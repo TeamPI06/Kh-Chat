@@ -94,11 +94,20 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div style="width: calc(100% - 50px); display: inline-block">
-            <input type="text" class="form-control">
+        <div class="row">
+            <div style="width: calc(100% - 50px); display: inline-block">
+                <input id="search-box" type="text" class="form-control">
+            </div>
+            <div style="width: 10px; display: inline-block">
+                <button class="btn btn-primary" onclick="showResult()"><i class="fa fa-search"></i></button>
+            </div>
         </div>
-        <div style="width: 10px; display: inline-block">
-            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+        <div class="row">
+            <div class="row" style="width: calc(100% - 50px);">
+                <table id="search-result" style="width: 100%;">
+
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -298,6 +307,30 @@
 
             return rootRef.update(pending);
         });
+    }
+
+    document.getElementById("search-box").addEventListener("keyup", function (e) {
+        setTimeout(function () {
+            showResult();
+        }, 100);
+    })
+
+    function showResult() {
+        var userRef = firebase.database().ref().child("user");
+        var query = userRef.orderByChild("displayName")
+            .startAt($("#search-box").val());
+        var results = "";
+        query.on('value', snap => {
+            snap.forEach(name => {
+                results += "<tr><td>"+name.child("displayName").val()+"</td>";
+                firebase.database().ref("room/"+(name.child("room").val())).on('value', rsnap => {
+                    results += "<td>"+rsnap.child("name").val()+"</td></tr>";
+                });
+
+            });
+        });
+
+        $("#search-result").html(results);
     }
 </script>
 </body>
