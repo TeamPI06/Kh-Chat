@@ -310,15 +310,15 @@
     }
 
     document.getElementById("search-box").addEventListener("keyup", function (e) {
-        setTimeout(function () {
-            showResult();
-        }, 100);
+        var keyword = $("#search-box").val();
+        showResult(keyword);
     })
 
-    function showResult() {
+    function showResult(keyword) {
         var userRef = firebase.database().ref().child("user");
         var query = userRef.orderByChild("displayName")
-            .startAt($("#search-box").val());
+            .startAt(keyword)
+            .endAt(keyword+"\uf8ff");
         var results = "";
         query.on('value', snap => {
             snap.forEach(name => {

@@ -65,9 +65,7 @@
     }
 	
 	"online_user": {
-		"uid": {
-			"isOnline": true,
-		}
+		"uid": true
 	},
 	
 	"game": {
