@@ -7,6 +7,8 @@
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <!--just add-->
+    <script src='https://www.firebase.com/js/libs/idle.js'></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -53,10 +55,30 @@
                 var userProfileRef = firebase.database().ref().child("user/"+user.uid+"/profile");
                 userProfileRef.on("value", snap => {
 //                    alert(snap.val());
-                $(".profile-preview").css("background-image", "url('"+snap.val()+"')");
-            });
+                    $(".profile-preview").css("background-image", "url('"+snap.val()+"')");
+                });
             }
         });
+
+        var amOnline = firebase.database.ref().child(".info/connected");
+        var userRef = firebase.database.ref().child("presence/Qlk4C1ypn0boRzaunSvpR8s0THf2");
+
+        amOnline.on('value', function(snapshot) {
+            if (snapshot.val()) {
+                userRef.onDisconnect().set('☆ offline');
+                userRef.set('★ online');
+
+            }
+        });
+        document.onIdle = function () {
+            userRef.set('☆ idle');
+        }
+        document.onAway = function () {
+            userRef.set('☄ away');
+        }
+        document.onBack = function (isIdle, isAway) {
+            userRef.set('★ online');
+        }
 
     </script>
     <style>
