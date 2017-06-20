@@ -36,6 +36,15 @@
 		}
 	},
 
+	"search": {
+	    email: {
+	        "displayName":
+	        "uid":
+	        "roomName":
+	        "roomId":
+	    }
+	}
+
 	"room_member": {
 		"rid": {
 			"uid": {

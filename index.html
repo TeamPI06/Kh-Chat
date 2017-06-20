@@ -61,7 +61,6 @@
                         <div class="chat-message they">
                             <div class="photo">
 
-                <!--<div class="write-message"
                             </div>
                             <div class="small-message">
                                 asdflajslfjsf
@@ -69,7 +68,9 @@
                         </div>
                     </div>
                 </div>
-                <!---->>-->
+
+                <!---->
+                <!--<div class="write-message">-->
                     <!--<div class="write">-->
                         <!--<textarea class="write-text"></textarea>-->
                     <!--</div>-->
@@ -81,8 +82,7 @@
                     <!--</div>-->
                 <!--</div>-->
                 <div class="write-message" style="border: 0px;">
-                    <div class="input-group" style="border: 0px;">
-                        <textarea type="text" class=" write-text"></textarea>
+                    <div class="input-group" style="border: 0px;">                        <textarea type="text" class=" write-text"></textarea>
                         <span class="input-group-btn">
                         <button class="btn btn-default icon-send" type="button"><i class="fa fa-send icon"></i></button>
                       </span>
@@ -201,7 +201,7 @@
         }, 300);
         if($(window).width()>768) {
             $(".follow-sidebar").css("width", "300px");
-            $(".main").css("width", "calc(95vw - 300px)");
+            $(".main").css("width", "calc(98vw - 300px)");
             $(".write-message").css("left", "calc(20vw + 200px)");
             $(".write-message").css("width", "calc(60vw - 100px)");
         }
@@ -213,7 +213,7 @@
         }, 300);
         if($(window).width()>768) {
             $(".follow-sidebar").css("width", "0px");
-            $(".main").css("width", "95vw");
+            $(".main").css("width", "98vw");
             $(".write-message").css("left", "20vw");
             $(".write-message").css("width", "60vw");
         }
@@ -229,11 +229,11 @@
                 $(".follow-sidebar").css("width", "300px");
                 $(".write-message").css("left", "calc(20vw + 200px)");
                 $(".write-message").css("width", "calc(60vw - 100px)");
-                $(".main").css("width", "calc(95vw - 300px)");
+                $(".main").css("width", "calc(98vw - 300px)");
             } else {
                 $(".write-message").css("left", "20vw");
                 $(".write-message").css("width", "60vw");
-                $(".main").css("width", "95vw");
+                $(".main").css("width", "98vw");
             }
         } else {
             // small screen
@@ -241,7 +241,7 @@
             $(".write-message").css("left", "5%");
             $(".write-message").css("width", "90%");
             $(".follow-sidebar").css("width", "0px");
-            $(".main").css("width", "95vw");
+            $(".main").css("width", "98vw");
         }
     });
 </script>
