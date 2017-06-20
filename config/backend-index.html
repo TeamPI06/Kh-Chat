@@ -33,12 +33,14 @@
 //                    window.location = "pages/chat.html";
 //                }
                 currentUser = user;
-
-                var usersRef = firebase.database().ref().child("user");
+                var rootRef = firebase.database().ref();
+                var usersRef = rootRef.child("user");
                 usersRef.child(user.uid).once('value', function(snapshot) {
                     var exists = (snapshot.val() !== null);
                     if (!exists) {
                         createUser(user);
+                        var userRef = rootRef.child("user/"+user.uid);
+                        createSearch(userRef);
                     } else {
                         markVerify(user.uid);
                     }
@@ -96,7 +98,7 @@
     <div class="row">
         <div class="row">
             <div style="width: calc(100% - 50px); display: inline-block">
-                <input id="search-box" type="text" class="form-control">
+                <input id="search-box" type="text" class="form-control" autocomplete="off">
             </div>
             <div style="width: 10px; display: inline-block">
                 <button class="btn btn-primary" onclick="showResult()"><i class="fa fa-search"></i></button>
@@ -146,12 +148,7 @@
     function createnewroom() {
         var timeStamp = firebase.database.ServerValue.TIMESTAMP;
         var d = Date.parse(timeStamp);
-        alert(d.toString());
-
-
-        const dbRefObject = firebase.database().ref().child('room');
-        var roomRef = dbRefObject.push();
-        var rkey = roomRef.key;
+//        alert(d.toString());
 
         var roomname = $("#roomname").val();
         var roomdesc = $("#roomdescr").val();
@@ -166,17 +163,9 @@
             timestamp: timeStamp
         };
 
-        firebase.database().ref('room/'+rkey).set(room);
+        var rkey = addChildWithId("room", room);
 
-        requestUserToRoom(userId, rkey);
-        acceptUserToRoom(userId, rkey, "Leader", userId);
-
-        var chatRefObject = firebase.database().ref().child('chat');
-
-        var chatRef = chatRefObject.push();
-        var chatKey = chatRef.key;
-
-        firebase.database().ref('chat/'+rkey+"/"+chatKey).set({
+        addChildWithId('chat/'+rkey, {
             sender: "Robot",
             time: timeStamp,
             content: "This room is created",
@@ -210,18 +199,18 @@
         var d = new Date(timeStamp);
         var userId = user.uid;
         navigator.geolocation.watchPosition(function(position) {
-            firebase.database().ref("location/"+userId).set({
+            setValue("location/"+userId, {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
                 timeStamp: timeStamp
-            });
+            })
         });
     }
 
     function markVerify(uid) {
-        var user = {};
-        user["isVerified"] = true;
-        firebase.database().ref('user/'+uid).update(user);
+        setValue('user/'+uid, {
+            isVerified: true
+        });
     }
 
     function createUser(user) {
@@ -279,7 +268,7 @@
         var user = {};
         user[uid] = position;
 
-        firebase.database().ref("room/"+rid+"/member").update(user);
+        setValue("room/"+rid+"/member", user);
 
 //        firebase.database().ref("request_pending_list/"+uid).remove();
         removePending(firebase.database().ref(), uid);
@@ -309,27 +298,77 @@
         });
     }
 
+    function removeFromRoom(uid, rid) {
+
+    }
+
+    function createSearch(user) {
+        var rootRef = firebase.database().ref();
+        var path = "user/"+user.key;
+        const searchRef = rootRef.child("search");
+        var searchKey = {};
+        searchKey[getValue(path, "email")] = {
+            displayName: getValue(path, "displayName"),
+            uid: user.key,
+            roomName: null,
+            roomId: null
+        }
+
+        searchRef.update(searchKey);
+    }
+
+    function editSearch() {
+
+    }
+
     document.getElementById("search-box").addEventListener("keyup", function (e) {
         var keyword = $("#search-box").val();
-        showResult(keyword);
-    })
-
-    function showResult(keyword) {
         var userRef = firebase.database().ref().child("user");
+        var results = "";
         var query = userRef.orderByChild("displayName")
             .startAt(keyword)
             .endAt(keyword+"\uf8ff");
-        var results = "";
+
         query.on('value', snap => {
             snap.forEach(name => {
-                results += "<tr><td>"+name.child("displayName").val()+"</td>";
-                firebase.database().ref("room/"+(name.child("room").val())).on('value', rsnap => {
-                    results += "<td>"+rsnap.child("name").val()+"</td></tr>";
-                });
+            results += "<tr><td>"+name.child("displayName").val()+"</td>";
+        firebase.database().ref("room/"+(name.child("room").val())).on('value', rsnap => {
+            results += "<td>"+rsnap.child("name").val()+"</td></tr>";
+        });
 
-            });
+        });
         });
         $("#search-result").html(results);
+    })
+
+    function getValue(path, name) {
+        var rootRef = firebase.database().ref();
+        var straight = rootRef.child(path);
+        var retVal = false;
+        straight.on("value", snap => {
+            retVal = snap.child(name).val();
+        });
+
+        return retVal;
+    }
+
+    function setValue(path, value) {
+        var rootRef = firebase.database().ref();
+        var straight = rootRef.child(path);
+        straight.update(value);
+    }
+
+    function addChildWithId(path, value) {
+        var rootRef = firebase.database().ref();
+        var dbRefObject = rootRef.child(path);
+        var objRef = dbRefObject.push();
+        var objKey = objRef.key;
+
+        var obj = {};
+        obj[objKey] = value;
+
+        setValue(path, obj);
+        return objKey;
     }
 </script>
 </body>
