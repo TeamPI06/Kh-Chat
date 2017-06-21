@@ -103,12 +103,13 @@ i::before{
 .main-game{
     background-color: yellowgreen;
     float: left;
-    width: 50%;
-    margin-left: 50px;
-    padding-right: 100px;
-    padding-left: 100px;
+    width: calc(100vw - 600px);
+    margin-left: 20px;
     height: 100vh;
     z-index: 1000;
+}
+.write-message{
+    display: none;
 }
 
 
@@ -238,17 +239,18 @@ i::before{
         /*margin-right: 10px;*/
     }
     .main-chat{
+        display: none;
         background-color: red;
-        
+
         height: 100vh;
         z-index: 1000;
 
     }
     .main-game{
-        display: none;
+
         background-color: yellowgreen;
         float: left;
-        width: 50%;
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
         height: 100vh;
@@ -469,6 +471,7 @@ i::before{
     }
 
     .main-chat{
+        display: none;
         background-color: red;
         width: 95%;
         height: 100vh;
@@ -478,7 +481,8 @@ i::before{
 
     }
     .main-game{
-        display: none;
+        width: 100%;
+
 
     }
     /*for modal*/
@@ -654,6 +658,7 @@ i::before{
         border-radius: 12.5px;
     }
     .write-message{
+
         position: fixed;
         /*align-items: center;*/
         /*border: 1px solid black;*/
@@ -692,9 +697,10 @@ i::before{
     }
 
     .main-chat{
-        background-color: red;
+        display: none;
+        background-color: #2aabd2;
         float: right;
-        width: 55%;
+        width: 500px;
         height: 100vh;
         z-index: 1000;
         margin-left: auto;
@@ -702,7 +708,7 @@ i::before{
 
     }
     .main-game{
-        width: 30%;
+        width:100%;
 
     }
     /*for modal*/
@@ -882,11 +888,14 @@ i::before{
         border-radius: 12.5px;
     }
     .write-message{
+        display: block;
         position: fixed;
         /*align-items: center;*/
         /*border: 1px solid black;*/
         /*background: white;*/
-        width: 40vw;
+        margin-left: calc(100vw - 750px);
+        width: 30vw;
+
         left: 20vw;
         bottom: 20px;
         height:60px;
@@ -894,7 +903,7 @@ i::before{
         top: calc(100vh - 100px);
         z-index: 100;
 
-        margin-left: 32%;
+        /*margin-left: 32%;*/
     }
     .write-text {
         font-size: 20px;
@@ -921,7 +930,7 @@ i::before{
     .main-chat{
         background-color: red;
         float: right;
-        width: 50%;
+        width: 500px;
         margin-left: auto;
 
         margin-right: 20px;
@@ -929,7 +938,7 @@ i::before{
         z-index: 1000;
     }
     .main-game{
-        width: 40%;
+        width: calc(100vw - 600px);
     }
 
     /*modal*/
