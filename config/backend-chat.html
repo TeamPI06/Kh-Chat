@@ -71,6 +71,7 @@
 
                         });
 
+                        //not real time
                         database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
                             var roomRequest = "";
                             roomsnap.forEach(request => {
@@ -78,7 +79,6 @@
                                     roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
                                     $("#room-request").html(roomRequest);
                                 });
-
                             });
 //                            $("#room-request").html(roomRequest);
 
@@ -86,7 +86,21 @@
 
                     });
 
+                    database.ref("room").on("value", function () {
+                        database.ref("user/"+user.uid).on("value", snap => {
+                            var roomId = snap.child("room").val();
 
+                            database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
+                                var roomRequest = "";
+                                roomsnap.forEach(request => {
+                                    database.ref("user/"+request.key+"/displayName").on("value", name => {
+                                        roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
+                                        $("#room-request").html(roomRequest);
+                                    });
+                                });
+                            });
+                        });
+                    });
                 }
             }
         });
@@ -466,8 +480,8 @@
             "<td>" +
             name +
             "<br/><span>" +
-            "<div class='col-xs-6'><button class='btn-success' onclick='acceptUserToRoom(\""+id+"\", \""+roomId+"\", \""+position+"\", \""+accepterId+"\")'>accept</button></div>" +
-            "<div class='col-xs-6'><button class='btn-danger' onclick='rejectUser(\""+id+"\", \""+roomId+"\")'>reject</button></div>" +
+            "<div class='col-xs-6'><button class='btn btn-success' onclick='acceptUserToRoom(\""+id+"\", \""+roomId+"\", \""+position+"\", \""+accepterId+"\")'>accept</button></div>" +
+            "<div class='col-xs-6'><button class='btn btn-danger' onclick='rejectUser(\""+id+"\", \""+roomId+"\")'>reject</button></div>" +
             "</span>" +
             "</td>" +
             "</tr>";
