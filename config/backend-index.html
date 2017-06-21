@@ -460,13 +460,13 @@ function table(resultId, userId) {
         return "<tr class='success'>" +
             "<td>"+getValue(resultType+"/"+resultId, "name")+"</td>" +
             "<td></td>" +
-            "<td><button class='btn btn-warning' onclick='requestUserToRoom("+"'"+userId+"'"+", "+"'"+resultId+"'"+")'>Join Now</button></td>" +
+            "<td><button class='btn btn-warning' onclick='requestUserToRoom(\""+userId+"\", \""+resultId+"\")'>Join Now</button></td>" +
             "</tr>";
     } else if (resultType == "user") {
         return "<tr class='info'>" +
             "<td>"+getValue(resultType+"/"+resultId, "displayName")+"</td>" +
             "<td>"+(getValue("user/"+resultId, "room")!=false?(getValue("room/"+resultId, "name")):"")+"</td>" +
-            "<td>"+(getValue("user/"+resultId, "room")!=false?("<button class='btn btn-warning' onclick='requestUserToRoom("+"'"+userId+"'"+", "+"'"+resultId+"'"+")'>Join Now</button>"):"")+"</td>" +
+            "<td>"+(getValue("user/"+resultId, "room")!=false?("<button class='btn btn-warning' onclick='requestUserToRoom(\""+userId+"\", \""+resultId+"\")'>Join Now</button>"):"")+"</td>" +
             "</tr>";
     } else {
         return "Result type not found";
