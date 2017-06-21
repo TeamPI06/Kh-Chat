@@ -52,6 +52,14 @@
                         //                    alert(snap.val());
                         $(".profile-preview").css("background-image", "url('"+snap.val()+"')");
                 });
+                    database.ref("user/"+user.uid).on("value", snap => {
+                        var roomId = snap.child("room").val();
+                        database.ref("room/"+roomId).on("value", room => {
+                            $("#roomName").html(room.child("name").val());
+                        })
+                    })
+//                    $("#roomName").html(roomId);
+//                    alert(getUserId())
                 }
             }
         });
@@ -62,6 +70,10 @@
             background-position: center;
             -webkit-background-size: cover;
             background-size: cover;
+        }
+
+        #roomName {
+            font-size: 30px;
         }
     </style>
 </head>
@@ -74,11 +86,12 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
                     <a class="navbar-brand" href="#">
                         <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+                        <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
-                    <a class="navbar-brand" href="#">
-                        <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
+                    <a href="#" id="roomName">
+
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
@@ -358,6 +371,10 @@
     function showPage() {
         document.getElementById("loader").style.display = "none";
         document.getElementById("main-body").style.display = "block";
+    }
+
+    function getUserId() {
+        return firebase.auth().currentUser.uid;
     }
 </script>
 </body>
