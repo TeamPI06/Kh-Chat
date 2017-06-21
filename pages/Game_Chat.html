@@ -1,44 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Chat & Game</title>
+    <title>Game Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../public/vendors/bootstrap/css/bootstrap.min.css">
-
+    <link rel="stylesheet" type="text/css" href="../public/css/font.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/Game_Chat.css">
+    <!--<link rel="stylesheet" type="text/css" href="./public/css/kh-chat.css">-->
+    <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="row">
-<nav class="navbar navbar-default nav">
-    <div class="container-fluid" style="height: 100%;">
-        <div style="float: left;" class="div-btn-menu">
-            <a class="navbar-brand gone-depend" href="#" onclick="openNav()">
-                <div class="btn-menu"></div>
-                <div class="btn-menu"></div>
-                <div class="btn-menu"></div>
-            </a>
-        </div>
+<div class="header">
+    <div id="menu-icon" class="mi-container" onclick="toggleMenuIcon(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+    <div class="title">
+        <span style="color: white;">KH CHAT</span>
+    </div>
+    <a onclick="document.getElementById('id01').style.display='block'">
+        <div class="profile"></div>
+    </a>
+</div>
+<div class="sidebar">
+    <ul class="side-class">
+        <li class="user-chat" onclick="viewuser()">
+            <div class="user-profile" style="border: 0px">
+                <div class="photo-user"></div>
+            </div>
+            <div class="user-name">
+                <span class="font-name" style="color: white;">SE kimsour</span><br>
+                <span class="font-de" style="color: #616161">ITC</span>
+            </div>
+            <div class="signal">
+                <div class="show-signal"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="blocker"></div>
+<div class="body">
+    <div class="content">
+        <div class="follow-sidebar"></div>
+        <div class="main">
+            <div class=" main-content">
 
-        <div class="div-kh-chat">
-            <h3 class="kh-chat" style="text-align: center">KH_Chat</h3>
-        </div>
-        <div class="" style="float: right; margin-top: -40px;">
-            <a class="navbar-brand" href="#">
-                <div class="profile"></div>
-            </a>
+                <div class="main-game">
+                    <h1>Game </h1>
+                </div>
+
+                <div class="main-chat ">
+                    <div class="row">
+                        <div class="chat-message me">
+                            <div class="photo">
+
+                            </div>
+                            <div class="small-message">
+                                alskdjfalskjfa;lskfj
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="chat-message they">
+                            <div class="photo">
+
+                            </div>
+                            <div class="small-message">
+                                asdflajslfjsf
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!---->
+                <!--<div class="write-message">-->
+                <!--<div class="write">-->
+                <!--<textarea class="write-text"></textarea>-->
+                <!--</div>-->
+                <!--<div class="send-message">-->
+                <!--<div class="line"></div>-->
+                <!--<div class="icon-send">-->
+                <!--<img class="send" src="public/img/send.png">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="write-message" style="border: 0px;">
+                    <div class="input-group" style="border: 0px;">
+                        <textarea type="text" class=" write-text"></textarea>
+                        <span class="input-group-btn">
+                        <button class="btn btn-default icon-send" type="button"><i class="fa fa-send icon"></i></button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
         </div>
     </div>
-</nav>
-
-<div class="col-md-8" style="border: 10px;height: 200px" >
-
-        <h1 style="text-align: center;margin: 60px auto auto auto">GAME</h1>
-
-</div>
-<div class="col-md-4">
 
 
 
-</div>
+    <!-- The Modal -->
+    <div id="id01" class="modal">
+        <form class="modal-content animate" action="#">
+            <div style="width: 100%; height: 30px">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal" style="margin-right: 10px; margin-top: 5px; font-size: 30px">&times;</span>
+            </div>
+            <!-- Modal Content -->
+            <div class="view-profile">
+                <div class="photo"></div>
+                <div class="name-show">
+                    <div class="name1">
+                        <span class="font-name-show" style="color: #0098fd">TANG Sokkang</span><br>
+                    </div>
+                </div>
+                <div class="description">
+                    <span class="font-description" style="color: #95989a"> I am Hacker</span>
+                </div>
+                <div class="div-btn">
+                    <div style="float: left;">
+                        <button type="button" class="btn btn-default btn-width-left font-btn">Log Out</button>
+                    </div>
+                    <div style="float: right;">
+                        <button type="button" class="btn btn-default btn-width-right font-btn">Leave Room</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="id02" class="modal">
+        <form class="modal-content animate" action="#">
+            <div style="width: 100%; height: 30px">
+                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal" style="margin-right: 10px; margin-top: 5px; font-size: 30px">&times;</span>
+            </div>
+            <!-- Modal Content -->
+            <div class="view-profile">
+                <div class="photo"></div>
+                <div class="name-show">
+                    <div class="name1">
+                        <span class="font-name-show" style="color: #0098fd">TANG Sokkang</span><br>
+                    </div>
+                </div>
+                <div class="description">
+                    <span class="font-description" style="color: #95989a"> I am Hacker</span>
+                </div>
+                <div class="div-btn">
+                    <div style="width: 101px; margin: 0 auto">
+                        <button type="button" class="btn btn-default" style="width: 100px;">Challenge</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
+
+<script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
+<script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    var modal1 = document.getElementById('id02');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        } else if (event.target == modal1) {
+            modal1.style.display = "none";
+        }
+    }
+
+    function viewuser() {
+        document.getElementById('id02').style.display='block';
+        if($(window).width()<769) {
+            menu.classList.toggle("change");
+            hideSideBar();
+            sidebar = false;
+        }
+    }
+</script>
+
+
+<script>
+    var mediumScreenSize = window.matchMedia( "(min-width: 769px)" );
+    var sidebar = false;
+    var menu;
+    $(".blocker").click(function(){
+        menu.classList.toggle("change");
+        hideSideBar();
+        sidebar = false;
+    });
+    function toggleMenuIcon(x) {
+        menu = x;
+        x.classList.toggle("change");
+        if (sidebar) {
+            hideSideBar();
+            sidebar = false;
+        } else {
+            showSideBar();
+            sidebar = true;
+        }
+    }
+    function showSideBar() {
+        $(".sidebar").animate({
+            left: "0"
+        }, 300);
+        if($(window).width()>768) {
+            $(".follow-sidebar").css("width", "300px");
+            $(".main").css("width", "calc(98vw - 300px)");
+            $(".write-message").css("left", "calc(20vw + 200px)");
+            $(".write-message").css("width", "calc(60vw - 100px)");
+        }
+        $(".blocker").css("height", "100vh");
+    }
+    function hideSideBar() {
+        $(".sidebar").animate({
+            left: "-300"
+        }, 300);
+        if($(window).width()>768) {
+            $(".follow-sidebar").css("width", "0px");
+            $(".main").css("width", "98vw");
+            $(".write-message").css("left", "20vw");
+            $(".write-message").css("width", "60vw");
+        }
+        $(".blocker").css("height", "0vh");
+    }
+
+
+    mediumScreenSize.addListener(function(changed) {
+        if(changed.matches) {
+            // big screen
+//            alert("big");
+            if(sidebar) {
+                $(".follow-sidebar").css("width", "300px");
+                $(".write-message").css("left", "calc(20vw + 200px)");
+                $(".write-message").css("width", "calc(60vw - 100px)");
+                $(".main").css("width", "calc(98vw - 300px)");
+            } else {
+                $(".write-message").css("left", "20vw");
+                $(".write-message").css("width", "60vw");
+                $(".main").css("width", "98vw");
+            }
+        } else {
+            // small screen
+//            alert("small");
+            $(".write-message").css("left", "5%");
+            $(".write-message").css("width", "90%");
+            $(".follow-sidebar").css("width", "0px");
+            $(".main").css("width", "98vw");
+        }
+    });
+</script>
+
 </html>

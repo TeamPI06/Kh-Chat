@@ -7,22 +7,22 @@
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <script src="signup_controller.js"></script>
+    <script src="config.js"></script>
     <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
-            authDomain: "kh-chat-ef625.firebaseapp.com",
-            databaseURL: "https://kh-chat-ef625.firebaseio.com",
-            projectId: "kh-chat-ef625",
-            storageBucket: "kh-chat-ef625.appspot.com",
-            messagingSenderId: "508589901866"
-        };
-        firebase.initializeApp(config);
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 if(user.emailVerified){
-                    window.location = "backend-index.html";
+                    var haveRoom = firebase.database().ref("user/"+user.uid).once("value", function (snapshot) {
+                        alert(snapshot.child("room").val())
+                        if(snapshot.child("room").val() != false){
+                            window.location = "backend-chat.html";
+                        } else if (snapshot.child("room").val() == false) {
+                            window.location = "backend-index.html";
+                        }
+                    })
+
                 }
             }
         });
@@ -66,91 +66,5 @@
     </div>
 </form>
 
-<script>
-    function signupwithemail() {
-        var email = $("#email").val();
-        var password = $("#password").val();
-        var user = null;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function(response) {
-                sendEmailVerification();
-                createUser(response);
-            }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert("Error " + errorCode + " : " + errorMessage);
-            ifSuccess = false;
-        });
-    }
-
-    function signinwithgoogle() {
-        var provider = new firebase.auth.GoogleAuthProvider();
-
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            createUser(user);
-//            alert("My id is " + user.uid);
-        }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-        });
-
-    }
-
-    function signinwithemail() {
-        var email = $("#email").val();
-        var password = $("#password").val();
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert("Error " + errorCode + " : " + errorMessage);
-        });
-
-    }
-
-    function sendEmailVerification() {
-        firebase.auth().currentUser.sendEmailVerification().then(function() {
-            alert('Email Verification Sent!');
-        }, function(error) {
-            // An error happened.
-        });
-    }
-
-    function sendPasswordReset() {
-        var email = $("#email").val();
-        firebase.auth().sendPasswordResetEmail(email).then(function() {
-            alert('Password Reset Email Sent!');
-        }).catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert("Error " + errorCode + " : " + errorMessage);
-        });
-    }
-
-    function createUser(user) {
-        const dbRefObject = firebase.database().ref().child('user');
-
-        dbRefObject.child(user.uid).set({
-            displayName: (user.displayName != null)?(user.displayName):(user.email),
-            email: user.email,
-//            dateOFbirth: ,
-            profile: (user.photoURL != null?(user.photoURL):("public/img/boy.png")),
-            isVerified: user.emailVerified,
-            room: false
-        });
-//        alert(user.uid + " user created in database");
-    }
-</script>
 </body>
 </html>
