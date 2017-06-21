@@ -57,17 +57,33 @@
                         var roomId = snap.child("room").val();
                         database.ref("room/"+roomId).on("value", room => {
                             $("#roomName").html(room.child("name").val());
-                        })
+                        });
 
                         //room member
                         database.ref("room/"+roomId+"/member").on("value", roomsnap => {
                             var roomMember = "";
                             roomsnap.forEach(member => {
-                                roomMember += roomMemberList(id, name, position, status); //edit here
-                            })
+                                database.ref("user/"+member.key+"/displayName").on("value", name => {
+                                    roomMember += roomMemberList(member.key, name.val(), member.val(), "online"); //edit here
+                                });
+                            });
                             $("#room-member").html(roomMember);
-                        })
-                    })
+                        });
+
+                        database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
+                            var roomRequest = "";
+                            roomsnap.forEach(request => {
+                                database.ref("user/"+request.key+"/displayName").on("value", name => {
+                                    roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
+                    $("#room-request").html(roomRequest);
+                                });
+
+                            });
+//                            $("#room-request").html(roomRequest);
+
+                        });
+
+                    });
 
 
                 }
@@ -84,6 +100,16 @@
 
         #roomName {
             font-size: 30px;
+        }
+
+        .position {
+            color: black;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        #room-member {
+            width: auto;
         }
     </style>
 </head>
@@ -430,8 +456,25 @@
 
     function roomMemberList(id, name, position, status) {
         return "<tr onclick='viewMember(\""+id+"\")'>" +
-            "<td class='btn-primary'>"+name+"<span class='position'>"+position+"</span></span></td><td class='btn-"+(status == "online"?"success":"danger")+"'>"+status+"</td>" +
+            "<td class='btn-"+(status == "online"?"success":"danger")+"'>"+name+"<br/><span class='position'>"+position+"</span></td>" +
             "</tr>";
+    }
+
+    function roomRequestList(id, name, roomId, position, accepterId) {
+        return "<tr>" +
+            "<td>" +
+            name +
+            "<br/><span>" +
+            "<div class='col-xs-6'><button class='btn-success' onclick='acceptUserToRoom(\""+id+"\", \""+roomId+"\", \""+position+"\", \""+accepterId+"\")'>accept</button></div>" +
+            "<div class='col-xs-6'><button class='btn-danger' onclick='rejectUser(\""+id+"\", \""+roomId+"\")'>reject</button></div>" +
+            "</span>" +
+            "</td>" +
+            "</tr>";
+    }
+
+    function rejectUser(uid, roomId) {
+        setValue("request_pending_list/"+uid+"/"+roomId, null);
+        setValue("room/"+roomId+"/request_member/"+uid, null);
     }
 </script>
 
