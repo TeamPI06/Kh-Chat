@@ -4,10 +4,21 @@
     <title>Basic function of KH Chat</title>
     <link rel="stylesheet" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="loader.css">
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-    <script src="config.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
+            authDomain: "kh-chat-ef625.firebaseapp.com",
+            databaseURL: "https://kh-chat-ef625.firebaseio.com",
+            projectId: "kh-chat-ef625",
+            storageBucket: "kh-chat-ef625.appspot.com",
+            messagingSenderId: "508589901866"
+        };
+        firebase.initializeApp(config);
+    </script>
     <script>
 
         // Get a reference to the database service
@@ -25,8 +36,9 @@
                     firebase.database().ref("user/" + user.uid).child("room").on("value", snap => {
                         if (snap.val() == false){
                         window.location = "backend-index.html";
-                    }
-                });
+                        }
+                        showPage();
+                    });
 
                     $("#displayName").html(getValue("user/"+user.uid, "/displayName"));
                     var userRef = firebase.database().ref().child("user/"+user.uid+"/displayName");
@@ -40,6 +52,14 @@
                         //                    alert(snap.val());
                         $(".profile-preview").css("background-image", "url('"+snap.val()+"')");
                 });
+                    database.ref("user/"+user.uid).on("value", snap => {
+                        var roomId = snap.child("room").val();
+                        database.ref("room/"+roomId).on("value", room => {
+                            $("#roomName").html(room.child("name").val());
+                        })
+                    })
+//                    $("#roomName").html(roomId);
+//                    alert(getUserId())
                 }
             }
         });
@@ -51,43 +71,49 @@
             -webkit-background-size: cover;
             background-size: cover;
         }
+
+        #roomName {
+            font-size: 30px;
+        }
     </style>
 </head>
 <body>
+<div id="loader"></div>
+<div id="main-body">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header" style="width: 100%">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
+                    <a class="navbar-brand" href="#">
+                        <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+                        <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+                    <a href="#" id="roomName">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header" style="width: 100%">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
-                <a class="navbar-brand" href="#">
-                    <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
-                <a class="navbar-brand" href="#">
-                    <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
-                <a id="displayName" href="#" style="font-size: 25px">
-                </a>
-                <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
+                    <a id="displayName" href="#" style="font-size: 25px">
+                    </a>
+                    <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div style="width: calc(100% - 50px); display: inline-block">
-            <input type="text" class="form-control">
-        </div>
-        <div style="width: 10px; display: inline-block">
-            <button class="btn btn-primary"><i class="fa fa-send"></i></button>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div style="width: calc(100% - 50px); display: inline-block">
+                <input type="text" class="form-control">
+            </div>
+            <div style="width: 10px; display: inline-block">
+                <button class="btn btn-primary"><i class="fa fa-send"></i></button>
+            </div>
         </div>
     </div>
 </div>
-
 <script>
     /**
      * Created by sarthyrith on 6/21/17.
@@ -340,6 +366,15 @@
             email: user.email
         });
 //        alert(user.uid + " user created in database");
+    }
+
+    function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("main-body").style.display = "block";
+    }
+
+    function getUserId() {
+        return firebase.auth().currentUser.uid;
     }
 </script>
 </body>

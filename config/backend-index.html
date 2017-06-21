@@ -4,10 +4,21 @@
     <title>Basic function of KH Chat</title>
     <link rel="stylesheet" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="loader.css">
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-    <script src="config.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
+            authDomain: "kh-chat-ef625.firebaseapp.com",
+            databaseURL: "https://kh-chat-ef625.firebaseio.com",
+            projectId: "kh-chat-ef625",
+            storageBucket: "kh-chat-ef625.appspot.com",
+            messagingSenderId: "508589901866"
+        };
+        firebase.initializeApp(config);
+    </script>
     <script>
 
         // Get a reference to the database service
@@ -16,15 +27,6 @@
             if (!user) {
                 window.location = "backend-signup.html";
             } else {
-                if(!user.emailVerified){
-                    window.location = "backend-signup.html";
-                }
-//                alert(getValue("user/"+user.uid, "room"))
-                firebase.database().ref("user/"+user.uid).child("room").on("value", snap => {
-                    if (snap.val() != false) {
-                        window.location = "backend-chat.html";
-                    }
-                });
 
                 var rootRef = firebase.database().ref();
                 var usersRef = rootRef.child("user");
@@ -36,6 +38,17 @@
                     }
                 });
                 setUserLocation(user);
+
+                if(!user.emailVerified){
+                    window.location = "backend-signup.html";
+                }
+//                alert(getValue("user/"+user.uid, "room"))
+                firebase.database().ref("user/"+user.uid).child("room").on("value", snap => {
+                    if (snap.val()) {
+                        window.location = "backend-chat.html";
+                    }
+                    showPage();
+                });
 
                 //display name
                 $("#displayName").html(getValue("user/"+user.uid, "/displayName"));
@@ -74,80 +87,85 @@
             -webkit-background-size: cover;
             background-size: cover;
         }
+
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header" style="width: 100%">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
-                <a class="navbar-brand" href="#">
-                    <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
-                </a>
+<div id="loader"></div>
+<div id="main-body">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header" style="width: 100%">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
+                    <a class="navbar-brand" href="#">
+                        <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+                    <a class="navbar-brand" href="#">
+                        <input type="button" class="btn btn-success" data-toggle="modal" data-target="#newroom" value="Create new room">
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
+                    <a id="displayName" href="#" style="font-size: 25px">
+                    </a>
+                    <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
-                <a class="navbar-brand" href="#">
-                    <input type="button" class="btn btn-success" data-toggle="modal" data-target="#newroom" value="Create new room">
-                </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div style="width: calc(100% - 50px); display: inline-block">
+                    <input id="search-box" type="text" class="form-control" autocomplete="off">
+                </div>
+                <div style="width: 10px; display: inline-block">
+                    <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
-                <a id="displayName" href="#" style="font-size: 25px">
-                </a>
-                <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+            <div class="row">
+                <div class="row" style="width: calc(100% - 50px); margin-left: 20px">
+                    <table class="table table-hover" id="search-result" style="width: 100%; border: 1px solid red">
+
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="row">
-            <div style="width: calc(100% - 50px); display: inline-block">
-                <input id="search-box" type="text" class="form-control" autocomplete="off">
-            </div>
-            <div style="width: 10px; display: inline-block">
-                <button class="btn btn-primary" onclick="showResult()"><i class="fa fa-search"></i></button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="row" style="width: calc(100% - 50px); margin-left: 0px">
-                <table class="table table-hover" id="search-result" style="width: 100%; border: 1px solid red">
 
-                </table>
+
+
+    <div id="newroom" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create new room</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomname">Room name : </label>
+                        <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomname" placeholder="Your chat room name">
+                    </div>
+                    <div class="row">
+                        <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomdescr">Description : </label>
+                        <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomdescr" placeholder="Description">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="createnewroom()">Create</button>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
 
-
-
-<div id="newroom" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create new room</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomname">Room name : </label>
-                    <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomname" placeholder="Your chat room name">
-                </div>
-                <div class="row">
-                    <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomdescr">Description : </label>
-                    <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomdescr" placeholder="Description">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="createnewroom()">Create</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 <script type="text/javascript">
@@ -171,14 +189,13 @@ function createnewroom() {
     $("#roomname").val("");
     $("#roomdescr").val("");
 
-    var room = {
+
+    var rkey = addChildWithId("room", {
         name: roomname,
         description: roomdesc,
 //            member: user,
         timestamp: timeStamp
-    };
-
-    var rkey = addChildWithId("room", room);
+    });
 
     addChildWithId('chat/'+rkey, {
         sender: "Robot",
@@ -187,8 +204,22 @@ function createnewroom() {
         html: ""
     });
 
-    requestUserToRoom(userId, rkey);
-    acceptUserToRoom(userId, rkey, "Leader", userId);
+    setChild("user/"+userId, {
+        room: rkey
+    });
+
+    var user = {};
+    user[userId] = "Leader";
+
+    setChild("room/"+rkey+"/member", user);
+
+    setChild("room_member/"+rkey+"/"+userId, {
+        since: timeStamp,
+        position: "Leader",
+        accepted_by: userId
+    });
+
+    alert("room created")
 }
 
 function  signout() {
@@ -441,6 +472,12 @@ function table(resultId, userId) {
         return "Result type not found";
     }
 
-}</script>
+}
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main-body").style.display = "block";
+}
+</script>
 </body>
 </html>
