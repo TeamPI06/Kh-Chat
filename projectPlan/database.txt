@@ -1,5 +1,5 @@
 {
-	"users": {
+	"user": {
 		"uid": {
 			"displayName": "",
 			"email": "",
