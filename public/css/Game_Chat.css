@@ -1,0 +1,1161 @@
+body {
+    margin: 0;
+    background-color: white;
+    width: 1vw;
+    overflow-x: hidden;
+    z-index: 0;
+}
+
+i::before{
+    font-size: 2em;
+    margin-left: 10px;
+    margin-right: 15px;
+}
+.chat-message {
+    max-width: 400px;
+    padding: 20px;
+    background-color: green;
+}
+
+.me {
+    text-align: right;
+    margin-right: 100px;
+    margin-left: auto;
+}
+
+.small-message {
+    background-color: white;
+}
+
+.me .photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: blue;
+}
+
+.they {
+    text-align: left;
+    margin-left: 10px;
+    margin-right: auto;
+}
+
+.they .photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: blue;
+}
+
+.header {
+    width: 100%;
+    height: 60px;
+    background-color: #0a090a;
+    padding: 10px 20px 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    position: absolute;
+}
+
+.mi-container {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transform: scale(0.7, 0.7) ;
+    transform: scale(0.7, 0.7);
+    position: absolute;
+}
+
+.hi-container {
+    position: absolute;
+    left: 100px;
+    top: 15px;
+    color: white;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+.profile{
+    position: absolute;
+    right: 20px;
+    top: 7.5px;
+    border-radius: 22.5px;
+    width: 45px;
+    height: 45px;
+    background: white;
+}
+.main-game{
+    background-color: yellowgreen;
+    float: left;
+    width: 50%;
+    margin-left: 50px;
+    padding-right: 100px;
+    padding-left: 100px;
+    height: 100vh;
+    z-index: 1000;
+}
+
+
+/*small screen*/
+@media all and (max-width: 414px) {
+    .sidebar {
+        overflow-y: auto;
+        width: 250px;
+        height: 100vh;
+        z-index: 1000;
+        position: fixed;
+        /*padding-top: 60px;*/
+        left: -250px;
+        background-color: #2c2c2c;
+    }
+
+    .home-onSide {
+        color: black;
+        width: 100%;
+        font-size: 30px;
+        text-align: right;
+        height: 60px;
+        visibility: visible;
+    }
+
+    .blocker {
+        position: fixed;
+        height: 0vh;
+        width: 100vw;
+        z-index: 999;
+        background-color: black;
+        opacity: 0.5;
+    }
+
+    .follow-sidebar {
+        display: none !important;
+    }
+
+    .title {
+        margin-top: 5px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: comfortaa, comfortaa_b;
+    }
+    .user-chat{
+        border:1px solid gainsboro;
+        width: 250px;
+        height: 85px;
+    }
+    .user-profile{
+        margin-left: 2px;
+        padding: 8px;
+        float: left;
+        width: 75px;
+        height: 100%;
+    }
+    .photo-user{
+        margin-top: 4px;
+        border:0px;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        background-color: white;
+    }
+    .user-name{
+        margin-left: -15px;
+        padding: 20px;
+        float: left;
+        width: 150px;
+        height: 100%;
+    }
+    .font-name{
+        font-size: 20px;
+    }
+    .signal{
+        float: right;
+        margin-right: 6px;
+        width: 15px;
+        height:100%;
+    }
+    .show-signal{
+        margin-top: 35px;
+        width: 14px;
+        height: 14px;
+        border-radius: 7px;
+        background-color: green;
+    }
+
+    .write-message{
+        position: fixed;
+        align-items: center;
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 90vw;
+        left: 5vw;
+        bottom: 20px;
+        height:60px;
+        border-radius: 10px;
+        top: calc(100vh - 70px);
+        z-index: 100;
+    }
+    .input-group{
+        height: 50px;
+    }
+    .write-text {
+        font-size: 20px;
+        resize: none;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+    }
+    .icon-send{
+        margin-top: -6px;
+        height: 44px;
+        width: 100%;
+        border: 1px solid black;
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+
+    i::before{
+        font-size: 2em;
+        margin-left: 10px;
+        /*margin-right: 10px;*/
+    }
+    .main-chat{
+        background-color: red;
+        
+        height: 100vh;
+        z-index: 1000;
+
+    }
+    .main-game{
+        display: none;
+        background-color: yellowgreen;
+        float: left;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    /*for modal*/
+    .modal {
+        overflow-y: inherit;
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        /*height: 100%; !* Full height *!*/
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        /*padding-top: 60px;*/
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        z-index: 3;
+        background-color: white;
+        margin: 15vh auto;
+        /*margin: 500px auto; !* 15% from the top and centered *!*/
+        border: 1px solid #888;
+        width: 250px; /* Could be more or less, depending on screen size */
+        height: 300px;
+        border-radius: 13px;
+    }
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)}
+        to {-webkit-transform: scale(1)}
+    }
+
+    @keyframes animatezoom {
+        from {transform: scale(0)}
+        to {transform: scale(1)}
+    }
+    /*profile*/
+    .view-profile{
+        width: 100%;
+        height:80px;
+    }
+    .photo{
+        margin: 0px auto;
+        border: 0.5px solid grey;
+        width: 80px;
+        height:80px;
+        border-radius: 40px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+    }
+    .name-show{
+        margin-top: 10px;
+        width: 100%;
+        height: 25px;
+    }
+    .name1{
+        width: 200px;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .description{
+        text-align: center;
+        width: 100%;
+        height: 110px;
+    }
+    .font-name-show{
+        font-size: 13px;
+    }
+    .font-description{
+        font-size: 8px;
+    }
+    .div-btn{
+        width: 100%;
+        height: 20px;
+    }
+    .font-btn{
+        font-size: 11px;
+    }
+
+    .btn-width-left{
+        width: 90px;
+        margin-left: 10px;
+
+    }
+    .btn-width-right{
+        width: 90px;
+        margin-right: 10px;
+    }
+}
+/*End small screen*/
+
+/*ipad screen*/
+@media all and (min-width: 415px) and (max-width: 768px) {
+    .sidebar {
+        overflow-y: auto;
+        width: 300px;
+        height: 100vh;
+        z-index: 1000;
+        position: fixed;
+        /*padding-top: 60px;*/
+        left: -300px;
+        background-color: #2c2c2c;
+    }
+
+    .home-onSide {
+        color: black;
+        width: 100%;
+        font-size: 30px;
+        text-align: right;
+        height: 0px;
+        visibility: hidden;
+    }
+
+    .blocker {
+        position: fixed;
+        height: 0vh;
+        width: 100vw;
+        z-index: 999;
+        background-color: black;
+        opacity: 0.5;
+    }
+
+    .follow-sidebar {
+        display: inline-block !important;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: comfortaa, comfortaa_b;
+    }
+    .user-chat{
+        border:1px solid gainsboro;
+        width: 300px;
+        height: 85px;
+    }
+    .user-profile{
+        margin-left: 5px;
+        padding: 8px;
+        float: left;
+        width: 75px;
+        height: 100%;
+    }
+    .photo-user{
+        border:0px;
+        width: 65px;
+        height: 65px;
+        border-radius: 32.5px;
+        background-color: white;
+    }
+    .user-name{
+        padding: 20px;
+        float: left;
+        width: 170px;
+        height: 100%;
+    }
+    .font-name{
+        font-size: 20px;
+    }
+    .signal{
+        float: right;
+        width: 40px;
+        height:100%;
+    }
+    .show-signal{
+        background-color: green;
+        margin-top: 35px;
+        width: 15px;
+        height: 15px;
+        border-radius: 12.5px;
+    }
+    .write-message{
+        position: fixed;
+        align-items: center;
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 90vw;
+        left: 5vw;
+        bottom: 20px;
+        height:60px;
+        border-radius: 10px;
+        top: calc(100vh - 100px);
+        z-index: 100;
+    }
+    .write-text {
+        font-size: 20px;
+        resize: none;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .icon-send{
+        margin-top: -4.5px;
+        height: 62.5px;
+        width: 100%;
+        border: 1px solid black;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
+
+    }
+
+    .main-chat{
+        background-color: red;
+        width: 95%;
+        height: 100vh;
+        z-index: 1000;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+    .main-game{
+        display: none;
+
+    }
+    /*for modal*/
+    .modal {
+        overflow-y: inherit;
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        /*height: 100%; !* Full height *!*/
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        /*padding-top: 60px;*/
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        z-index: 3;
+        background-color: white;
+        margin: 15vh auto;
+        /*margin: 500px auto; !* 15% from the top and centered *!*/
+        border: 1px solid #888;
+        width: 350px; /* Could be more or less, depending on screen size */
+        height: 410px;
+        border-radius: 13px;
+    }
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)}
+        to {-webkit-transform: scale(1)}
+    }
+
+    @keyframes animatezoom {
+        from {transform: scale(0)}
+        to {transform: scale(1)}
+    }
+    /*profile*/
+    .view-profile{
+        width: 100%;
+        height:120px;
+        padding: 15px;
+    }
+    .photo{
+        margin: 0px auto;
+        border: 0.5px solid grey;
+        width: 120px;
+        height:120px;
+        border-radius: 60px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+    }
+    .name-show{
+        margin-top: 10px;
+        width: 100%;
+        height: 25px;
+    }
+    .name1{
+        width: 200px;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .description{
+        text-align: center;
+        width: 100%;
+        height: 156px;
+    }
+    .font-name-show{
+        font-size: 18px;
+    }
+    .font-description{
+        font-size: 13px;
+    }
+    .div-btn{
+        width: 100%;
+        height: 20px;
+    }
+    .btn-width-left{
+        width: 100px;
+        margin-left: 10px
+
+    }
+    .btn-width-right{
+        width: 100px;
+        margin-right: 10px
+    }
+}
+
+
+/*middle screeen*/
+@media all and (min-width: 769px) and (max-width: 1280px) {
+    .sidebar {
+        overflow-y: auto;
+        width: 300px;
+        height: 100vh;
+        z-index: 1;
+        position: fixed;
+        padding-top: 60px;
+        left: -300px;
+        background-color: #2c2c2c;
+    }
+
+    .home-onSide {
+        color: black;
+        width: 100%;
+        font-size: 30px;
+        text-align: right;
+        height: 0px;
+        visibility: hidden;
+    }
+
+    .blocker {
+        height: 0vh;
+        width: 100vw;
+        position: fixed;
+        z-index: -999;
+    }
+
+    .follow-sidebar {
+        display: inline-block !important;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: comfortaa, comfortaa_b;
+    }
+    .user-chat{
+        border:1px solid gainsboro;
+        width: 300px;
+        height: 85px;
+    }
+    .user-profile{
+        margin-left: 5px;
+        padding: 8px;
+        float: left;
+        width: 75px;
+        height: 100%;
+    }
+    .photo-user{
+        border:0px;
+        width: 65px;
+        height: 65px;
+        border-radius: 32.5px;
+        background-color: white;
+    }
+    .user-name{
+        padding: 20px;
+        float: left;
+        width: 170px;
+        height: 100%;
+    }
+    .font-name{
+        font-size: 20px;
+    }
+    .signal{
+        float: right;
+        width: 40px;
+        height:100%;
+    }
+    .show-signal{
+        background-color: green;
+        margin-top: 35px;
+        width: 15px;
+        height: 15px;
+        border-radius: 12.5px;
+    }
+    .write-message{
+        position: fixed;
+        /*align-items: center;*/
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 45vw;
+        left: 15vw;
+        bottom: 20px;
+        height:10px;
+        border-radius: 10px;
+        top: calc(100vh - 100px);
+        z-index: 100;
+        margin-left: 32%;
+
+    }
+    .write-text {
+        font-size: 20px;
+        resize: none;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .icon-send{
+        margin-top: -4.5px;
+        height: 62.5px;
+        width: 100%;
+        border: 1px solid black;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
+
+    }
+
+    .main-chat{
+        background-color: red;
+        float: right;
+        width: 55%;
+        height: 100vh;
+        z-index: 1000;
+        margin-left: auto;
+        margin-right: 20px;
+
+    }
+    .main-game{
+        width: 30%;
+
+    }
+    /*for modal*/
+    .modal {
+        overflow-y: inherit;
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        /*height: 100%; !* Full height *!*/
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        /*padding-top: 60px;*/
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        z-index: 3;
+        background-color: white;
+        margin: 15vh auto;
+        /*margin: 500px auto; !* 15% from the top and centered *!*/
+        border: 1px solid #888;
+        width: 350px; /* Could be more or less, depending on screen size */
+        height: 410px;
+        border-radius: 13px;
+    }
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)}
+        to {-webkit-transform: scale(1)}
+    }
+
+    @keyframes animatezoom {
+        from {transform: scale(0)}
+        to {transform: scale(1)}
+    }
+    /*profile*/
+    .view-profile{
+        width: 100%;
+        height:120px;
+        padding: 15px;
+    }
+    .photo{
+        margin: 0px auto;
+        border: 0.5px solid grey;
+        width: 120px;
+        height:120px;
+        border-radius: 60px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+    }
+    .name-show{
+        margin-top: 10px;
+        width: 100%;
+        height: 25px;
+    }
+    .name1{
+        width: 200px;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .description{
+        text-align: center;
+        width: 100%;
+        height: 156px;
+    }
+    .font-name-show{
+        font-size: 18px;
+    }
+    .font-description{
+        font-size: 13px;
+    }
+    .div-btn{
+        width: 100%;
+        height: 20px;
+    }
+    .btn-width-left{
+        width: 100px;
+        margin-left: 10px
+
+    }
+    .btn-width-right{
+        width: 100px;
+        margin-right: 10px
+    }
+}
+/*middle screeen*/
+
+
+
+
+
+/*big screeen*/
+@media all and (min-width: 1281px) {
+    .sidebar {
+        overflow-y: auto;
+        width: 300px;
+        height: 100vh;
+        z-index: 1;
+        position: fixed;
+        padding-top: 60px;
+        left: -300px;
+        background-color: #2c2c2c;
+    }
+
+    .home-onSide {
+        color: black;
+        width: 100%;
+        font-size: 30px;
+        text-align: right;
+        height: 0px;
+        visibility: hidden;
+    }
+
+    .blocker {
+        height: 0vh;
+        width: 100vw;
+        position: fixed;
+        z-index: -999;
+    }
+
+    .follow-sidebar {
+        display: inline-block !important;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: comfortaa, comfortaa_b;
+    }
+    .user-chat{
+        border:1px solid gainsboro;
+        width: 300px;
+        height: 85px;
+    }
+    .user-profile{
+        margin-left: 5px;
+        padding: 8px;
+        float: left;
+        width: 75px;
+        height: 100%;
+    }
+    .photo-user{
+        border:0px;
+        width: 65px;
+        height: 65px;
+        border-radius: 32.5px;
+        background-color: white;
+    }
+    .user-name{
+        padding: 20px;
+        float: left;
+        width: 170px;
+        height: 100%;
+    }
+    .font-name{
+        font-size: 20px;
+    }
+    .signal{
+        float: right;
+        width: 40px;
+        height:100%;
+    }
+    .show-signal{
+        background-color: green;
+        margin-top: 35px;
+        width: 15px;
+        height: 15px;
+        border-radius: 12.5px;
+    }
+    .write-message{
+        position: fixed;
+        /*align-items: center;*/
+        /*border: 1px solid black;*/
+        /*background: white;*/
+        width: 40vw;
+        left: 20vw;
+        bottom: 20px;
+        height:60px;
+        border-radius: 10px;
+        top: calc(100vh - 100px);
+        z-index: 100;
+
+        margin-left: 32%;
+    }
+    .write-text {
+        font-size: 20px;
+        resize: none;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .icon-send{
+        margin-top: -4.5px;
+        height: 62.5px;
+        width: 100%;
+        border: 1px solid black;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .icon{
+        margin-left: 10px;
+        margin-right: 15px;
+
+    }
+    .main-chat{
+        background-color: red;
+        float: right;
+        width: 50%;
+        margin-left: auto;
+
+        margin-right: 20px;
+        height: 100vh;
+        z-index: 1000;
+    }
+    .main-game{
+        width: 40%;
+    }
+
+    /*modal*/
+    /*for modal*/
+    .modal {
+        overflow-y: inherit;
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        /*height: 100%; !* Full height *!*/
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        /*padding-top: 60px;*/
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        z-index: 3;
+        background-color: white;
+        margin: 15vh auto;
+        /*margin: 500px auto; !* 15% from the top and centered *!*/
+        border: 1px solid #888;
+        width: 480px; /* Could be more or less, depending on screen size */
+        height: 540px;
+        border-radius: 13px;
+    }
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)}
+        to {-webkit-transform: scale(1)}
+    }
+
+    @keyframes animatezoom {
+        from {transform: scale(0)}
+        to {transform: scale(1)}
+    }
+    /*profile*/
+    .view-profile{
+        width: 100%;
+        height:130px;
+        padding: 15px;
+    }
+    .photo{
+        margin: 5px auto;
+        border: 0.5px solid grey;
+        width: 170px;
+        height:170px;
+        border-radius: 85px;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2),0 2px 30px 0 rgba(0,0,0,0.10);
+    }
+    .name-show{
+        margin-top: 10px;
+        width: 100%;
+        height: 30px;
+    }
+    .name1{
+        width: 200px;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .description{
+        width: 100%;
+        height: 200px;
+        text-align: center;
+    }
+    .font-name-show{
+        font-size: 25px;
+    }
+    .font-description{
+        font-size: 20px;
+    }
+    .div-btn{
+        margin-top: 30px;
+        width: 100%;
+        height: 40px;
+    }
+    .btn-width-left{
+        width: 100px;
+        margin-left: 10px
+
+    }
+    .btn-width-right{
+        width: 100px;
+        margin-right: 10px
+    }
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 7px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+    border-radius: 5px;
+}
+
+.follow-sidebar {
+    width: 0px;
+    height: 100%;
+    float: left;
+}
+
+.side-class {
+    font-family: comfortaa, comfortaa_l, sans-serif, arial, "Times New Roman";
+    list-style: none;
+    width: 250px;
+    padding-left: 0;
+}
+
+.side-item {
+    border-bottom: 1px solid lightgrey;
+}
+
+.side-subclass {
+    list-style: none;
+    padding-left: 20px;
+    margin: 10px 0px 10px;
+}
+
+.side-item div {
+    font-family: comfortaa_b;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    margin: 20px 10px 10px;
+    padding: 10px;
+}
+
+.side-subclass li {
+    color: grey;
+    font-size: 18px;
+    padding: 10px;
+}
+.clickable:hover {
+    cursor: pointer;
+    background-color: #eaeaea;
+}
+
+.clickable-nobackground:hover {
+    cursor: pointer;
+}
+
+.body {
+    z-index: 0;
+}
+
+.content {
+    overflow-y: auto;
+    color: black;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: calc(100vh - 60px);
+    z-index: 0;
+}
+
+.main {
+    overflow-y: auto;
+    vertical-align: top;
+    text-align: left;
+    z-index: 0;
+    width: 98vw;
+}
+
+.main-content {
+    width: 100%;
+    min-width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    /*border: 5px solid green;*/
+}
+
+@media screen and (min-width: 560px) {
+    .note {
+        width: 50%;
+    }
+}
+@media screen and (min-width: 816px) {
+    .note {
+        width: 33.3%;
+    }
+}
+@media screen and (min-width: 1072px) {
+    .note {
+        width: 25%;
+    }
+}
+
+.name {
+    text-align: right;
+    border-radius: 30px 0px 0px 30px;
+    padding-right: 10px;
+    color: white;
+    z-index: 5;
+    font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman";
+    height: 30px;
+    font-size: 20px;
+    position: absolute;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+.normal-font {
+    font-family: "Century Gothic", "Comic Sans MS", comfortaa_l, arial, "Times New Roman";
+}
+
