@@ -1,12 +1,12 @@
 {
 	"users": {
 		"uid": {
-			"username": "",
+			"displayName": "",
 			"email": "",
 			"date_of_birth": "",
 			"profile": "",
 			"status": "I am a beginner",
-			"have_room": false;
+			"room": false;
 		}
 		"reportBot": {
 			"profile": "",
@@ -22,7 +22,7 @@
 	    }
 	}
 	
-	"rooms": {
+	"room": {
 		"rid": {
 			"name": "",
 			"description": "",
@@ -36,12 +36,15 @@
 		}
 	},
 
+	"email_index":{
+	    uid : {
+	        "email":
+	    }
+	}
+
 	"search": {
-	    email: {
-	        "displayName":
-	        "uid":
-	        "roomName":
-	        "roomId":
+	    uid: {
+	        resultId: type
 	    }
 	}
 
