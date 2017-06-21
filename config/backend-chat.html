@@ -4,6 +4,7 @@
     <title>Basic function of KH Chat</title>
     <link rel="stylesheet" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="loader.css">
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -57,9 +58,18 @@
                         database.ref("room/"+roomId).on("value", room => {
                             $("#roomName").html(room.child("name").val());
                         })
+
+                        //room member
+                        database.ref("room/"+roomId+"/member").on("value", roomsnap => {
+                            var roomMember = "";
+                            roomsnap.forEach(member => {
+                                roomMember += roomMemberList(id, name, position, status); //edit here
+                            })
+                            $("#room-member").html(roomMember);
+                        })
                     })
-//                    $("#roomName").html(roomId);
-//                    alert(getUserId())
+
+
                 }
             }
         });
@@ -80,7 +90,48 @@
 <body>
 <div id="loader"></div>
 <div id="main-body">
+
+    <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left" style="display:none" id="leftMenu">
+        <button onclick="closeLeftMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+        <table class="table">
+            <tbody id="room-member">
+            <!--<tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">online</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Nimol</td><td class="btn-success">online</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Sokkang</td><td class="btn-danger">offline</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Phearoth</td><td class="btn-danger">offline</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Me</td><td class="btn-danger">offline</td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+        <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+        <table class="table">
+            <tbody id="room-request">
+            <!--<tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+
     <nav class="navbar navbar-default">
+        <button class="w3-button w3-teal w3-xlarge w3-left" onclick="openLeftMenu()">&#9776;</button>
+        <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
         <div class="container-fluid">
             <div class="navbar-header" style="width: 100%">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
@@ -375,6 +426,28 @@
 
     function getUserId() {
         return firebase.auth().currentUser.uid;
+    }
+
+    function roomMemberList(id, name, position, status) {
+        return "<tr onclick='viewMember(\""+id+"\")'>" +
+            "<td class='btn-primary'>"+name+"<span class='position'>"+position+"</span></span></td><td class='btn-"+(status == "online"?"success":"danger")+"'>"+status+"</td>" +
+            "</tr>";
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
     }
 </script>
 </body>
