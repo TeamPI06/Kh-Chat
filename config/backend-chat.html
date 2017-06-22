@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Basic function of KH Chat</title>
     <link rel="stylesheet" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="loader.css">
+    <link rel="stylesheet" href="emoji.css">
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <script src="emoji.js"></script>
     <script>
         var config = {
             apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
@@ -38,24 +41,23 @@
                         if (snap.val() == false){
                         window.location = "backend-index.html";
                         }
-                        showPage();
                     });
 
-                    $("#displayName").html(getValue("user/"+user.uid, "/displayName"));
+                    $(".displayName").html(getValue("user/"+user.uid, "/displayName"));
                     var userRef = firebase.database().ref().child("user/"+user.uid+"/displayName");
                     userRef.on("value", snap => {
-                        $("#displayName").html(snap.val());
+                        $(".displayName").html(snap.val());
                 });
 
                     //profile picture
                     var userProfileRef = firebase.database().ref().child("user/"+user.uid+"/profile");
                     userProfileRef.on("value", snap => {
                         //                    alert(snap.val());
-                        $("#account-profile").css("background-image", "url('"+snap.val()+"')");
+                        $(".account-profile").css("background-image", "url('"+snap.val()+"')");
                 });
                     database.ref("user/"+user.uid).on("value", snap => {
                         var roomId = snap.child("room").val();
-                        database.ref("room/"+roomId).on("value", room => {
+                        database.ref("room/"+roomId).once("value").then(room => {
                             $("#roomName").html(room.child("name").val());
                         });
 
@@ -63,9 +65,10 @@
                         database.ref("room/"+roomId+"/member").on("value", roomsnap => {
                             var roomMember = "";
                             roomsnap.forEach(member => {
-                                database.ref("user/"+member.key+"/displayName").on("value", name => {
+                                database.ref("user/"+member.key+"/displayName").once("value").then( name => {
                                     roomMember += roomMemberList(member.key, name.val(), member.val(), "online"); //edit here
                                     $("#room-member").html(roomMember);
+                                    showPage();
                                 });
                             });
 
@@ -73,10 +76,10 @@
 
                         //not real time
                         database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
-                            var roomRequest = "";
+                            $("#room-request").html("");
                             roomsnap.forEach(request => {
-                                database.ref("user/"+request.key+"/displayName").on("value", name => {
-                                    roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
+                                database.ref("user/"+request.key+"/displayName").once("value").then(name => {
+                                $("#room-request").prepend(roomRequestList(request.key, name.val(), roomId, "member", user.uid)); //edit here
                                     $("#room-request").html(roomRequest);
                                 });
                             });
@@ -84,40 +87,72 @@
 
                         });
 
-                    });
+//                    });
 
-                    database.ref("request_pending_list").on("child_changed", function () {
-                        database.ref("user/"+user.uid).on("value", snap => {
-                            var roomId = snap.child("room").val();
-
-                            database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
-                                var roomRequest = "";
-                                roomsnap.forEach(request => {
-                                    database.ref("user/"+request.key+"/displayName").on("value", name => {
-                                        roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
-                                        $("#room-request").html(roomRequest);
-                                    });
-                                });
-                            });
-                        });
-                    });
+//                    database.ref("room").on("value", snap => {
+//                        database.ref("user/"+user.uid+'/room').on("value", room => {
+//                            var roomId = snap.child("room").val();
+//
+//                            database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
+//                                var roomRequest = "";
+//                                roomsnap.forEach(request => {
+//                                    database.ref("user/"+request.key+"/displayName").on("value", name => {
+//                                    roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
+//                                    $("#room-request").html(roomRequest);
+//
+//                                    });
+//                                });
+//                            });
+//                        })
+//                    });
 
                     //chat
                     database.ref("chat").on("value", rooms => {
-                        database.ref("user/"+user.uid+"/room").on("value", room => {
-                            database.ref("chat/"+room.val()).on("value", chats => {
-                        var chatContent = "";
-                                chats.forEach(chat => {
-                                    database.ref("user/"+chat.child("sender").val()).on("value", sender => {
-                                        chatContent = chatLayout(sender.child("displayName").val(),
-                                            dateFormat(chat.child("time").val()), sender.child("profile").val(), chat.child("content").val(),
-                                        chat.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA") + chatContent;
+                        database.ref("user/"+user.uid+"/room").once("value").then( room => {
+                            $('#display-chat').html("");
+                            database.ref("chat/"+room.val()).on("child_added", chats => {
 
-                                    })
-                                });
-                                 $('#display-chat').html(chatContent);
+                                database.ref("user/"+chats.child("sender").val()).on("value", sender => {
+                                $('#display-chat').prepend(chatLayout(sender.child("displayName").val(),
+                                    dateFormat(chats.child("time").val()), sender.child("profile").val(), chats.child("content").val(),
+                                    chats.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA"));
+                                })
+
+        //                        console.log(chats.val());
                             });
+
                         });
+                    });
+                    setTimeout(function () {
+                        setValue("chat/false/reload", firebase.database.ServerValue.TIMESTAMP);
+                    }, 500);
+                    //chat
+//                    database.ref("chat").on("value", rooms => {
+//                        database.ref("user/"+user.uid+"/room").on("value", room => {
+//                            database.ref("chat/"+room.val()).on("value", chats => {
+//                                $('#display-chat').html("");
+//                                chats.once("value").then(snap => {
+//                                    console.log(snap.val());
+//                                })
+////                                chats.forEach(chat => {
+////                                    var newContent = "";
+////                                    database.ref("user/"+chat.child("sender").val()).on("value", sender => {
+//////                                        $('#display-chat').prepend(chatLayout(sender.child("displayName").val(),
+//////                                            dateFormat(chat.child("time").val()), sender.child("profile").val(), chat.child("content").val(),
+//////                                        chat.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA"));
+////
+////                                        console.log(chatLayout(sender.child("displayName").val(),
+////                                        dateFormat(chat.child("time").val()), sender.child("profile").val(), chat.child("content").val(),
+////                                        chat.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA"));
+////                                    });
+////                                });
+//
+////                                setTimeout(function () {
+////                                    setValue("chat/false/reload", firebase.database.ServerValue.TIMESTAMP);
+////                                }, 500);
+//                                showPage();
+//                            });
+//                        });
                     });
                 }
             }
@@ -143,6 +178,30 @@
 
         #room-member {
             width: auto;
+        }
+
+        .chat-user {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 25px;
+        }
+
+        .chat-user-message {
+            padding: 15px 10px 15px 20px;
+            border-radius: 10px;
+            box-shadow: 2px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .chat-user-name {
+            text-align: left;
+            font-weight: bolder;
+        }
+
+        .chat-user-time {
+            color: grey;
+            font-style: italic;
+            font-size: 10px;
         }
     </style>
 </head>
@@ -193,21 +252,25 @@
         <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
         <div class="container-fluid">
             <div class="navbar-header" style="width: 100%">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 hidden-xs" style="text-align: left;">
                     <a class="navbar-brand" href="#">
-                        <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
-                        <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
+                        <button class="btn btn-danger" onclick="signout()"><span class="hidden-xs">Sign Out</span>
+                            <i class="hidden-sm hidden-md hidden-lg fa fa-sign-out"></i></button>
+                        <button class="btn btn-warning" onclick="removeFromRoom()"><span class="hidden-xs">Leave room</span>
+                            <i class="hidden-sm hidden-md hidden-lg fa fa-close"></i></button>
                     </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-9" style="text-align: center;">
                     <a href="#" id="roomName">
 
                     </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
-                    <a id="displayName" href="#" style="font-size: 25px">
-                    </a>
-                    <div class="profile-preview" id="account-profile" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: right;">
+                    <div style="display: inline-flex; align-items: center; margin-right: 0px; margin-left: auto">
+                        <a class="displayName" href="#" style="font-size: 20px">
+                        </a> &nbsp;
+                        <div class="profile-preview account-profile hidden-xs" style="height: 40px; width: 40px; display: inline-block; border-radius: 25px;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,14 +278,88 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div style="width: calc(100% - 50px); display: inline-block">
-                <input type="text" id="input_chat" class="form-control">
+            <div style="width: calc(100% - 50px); display: inline-block;">
+                <!--<input type="text" id="input_chat" class="form-control">-->
+                <div class="flex-kid message" id="input_chat" contenteditable="true" onkeypress="checkSend(event)" spellcheck="false" style="text-align: left ;width: 100%; padding: 5px; border-radius: 5px; border: 1px solid lightgrey"></div>
             </div>
             <div style="width: 10px; display: inline-block">
                 <button onclick="sendMessage()" id="input_send" class="btn btn-primary"><i class="fa fa-send"></i></button>
             </div>
         </div>
-        <div class="row" id="display-chat">
+        <div class="row" style="text-align: right">
+            <div class="col-sm-9 col-xs-7">
+                <input style="display: none;" type="text" id="code" class="html-input form-control" placeholder="html code" onkeypress="checkSend(event)">
+            </div>
+            <div class="col-sm-3 col-xs-5">
+                <button class="btn btn-warning btn-code" onclick="htmlcode()"><i class="fa fa-code"></i></button>
+                <button class="btn btn-success btn-emoji" onclick="emoji()"><i class="fa fa-smile-o"></i> <span> <i class="no-emoji fa fa-arrow-down"></i><i style="display: none" class="use-emoji fa fa-arrow-up"></i></span></button>
+            </div>
+        </div>
+        <div class="row emoji-keyboard" style="display: none">
+            <div class="container">
+                <!--<h1 style="text-align: center;">Emojipicker using Tweemoji😎</h1>-->
+                <!--<p style="text-align: center;">-->
+                    <!--Click the icons in the header to switch tabs. Have fun-->
+                    <!--<br/>-->
+                <!--</p>-->
+                <div class="chat-panel">
+                    <div class="emoji-header menu-tabs hor-flex-parent" style="overflow-x: auto">
+                        <button class="menu-item flex-kid" data-react="smileys-and-people">😀</button>
+                        <button class="menu-item flex-kid" data-react="animals-and-nature">🐶</button>
+                        <button class="menu-item flex-kid" data-react="food-and-drink">🍏</button>
+                        <button class="menu-item flex-kid" data-react="activity">⚽</button>
+                        <button class="menu-item flex-kid" data-react="travel-and-places">🚗</button>
+                        <button class="menu-item flex-kid" data-react="objects">⌚</button>
+                        <button class="menu-item flex-kid" data-react="symbols">❤</button>
+                        <button class="menu-item flex-kid" data-react="flags">🇰🇭</button>
+                    </div>
+                    <div class="emoji-panel">
+                        <div data-react="smileys-and-people">
+                            😀😬😁😂😃😄😅😆😇😉😊🙂🙃☺😋😌😍😘😗😙😚😜😝😛🤑🤓😎🤗😏😶😐😑😒🙄🤔😳😞😟😠😡😔😕🙁☹😣😖😫😩😤😮😱😨😰😯😦😧😢😥😪😓😭😵😲🤐😷🤒🤕😴💤💩😈👿👹👺💀👻👽🤖😺😸😹😻😼😽🙀😿😾🙌👏👋👍👎👊✊✌👌✋👐💪🙏☝👆👇👈👉🖕🖐🤘🖖✍💅👄👅👂👃👁👀👤👥🗣👶👦👧👨👩👱👴👵👲👳👮👷💂🕵🎅👼👸👰🚶🏃💃👯👫👬👭🙇💁🙅🙆🙋🙎🙍💇💆💑👩‍❤️‍👩👨‍❤️‍👨💏👩‍❤️‍💋‍👩👨‍❤️‍💋‍👨👪👨‍👩‍👧👨‍👩‍👧‍👦👨‍👩‍👦‍👦👨‍👩‍👧‍👧👩‍👩‍👦👩‍👩‍👧👩‍👩‍👧‍👦👩‍👩‍👦‍👦👩‍👩‍👧‍👧👨‍👨‍👦👨‍👨‍👧👨‍👨‍👧‍👦👨‍👨‍👦‍👦👨‍👨‍👧‍👧👚👕👖👔👗👙👘💄💋👣👠👡👢👞👟👒🎩🎓👑⛑🎒👝👛👜💼👓🕶💍🌂
+                        </div>
+                        <div data-react="animals-and-nature">
+                            🐶🐱🐭🐹🐰🐻🐼🐨🐯🦁🐮🐷🐽🐸🐙🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🐺🐗🐴🦄🐝🐛🐌🐞🐜🕷🦂🦀🐍🐢🐠🐟🐡🐬🐳🐋🐊🐆🐅🐃🐂🐄🐪🐫🐘🐐🐏🐑🐎🐖🐀🐁🐓🦃🕊🐕🐩🐈🐇🐿🐾🐉🐲🌵🎄🌲🌳🌴🌱🌿☘🍀🎍🎋🍃🍂🍁🌾🌺🌻🌹🌷🌼🌸💐🍄🌰🎃🐚🕸🌎🌍🌏🌕🌖🌗🌘🌑🌒🌓🌔🌚🌝🌛🌜🌞🌙⭐🌟💫✨☄☀🌤⛅🌥🌦☁🌧⛈🌩⚡🔥💥❄🌨☃⛄🌬💨🌪🌫☂☔💧💦🌊
+                        </div>
+                        <div data-react="food-and-drink">
+                            🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🍍🍅🍆🌶🌽🍠🍯🍞🧀🍗🍖🍤🍳🍔🍟🌭🍕🍝🌮🌯🍜🍲🍥🍣🍱🍛🍙🍚🍘🍢🍡🍧🍨🍦🍰🎂🍮🍬🍭🍫🍿🍩🍪🍺🍻🍷🍸🍹🍾🍶🍵☕🍼🍴🍽
+                        </div>
+                        <div data-react="activity">
+                            ⚽🏀🏈⚾🎾🏐🏉🎱⛳🏌🏓🏸🏒🏑🏏🎿⛷🏂⛸🏹🎣🚣🏊🏄🛀⛹🏋🚴🚵🏇🕴🏆🎽🏅🎖🎗🏵🎫🎟🎭🎨🎪🎤🎧🎼🎹🎷🎺🎸🎻🎬🎮👾🎯🎲🎰🎳
+                        </div>
+                        <div data-react="travel-and-places">
+                            🚗🚕🚙🚌🚎🏎🚓🚑🚒🚐🚚🚛🚜🏍🚲🚨🚔🚍🚘🚖🚡🚠🚟🚃🚋🚝🚄🚅🚈🚞🚂🚆🚇🚊🚉🚁🛩✈🛫🛬⛵🛥🚤⛴🛳🚀🛰💺⚓🚧⛽🚏🚦🚥🏁🚢🎡🎢🎠🏗🌁🗼🏭⛲🎑⛰🏔🗻🌋🗾🏕⛺🏞🛣🛤🌅🌄🏜🏖🏝🌇🌆🏙🌃🌉🌌🌠🎇🎆🌈🏘🏰🏯🏟🗽🏠🏡🏚🏢🏬🏣🏤🏥🏦🏨🏪🏫🏩💒🏛⛪🕌🕍🕋⛩
+                        </div>
+                        <div data-react="objects">
+                            ⌚📱📲💻⌨🖥🖨🖱🖲🕹🗜💽💾💿📀📼📷📸📹🎥📽🎞📞☎📟📠📺📻🎙🎚🎛⏱⏲⏰🕰⏳⌛📡🔋🔌💡🔦🕯🗑🛢💸💵💴💶💷💰💳💎⚖🔧🔨⚒🛠⛏🔩⚙⛓🔫💣🔪🗡⚔🛡🚬☠⚰⚱🏺🔮📿💈⚗🔭🔬🕳💊💉🌡🏷🔖🚽🚿🛁🔑🗝🛋🛌🛏🚪🛎🖼🗺⛱🗿🛍🎈🎏🎀🎁🎊🎉🎎🎐🎌🏮✉📩📨📧💌📮📪📫📬📭📦📯📥📤📜📃📑📊📈📉📄📅📆🗓📇🗃🗳🗄📋🗒📁📂🗂🗞📰📓📕📗📘📙📔📒📚📖🔗📎🖇✂📐📏📌📍🚩🏳🏴🔐🔒🔓🔏🖊🖋✒📝✏🖍🖌🔍🔎
+                        </div>
+                        <div data-react="symbols">
+                            ❤💛💚💙💜💔❣💕💞💓💗💖💘💝💟☮✝☪🕉☸✡🔯🕎☯☦🛐⛎♈♉♊♋♌♍♎♏♐♑♒♓🆔⚛🈳🈹☢☣📴📳🈶🈚🈸🈺🈷✴🆚🉑💮🉐㊙㊗🈴🈵🈲🅰🅱🆎🆑🅾🆘⛔📛🚫❌⭕💢♨🚷🚯🚳🚱🔞📵❗❕❓❔‼⁉💯🔅🔆🔱⚜〽⚠🚸🔰♻🈯💹❇✳❎✅💠🌀➿🌐Ⓜ🏧🈂🛂🛃🛄🛅♿🚭🚾🅿🚰🚹🚺🚼🚻🚮🎦📶🈁🆖🆗🆙🆒🆕🆓0⃣1⃣2⃣3⃣4⃣5⃣6⃣7⃣8⃣9⃣🔟🔢▶⏸⏯⏹⏺⏭⏮⏩⏪🔀🔁🔂◀🔼🔽⏫⏬➡⬅⬆⬇↗↘↙↖↕↔🔄↪↩⤴⤵#⃣*⃣ℹ🔤🔡🔠🔣🎵🎶〰➰✔🔃➕➖➗✖💲💱🔚🔙🔛🔝🔜☑🔘⚪⚫🔴🔵🔸🔹🔶🔷🔺▪▫⬛⬜🔻◼◻◾◽🔲🔳🔈🔉🔊🔇📣📢🔔🔕🃏🀄♠♣♥♦🎴🗨💭🗯💬🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛🕜🕝🕞🕟🕠🕡🕢🕣🕤🕥🕦🕧
+                        </div>
+                        <div data-react="flags">
+                            🇦🇫🇦🇽🇦🇱🇩🇿🇦🇸🇦🇩🇦🇴🇦🇮🇦🇶🇦🇬🇦🇷🇦🇲🇦🇼🇦🇺🇦🇹🇦🇿🇧🇸🇧🇭🇧🇩🇧🇧🇧🇾🇧🇪🇧🇿🇧🇯🇧🇲🇧🇹🇧🇴🇧🇶🇧🇦🇧🇼🇧🇷🇮🇴🇻🇬🇧🇳🇧🇬🇧🇫🇧🇮🇨🇻🇰🇭🇨🇲🇨🇦🇮🇨🇰🇾🇨🇫🇹🇩🇨🇱🇨🇳🇨🇽🇨🇨🇨🇴🇰🇲🇨🇬🇨🇩🇨🇰🇨🇷🇭🇷🇨🇺🇨🇼🇨🇾🇨🇿🇩🇰🇩🇯🇩🇲🇩🇴🇪🇨🇪🇬🇸🇻🇬🇶🇪🇷🇪🇪🇪🇹🇪🇺🇫🇰🇫🇴🇫🇯🇫🇮🇫🇷🇬🇫🇵🇫🇹🇫🇬🇦🇬🇲🇬🇪🇩🇪🇬🇭🇬🇮🇬🇷🇬🇱🇬🇩🇬🇵🇬🇺🇬🇹🇬🇬🇬🇳🇬🇼🇬🇾🇭🇹🇭🇳🇭🇰🇭🇺🇮🇸🇮🇳🇮🇩🇮🇷🇮🇶🇮🇪🇮🇲🇮🇱🇮🇹🇨🇮🇯🇲🇯🇵🇯🇪🇯🇴🇰🇿🇰🇪🇰🇮🇽🇰🇰🇼🇰🇬🇱🇦🇱🇻🇱🇧🇱🇸🇱🇷🇱🇾🇱🇮🇱🇹🇱🇺🇲🇴🇲🇰🇲🇬🇲🇼🇲🇾🇲🇻🇲🇱🇲🇹🇲🇭🇲🇶🇲🇷🇲🇺🇾🇹🇲🇽🇫🇲🇲🇩🇲🇨🇲🇳🇲🇪🇲🇸🇲🇦🇲🇿🇲🇲🇳🇦🇳🇷🇳🇵🇳🇱🇳🇨🇳🇿🇳🇮🇳🇪🇳🇬🇳🇺🇳🇫🇲🇵🇰🇵🇳🇴🇴🇲🇵🇰🇵🇼🇵🇸🇵🇦🇵🇬🇵🇾🇵🇪🇵🇭🇵🇳🇵🇱🇵🇹🇵🇷🇶🇦🇷🇪🇷🇴🇷🇺🇷🇼🇧🇱🇸🇭🇰🇳🇱🇨🇵🇲🇻🇨🇼🇸🇸🇲🇸🇹🇸🇦🇸🇳🇷🇸🇸🇨🇸🇱🇸🇬🇸🇽🇸🇰🇸🇮🇸🇧🇸🇴🇿🇦🇬🇸🇰🇷🇸🇸🇪🇸🇱🇰🇸🇩🇸🇷🇸🇿🇸🇪🇨🇭🇸🇾🇹🇼🇹🇯🇹🇿🇹🇭🇹🇱🇹🇬🇹🇰🇹🇴🇹🇹🇹🇳🇹🇷🇹🇲🇹🇨🇹🇻🇺🇬🇺🇦🇦🇪🇬🇧🇺🇸🇻🇮🇺🇾🇺🇿🇻🇺🇻🇦🇻🇪🇻🇳🇼🇫🇪🇭🇾🇪🇿🇲🇿🇼
+                        </div>
+                    </div>
+                    <!--<div class="emoji-footer hor-flex-parent">-->
+                        <!--<button class="icon btn-emoji flex-outcast">-->
+                            <!--<svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">-->
+                                <!--<path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>-->
+                                <!--<path d="M0 0h24v24H0z" fill="none"/>-->
+                            <!--</svg>-->
+                        <!--</button>-->
+                        <!--<form class="flex-kid hor-flex-parent">-->
+                            <!--<div class="flex-kid message" contenteditable="true" spellcheck="false">🙂🙃hey it works!</div>-->
+                            <!--<button type="button" class="icon btn-send flex-outcast">-->
+                                <!--<svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">-->
+                                    <!--<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>-->
+                                    <!--<path d="M0 0h24v24H0z" fill="none"/>-->
+                                <!--</svg>-->
+                            <!--</button>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row" id="display-chat" type="text/html">
             <!--<div style="text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;">-->
                 <!--<div>-->
                     <!--<div class="profile-preview" style="display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('https://organicthemes.com/demo/profile/files/2012/12/profile_img.png')">-->
@@ -246,33 +383,71 @@
     </div>
 </div>
 <script>
+
+    function htmlcode() {
+        if ($("#code").css("display") == "none") {
+            $("#code").css("display", "block");
+            $("#code").focus();
+        } else {
+            $("#code").css("display", "none");
+            $('#input_chat').focus();
+        }
+    }
+
+    function emoji() {
+        if ($(".use-emoji").css("display") == "none") {
+            $(".use-emoji").css("display", "inline-block");
+            $(".no-emoji").css("display", "none");
+            $(".emoji-keyboard").css("display", "block");
+            $(".emoji-keyboard").animate({
+                opacity: 1
+            }, 100);
+        } else {
+            $(".use-emoji").css("display", "none");
+            $(".no-emoji").css("display", "inline-block");
+
+            $(".emoji-keyboard").animate({
+                opacity: 0
+            }, 100, function () {
+                $(".emoji-keyboard").css("display", "none");
+            });
+        }
+    };
     /**
      * Created by sarthyrith on 6/21/17.
      */
-    document.getElementById('input_chat').addEventListener('keyup', function(e){
-        if(e.keyCode == 13){
-            e.preventDefault();
+    function checkSend(event) {
+        if (event.keyCode == 13 && !event.shiftKey) {
+            event.preventDefault();
             sendMessage();
         }
-    })
+    }
 
     function sendMessage(){
+
         var userId = firebase.auth().currentUser.uid;
         var timeStamp = firebase.database.ServerValue.TIMESTAMP;
-        var message = $('#input_chat').val();
-        $('#input_chat').val("");
+        var message = $('#input_chat').html();
+        var code = $("#code").val();
+        code = code.replace(/<script>/g, "&lt;script&gt;")
+            .replace(/<\/script>/g, "&lt;/script&gt;")
+            .replace(/on[^"']+=[ ]*("[^"]+")|('[^']+')/g, "");
+        $('#input_chat').html("");
+        $('#code').val("");
         $('#input_chat').focus();
+        message = escapeHtml(message);
+        if (!noText(message) || !noText(code)) {
+            database.ref("user/"+userId).on("value", snap => {
+                var roomId = snap.child("room").val();
+                addChildWithId("chat/"+roomId, {
+                    content: message,
+                    html: code,
+                    sender: userId,
+                    time: timeStamp
+                });
 
-        database.ref("user/"+userId).on("value", snap => {
-            var roomId = snap.child("room").val();
-            addChildWithId("chat/"+roomId, {
-                content: message,
-                html: "",
-                sender: userId,
-                time: timeStamp
             });
-
-        });
+        }
     }
 
     function createnewroom() {
@@ -389,31 +564,29 @@
 
     function acceptUserToRoom(uid, rid, position, accepterId) {
         database.ref("request_pending_list/"+uid+"/"+rid).on("value", snap => {
-            if (snap.val()) {
-                var timeStamp = firebase.database.ServerValue.TIMESTAMP;
-                var room = {
-                    room: rid
-                };
-                firebase.database().ref("user/"+uid).update(room);
+            var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+            var room = {
+                room: rid
+            };
+            firebase.database().ref("user/"+uid).update(room);
 
-                var user = {};
-                user[uid] = position;
+            var user = {};
+            user[uid] = position;
 
-                setChild("room/"+rid+"/member", user);
+            setChild("room/"+rid+"/member", user);
 
 //        firebase.database().ref("request_pending_list/"+uid).remove();
-                removePending(firebase.database().ref(), uid);
+            removePending(firebase.database().ref(), uid);
 
-                var roomUser = {
-                    since: timeStamp,
-                    position: position,
-                    accepted_by: accepterId
-                };
+            var roomUser = {
+                since: timeStamp,
+                position: position,
+                accepted_by: accepterId
+            };
 
-                firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
-            } else {
-                alert("User is already rejected");
-            }
+            firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
+
+            setValue("room/"+rid+"/changed", timeStamp);
         });
     }
 
@@ -563,6 +736,91 @@
         setValue("request_pending_list/"+uid+"/"+roomId, null);
         setValue("room/"+roomId+"/request_member/"+uid, null);
     }
+
+    function escapeHtml(text) {
+//        var map = {
+//            '&': '&amp;',
+//            '<': '&lt;',
+//            '>': '&gt;',
+//            '"': '&quot;',
+//            "'": '&#039;'
+//        };
+//
+//        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        return text;
+    }
+
+    function noText(text) {
+        var map = {
+            ' ': '',
+            '&nbsp;': '',
+            '<br>': '',
+            '<div></div>': '',
+            '\t': '',
+            '\n': ''
+        };
+
+        var reduced = text.replace(/[( )(&nbsp;)(<br>)(<div></div>)(\t)(\n)]/g, "");
+        if (reduced == "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function chatLayout(name, time, profile, content, html, color) {
+
+        return    "<div style=\"text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;\">" +
+            "<div>" +
+            "<div class=\"profile-preview chat-user\" style=\"background-image: url("+''+profile+''+");\">" +
+            "</div>" +
+            "<div style=\"margin-left: 20px; display: inline-block\">" +
+            "<div class=\"chat-user-name row\">" +
+            name +
+            "</div>" +
+            "<div class=\"chat-user-time row\">" +
+            time +
+            "</div>"+
+            "</div>"+
+            "</div>" +
+            "<div class=\"chat-user-message\" style=\"background-color: "+color+";\">" +
+            content +
+            "<div style=\"margin-left: 30px;\">" +
+            html +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "";
+    }
+
+    function doGetCaretPosition (oField) {
+
+        // Initialize
+        var iCaretPos = 0;
+
+        // IE Support
+        if (document.selection) {
+
+            // Set focus on the element
+            oField.focus();
+
+            // To get cursor position, get empty selection range
+            var oSel = document.selection.createRange();
+
+            // Move selection start to 0 position
+            oSel.moveStart('character', -oField.value.length);
+
+            // The caret position is selection length
+            iCaretPos = oSel.text.length;
+        }
+
+        // Firefox support
+        else if (oField.selectionStart || oField.selectionStart == '0')
+            iCaretPos = oField.selectionStart;
+
+        // Return results
+        return iCaretPos;
+    }
 </script>
 
 <script>
@@ -580,30 +838,7 @@
         document.getElementById("rightMenu").style.display = "none";
     }
 
-    function chatLayout(name, time, profile, content, html, color) {
 
-        return    "<div style=\"text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;\">" +
-            "<div>" +
-            "<div class=\"profile-preview\" style=\"display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('"+profile+"')\">" +
-            "</div>" +
-            "<div style=\"margin-left: 20px; display: inline-block\">" +
-            "<div class=\"user_name row\" style=\"text-align: left; font-weight: bolder;\">" +
-            name +
-            "</div>" +
-            "<div class=\"row\" style=\"color: grey; font-style: italic; font-size: 10px;\">" +
-            time +
-            "</div>"+
-            "</div>"+
-            "</div>" +
-            "<div class=\"user_message\" style=\"padding: 15px 10px 15px 20px; background-color: "+color+"; border-radius: 10px; box-shadow: 2px 1px 2px rgba(0,0,0,0.5);\">" +
-            content +
-            "<div style=\"margin-left: 30px;\">" +
-            html +
-            "</div>" +
-            "</div>" +
-            "</div>" +
-            "";
-    }
 </script>
 </body>
 </html>

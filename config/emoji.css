@@ -1,0 +1,250 @@
+/*
+ *
+ * --- IMPORTANT: ---
+ *
+ * In this example We're using the images from twitter: (//abs.twimg.com/emoji/v2/[unicode goes here].png). By uploading this example you can adjust the script to link it to your own images! So you can actually do the same thing twitter does: change the browser-generated images to your custom made images.
+ *
+ *
+ * --- NOTES: ---
+ *
+ * As of december 2nd, 2016, not every emoticon is added.
+ * There have been a few updates to emoji which are not included in the script (see JS)
+ * Also, I didn't ise the insertAfter jQuery function so you can't put an emoji on the cursor position, it only adds at the end
+ *
+*/
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,300');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: all 300ms cubic-bezier(.4, 0, .2, 1);
+    transition: all 300ms cubic-bezier(.4, 0, .2, 1);
+}
+
+*::-webkit-scrollbar {
+    width: 6px!important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, .08);
+}
+
+h1 {
+    margin-bottom: 15px;
+}
+h1 .emojicon {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: -7px;
+}
+h1 .emojicon img {
+    display: block;
+}
+
+a,
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+button,
+input {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+button {
+    background: 0 0;
+    color: rgba(0, 0, 0, .7);
+    cursor: pointer;
+    font-size: 17px;
+}
+
+input {
+    background: #FFFFFF;
+    font-size: 17px;
+}
+
+.container {
+    width: 90%;
+    max-width: 740px;
+    margin: auto;
+}
+
+
+/* ----------
+				CHAT
+			---------- */
+
+.chat-panel {
+    position: relative;
+    display: inline-block;
+    background-color: #EEEEEE;
+    margin: 20px;
+    font-size: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.chat-panel .emoji-header {
+    background-color: #FFFFFF;
+}
+
+.chat-panel .emoji-header button,
+.chat-panel .emoji-footer button {
+    min-width: 50px;
+    height: 50px;
+    vertical-align: top;
+    -webkit-transition: background-color 100ms;
+    -moz-transition: background-color 100ms;
+    -o-transition: background-color 100ms;
+    transition: background-color 100ms;
+}
+
+.chat-panel .emoji-header button:active,
+.chat-panel .emoji-footer button:active {
+    background-color: #CCCCCC;
+}
+
+.chat-panel .emoji-header button img {
+    width: 24px;
+}
+
+.chat-panel .emoji-panel {
+    height: 178px;
+    /* overflow-x: auto; */
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.chat-panel .emoji-panel > div {
+    margin: 6px;
+    height: 100%;
+    overflow-y: auto;
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+}
+
+.chat-panel .emoji-panel .emojicon {
+    display: inline-block;
+    cursor: pointer;
+    transition: all 225ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.chat-panel .emoji-panel .emojicon img {
+    width: 26px;
+    padding: 3px;
+    margin: 3px;
+    -webkit-transition: transform 100ms cubic-bezier(.4, 0, .2, 1);
+    -moz-transition: transform 100ms cubic-bezier(.4, 0, .2, 1);
+    -o-transition: transform 100ms cubic-bezier(.4, 0, .2, 1);
+    transition: transform 100ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.chat-panel .emoji-footer * {
+    display: inline-block;
+}
+
+.chat-panel .emoji-footer {
+    position: relative;
+    background-color: #EEEEEE;
+    padding: 8px 0;
+    z-index: 1;
+}
+
+.chat-panel .emoji-footer form .message {
+    background-color: #FFFFFF;
+    padding: 12px;
+    font-size: 17px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    white-space: pre-wrap;
+}
+
+.chat-panel .emoji-footer form .message * {
+    vertical-align: middle;
+}
+
+.chat-panel .emoji-footer form .message img {
+    margin: 0 1px;
+    margin-top: -1px;
+    height: 20px;
+    width: 20px;
+}
+
+.chat-panel .emoji-footer button {
+    height: 50px;
+    text-align: center;
+}
+
+.chat-panel .emoji-footer button i {
+    font-size: 30px;
+    line-height: 50px;
+}
+
+.chat-panel .emoji-footer button:first-child i {
+    font-size: 50px;
+}
+
+
+/* EMOJI */
+
+img.emoji {
+    width: 18px;
+}
+
+
+/* ----------
+				FLEX
+			---------- */
+
+.hor-flex-parent {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+}
+
+.flex-kid {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.flex-outcast {
+    -webkit-box-flex: none;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+}
+
+.menu-tabs > .menu-item {
+    text-align: center;
+}
