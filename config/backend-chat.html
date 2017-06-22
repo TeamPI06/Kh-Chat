@@ -86,7 +86,7 @@
 
                     });
 
-                    database.ref("room").on("value", function () {
+                    database.ref("request_pending_list").on("child_changed", function () {
                         database.ref("user/"+user.uid).on("value", snap => {
                             var roomId = snap.child("room").val();
 
@@ -388,27 +388,33 @@
     }
 
     function acceptUserToRoom(uid, rid, position, accepterId) {
-        var timeStamp = firebase.database.ServerValue.TIMESTAMP;
-        var room = {
-            room: rid
-        };
-        firebase.database().ref("user/"+uid).update(room);
+        database.ref("request_pending_list/"+uid+"/"+rid).on("value", snap => {
+            if (snap.val()) {
+                var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+                var room = {
+                    room: rid
+                };
+                firebase.database().ref("user/"+uid).update(room);
 
-        var user = {};
-        user[uid] = position;
+                var user = {};
+                user[uid] = position;
 
-        setChild("room/"+rid+"/member", user);
+                setChild("room/"+rid+"/member", user);
 
 //        firebase.database().ref("request_pending_list/"+uid).remove();
-        removePending(firebase.database().ref(), uid);
+                removePending(firebase.database().ref(), uid);
 
-        var roomUser = {
-            since: timeStamp,
-            position: position,
-            accepted_by: accepterId
-        };
+                var roomUser = {
+                    since: timeStamp,
+                    position: position,
+                    accepted_by: accepterId
+                };
 
-        firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
+                firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
+            } else {
+                alert("User is already rejected");
+            }
+        });
     }
 
     function removePending(rootRef, uid) {
