@@ -51,7 +51,7 @@
                     var userProfileRef = firebase.database().ref().child("user/"+user.uid+"/profile");
                     userProfileRef.on("value", snap => {
                         //                    alert(snap.val());
-                        $(".profile-preview").css("background-image", "url('"+snap.val()+"')");
+                        $("#account-profile").css("background-image", "url('"+snap.val()+"')");
                 });
                     database.ref("user/"+user.uid).on("value", snap => {
                         var roomId = snap.child("room").val();
@@ -98,6 +98,26 @@
                                         $("#room-request").html(roomRequest);
                                     });
                                 });
+                            });
+                        });
+                    });
+
+                    //chat
+                    database.ref("chat").on("value", rooms => {
+                        database.ref("user/"+user.uid+"/room").on("value", room => {
+                            database.ref("chat/"+room.val()).on("value", chats => {
+                        var chatContent = "";
+                                chats.forEach(chat => {
+
+                                    database.ref("user/"+chat.child("sender").val()).on("value", sender => {
+                                        chatContent = chatLayout(sender.child("displayName").val(),
+                                        chat.child("time").val(), sender.child("profile").val(), chat.child("content").val(),
+                                        chat.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA") + chatContent;
+
+                                    })
+                                });
+                    $('#display-chat').html(chatContent);
+
                             });
                         });
                     });
@@ -189,7 +209,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
                     <a id="displayName" href="#" style="font-size: 25px">
                     </a>
-                    <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                    <div class="profile-preview" id="account-profile" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
                     </div>
                 </div>
             </div>
@@ -198,11 +218,32 @@
     <div class="container">
         <div class="row">
             <div style="width: calc(100% - 50px); display: inline-block">
-                <input type="text" class="form-control">
+                <input type="text" id="input_chat" class="form-control">
             </div>
             <div style="width: 10px; display: inline-block">
-                <button class="btn btn-primary"><i class="fa fa-send"></i></button>
+                <button onclick="sendMessage()" id="input_send" class="btn btn-primary"><i class="fa fa-send"></i></button>
             </div>
+        </div>
+        <div class="row" id="display-chat">
+            <!--<div style="text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;">-->
+                <!--<div>-->
+                    <!--<div class="profile-preview" style="display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('https://organicthemes.com/demo/profile/files/2012/12/profile_img.png')">-->
+                    <!--</div>-->
+                    <!--<div style="margin-left: 20px; display: inline-block">-->
+                        <!--<div class="user_name row" style="text-align: left; font-weight: bolder;">-->
+                            <!--channimol-->
+                        <!--</div>-->
+                        <!--<div class="row" style="color: grey; font-style: italic; font-size: 10px;">-->
+                            <!--time 07:00am-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="user_message" style="padding: 15px 10px 15px 20px; background-color: #f2efff; border-radius: 10px; box-shadow: 2px 1px 2px rgba(0,0,0,0.5);">-->
+                    <!--asdfghjkuytrewqasxdcvbn-->
+                    <!--<div style="margin-left: 30px;">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>
@@ -210,6 +251,32 @@
     /**
      * Created by sarthyrith on 6/21/17.
      */
+    document.getElementById('input_chat').addEventListener('keyup', function(e){
+        if(e.keyCode == 13){
+            e.preventDefault();
+            sendMessage();
+        }
+    })
+
+    function sendMessage(){
+        var userId = firebase.auth().currentUser.uid;
+        var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        var message = $('#input_chat').val();
+        $('#input_chat').val("");
+        $('#input_chat').focus();
+
+        database.ref("user/"+userId).on("value", snap => {
+            var roomId = snap.child("room").val();
+            addChildWithId("chat/"+roomId, {
+                content: message,
+                html: "",
+                sender: userId,
+                time: timeStamp
+            });
+
+        });
+    }
+
     function createnewroom() {
         var timeStamp = firebase.database.ServerValue.TIMESTAMP;
         var d = Date.parse(timeStamp);
@@ -506,6 +573,31 @@
     }
     function closeRightMenu() {
         document.getElementById("rightMenu").style.display = "none";
+    }
+
+    function chatLayout(name, time, profile, content, html, color) {
+
+        return    "<div style=\"text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;\">" +
+            "<div>" +
+            "<div class=\"profile-preview\" style=\"display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('"+profile+"')\">" +
+            "</div>" +
+            "<div style=\"margin-left: 20px; display: inline-block\">" +
+            "<div class=\"user_name row\" style=\"text-align: left; font-weight: bolder;\">" +
+            name +
+            "</div>" +
+            "<div class=\"row\" style=\"color: grey; font-style: italic; font-size: 10px;\">" +
+            time +
+            "</div>"+
+            "</div>"+
+            "</div>" +
+            "<div class=\"user_message\" style=\"padding: 15px 10px 15px 20px; background-color: "+color+"; border-radius: 10px; box-shadow: 2px 1px 2px rgba(0,0,0,0.5);\">" +
+            content +
+            "<div style=\"margin-left: 30px;\">" +
+            html +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "";
     }
 </script>
 </body>

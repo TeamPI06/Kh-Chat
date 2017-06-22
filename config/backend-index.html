@@ -80,7 +80,7 @@
                 });
 
             }
-
+            // check online
             const presence = firebase.database().ref().child("online_user/");
             const onlineUser = presence.push();
             const connect = firebase.database().ref(".info/connected");
@@ -93,7 +93,7 @@
                 console.log(user.uid);
                 onlineUser.onDisconnect().remove();
             }
-//        else{9x
+//        else{
 //            //offline?
 //            setValue("online_user/"+userId, false);
 //            console.log("false");
@@ -101,8 +101,8 @@
         });
         });
 //        function checkOnline(){
-//
-//        }
+        //
+        //        }
 
 
 
