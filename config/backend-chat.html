@@ -27,10 +27,10 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (!user) {
-                window.location = "backend-signup.html";
+                window.location = "signup.html";
             } else {
                 if (!user.emailVerified) {
-                    window.location = "backend-signup.html";
+                    window.location = "signup.html";
                 }
                 else {
                     //                alert(getValue("user/"+user.uid, "room"))
