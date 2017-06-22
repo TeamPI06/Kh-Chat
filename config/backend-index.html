@@ -48,6 +48,9 @@
                         window.location = "backend-chat.html";
                     }
                     showPage();
+
+                  checkOnline(user.uid);
+
                 });
 
                 //display name
@@ -69,7 +72,7 @@
                 setValue("search/"+user.uid, null);
                 searchRef.on("value", snap => {
                     var result = "<tbody>";
-                    snap.forEach(res => {
+                            snap.forEach(res => {
                         result += table(res.key, user.uid);
                     });
                     result += "</tbody>";
@@ -77,7 +80,31 @@
                 });
 
             }
+
+            const presence = firebase.database().ref().child("online_user/");
+            const onlineUser = presence.push();
+            const connect = firebase.database().ref(".info/connected");
+            connect.on("value", (snap)=>
+            {
+                if(snap.val()){
+
+//            alert(snap.val())
+                setValue("online_user/"+user.uid, snap.val());
+                console.log(user.uid);
+                onlineUser.onDisconnect().remove();
+            }
+//        else{9x
+//            //offline?
+//            setValue("online_user/"+userId, false);
+//            console.log("false");
+//        }
         });
+        });
+//        function checkOnline(){
+//
+//        }
+
+
 
     </script>
     <style>
@@ -177,6 +204,10 @@
 <script>/**
  * Created by sarthyrith on 6/21/17.
  */
+//function checkOnline(userId){
+//
+//}
+
 function createnewroom() {
     var timeStamp = firebase.database.ServerValue.TIMESTAMP;
     var d = Date.parse(timeStamp);
