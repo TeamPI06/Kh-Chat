@@ -4,10 +4,22 @@
     <title>Basic function of KH Chat</title>
     <link rel="stylesheet" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="loader.css">
     <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-    <script src="config.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
+            authDomain: "kh-chat-ef625.firebaseapp.com",
+            databaseURL: "https://kh-chat-ef625.firebaseio.com",
+            projectId: "kh-chat-ef625",
+            storageBucket: "kh-chat-ef625.appspot.com",
+            messagingSenderId: "508589901866"
+        };
+        firebase.initializeApp(config);
+    </script>
     <script>
 
         // Get a reference to the database service
@@ -25,8 +37,9 @@
                     firebase.database().ref("user/" + user.uid).child("room").on("value", snap => {
                         if (snap.val() == false){
                         window.location = "backend-index.html";
-                    }
-                });
+                        }
+                        showPage();
+                    });
 
                     $("#displayName").html(getValue("user/"+user.uid, "/displayName"));
                     var userRef = firebase.database().ref().child("user/"+user.uid+"/displayName");
@@ -38,8 +51,74 @@
                     var userProfileRef = firebase.database().ref().child("user/"+user.uid+"/profile");
                     userProfileRef.on("value", snap => {
                         //                    alert(snap.val());
-                        $(".profile-preview").css("background-image", "url('"+snap.val()+"')");
+                        $("#account-profile").css("background-image", "url('"+snap.val()+"')");
                 });
+                    database.ref("user/"+user.uid).on("value", snap => {
+                        var roomId = snap.child("room").val();
+                        database.ref("room/"+roomId).on("value", room => {
+                            $("#roomName").html(room.child("name").val());
+                        });
+
+                        //room member
+                        database.ref("room/"+roomId+"/member").on("value", roomsnap => {
+                            var roomMember = "";
+                            roomsnap.forEach(member => {
+                                database.ref("user/"+member.key+"/displayName").on("value", name => {
+                                    roomMember += roomMemberList(member.key, name.val(), member.val(), "online"); //edit here
+                                    $("#room-member").html(roomMember);
+                                });
+                            });
+
+                        });
+
+                        //not real time
+                        database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
+                            var roomRequest = "";
+                            roomsnap.forEach(request => {
+                                database.ref("user/"+request.key+"/displayName").on("value", name => {
+                                    roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
+                                    $("#room-request").html(roomRequest);
+                                });
+                            });
+//                            $("#room-request").html(roomRequest);
+
+                        });
+
+                    });
+
+                    database.ref("request_pending_list").on("child_changed", function () {
+                        database.ref("user/"+user.uid).on("value", snap => {
+                            var roomId = snap.child("room").val();
+
+                            database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
+                                var roomRequest = "";
+                                roomsnap.forEach(request => {
+                                    database.ref("user/"+request.key+"/displayName").on("value", name => {
+                                        roomRequest += roomRequestList(request.key, name.val(), roomId, "member", user.uid); //edit here
+                                        $("#room-request").html(roomRequest);
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    //chat
+                    database.ref("chat").on("value", rooms => {
+                        database.ref("user/"+user.uid+"/room").on("value", room => {
+                            database.ref("chat/"+room.val()).on("value", chats => {
+                        var chatContent = "";
+                                chats.forEach(chat => {
+                                    database.ref("user/"+chat.child("sender").val()).on("value", sender => {
+                                        chatContent = chatLayout(sender.child("displayName").val(),
+                                            dateFormat(chat.child("time").val()), sender.child("profile").val(), chat.child("content").val(),
+                                        chat.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA") + chatContent;
+
+                                    })
+                                });
+                                 $('#display-chat').html(chatContent);
+                            });
+                        });
+                    });
                 }
             }
         });
@@ -51,47 +130,151 @@
             -webkit-background-size: cover;
             background-size: cover;
         }
+
+        #roomName {
+            font-size: 30px;
+        }
+
+        .position {
+            color: black;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        #room-member {
+            width: auto;
+        }
     </style>
 </head>
 <body>
+<div id="loader"></div>
+<div id="main-body">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header" style="width: 100%">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
-                <a class="navbar-brand" href="#">
-                    <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
-                <a class="navbar-brand" href="#">
-                    <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
-                <a id="displayName" href="#" style="font-size: 25px">
-                </a>
-                <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+    <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left" style="display:none" id="leftMenu">
+        <button onclick="closeLeftMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+        <table class="table">
+            <tbody id="room-member">
+            <!--<tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">online</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Nimol</td><td class="btn-success">online</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Sokkang</td><td class="btn-danger">offline</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Phearoth</td><td class="btn-danger">offline</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Me</td><td class="btn-danger">offline</td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+    <div class="w3-sidebar
+ w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+        <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+        <table class="table">
+            <tbody id="room-request">
+            <!--<tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr><tr>-->
+                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+
+    <nav class="navbar navbar-default">
+        <button class="w3-button w3-teal w3-xlarge w3-left" onclick="openLeftMenu()">&#9776;</button>
+        <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+        <div class="container-fluid">
+            <div class="navbar-header" style="width: 100%">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
+                    <a class="navbar-brand" href="#">
+                        <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
+                        <input type="button" class="btn btn-warning" value="Leave room" onclick="removeFromRoom()">
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+                    <a href="#" id="roomName">
+
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
+                    <a id="displayName" href="#" style="font-size: 25px">
+                    </a>
+                    <div class="profile-preview" id="account-profile" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div style="width: calc(100% - 50px); display: inline-block">
-            <input type="text" class="form-control">
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div style="width: calc(100% - 50px); display: inline-block">
+                <input type="text" id="input_chat" class="form-control">
+            </div>
+            <div style="width: 10px; display: inline-block">
+                <button onclick="sendMessage()" id="input_send" class="btn btn-primary"><i class="fa fa-send"></i></button>
+            </div>
         </div>
-        <div style="width: 10px; display: inline-block">
-            <button class="btn btn-primary"><i class="fa fa-send"></i></button>
+        <div class="row" id="display-chat">
+            <!--<div style="text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;">-->
+                <!--<div>-->
+                    <!--<div class="profile-preview" style="display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('https://organicthemes.com/demo/profile/files/2012/12/profile_img.png')">-->
+                    <!--</div>-->
+                    <!--<div style="margin-left: 20px; display: inline-block">-->
+                        <!--<div class="user_name row" style="text-align: left; font-weight: bolder;">-->
+                            <!--channimol-->
+                        <!--</div>-->
+                        <!--<div class="row" style="color: grey; font-style: italic; font-size: 10px;">-->
+                            <!--time 07:00am-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="user_message" style="padding: 15px 10px 15px 20px; background-color: #f2efff; border-radius: 10px; box-shadow: 2px 1px 2px rgba(0,0,0,0.5);">-->
+                    <!--asdfghjkuytrewqasxdcvbn-->
+                    <!--<div style="margin-left: 30px;">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>
-
 <script>
     /**
      * Created by sarthyrith on 6/21/17.
      */
+    document.getElementById('input_chat').addEventListener('keyup', function(e){
+        if(e.keyCode == 13){
+            e.preventDefault();
+            sendMessage();
+        }
+    })
+
+    function sendMessage(){
+        var userId = firebase.auth().currentUser.uid;
+        var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        var message = $('#input_chat').val();
+        $('#input_chat').val("");
+        $('#input_chat').focus();
+
+        database.ref("user/"+userId).on("value", snap => {
+            var roomId = snap.child("room").val();
+            addChildWithId("chat/"+roomId, {
+                content: message,
+                html: "",
+                sender: userId,
+                time: timeStamp
+            });
+
+        });
+    }
+
     function createnewroom() {
         var timeStamp = firebase.database.ServerValue.TIMESTAMP;
         var d = Date.parse(timeStamp);
@@ -173,11 +356,12 @@
     }
 
     function dateFormat(timeStamp) {
-        var d = new Date(timeStamp);
+        var time = timeStamp + 7*3600*1000;
+        var d = new Date(time);
         var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         return day[d.getUTCDay()] + ", "
             + d.getUTCDate() + "-"
-            + d.getUTCMonth() + "-"
+            + (d.getUTCMonth()+1) + "-"
             + d.getUTCFullYear() + ", "
             + d.getUTCHours() + ":"
             + d.getUTCMinutes() + ":"
@@ -204,27 +388,33 @@
     }
 
     function acceptUserToRoom(uid, rid, position, accepterId) {
-        var timeStamp = firebase.database.ServerValue.TIMESTAMP;
-        var room = {
-            room: rid
-        };
-        firebase.database().ref("user/"+uid).update(room);
+        database.ref("request_pending_list/"+uid+"/"+rid).on("value", snap => {
+            if (snap.val()) {
+                var timeStamp = firebase.database.ServerValue.TIMESTAMP;
+                var room = {
+                    room: rid
+                };
+                firebase.database().ref("user/"+uid).update(room);
 
-        var user = {};
-        user[uid] = position;
+                var user = {};
+                user[uid] = position;
 
-        setChild("room/"+rid+"/member", user);
+                setChild("room/"+rid+"/member", user);
 
 //        firebase.database().ref("request_pending_list/"+uid).remove();
-        removePending(firebase.database().ref(), uid);
+                removePending(firebase.database().ref(), uid);
 
-        var roomUser = {
-            since: timeStamp,
-            position: position,
-            accepted_by: accepterId
-        };
+                var roomUser = {
+                    since: timeStamp,
+                    position: position,
+                    accepted_by: accepterId
+                };
 
-        firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
+                firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
+            } else {
+                alert("User is already rejected");
+            }
+        });
     }
 
     function removePending(rootRef, uid) {
@@ -340,6 +530,79 @@
             email: user.email
         });
 //        alert(user.uid + " user created in database");
+    }
+
+    function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("main-body").style.display = "block";
+    }
+
+    function getUserId() {
+        return firebase.auth().currentUser.uid;
+    }
+
+    function roomMemberList(id, name, position, status) {
+        return "<tr onclick='viewMember(\""+id+"\")'>" +
+            "<td class='btn-"+(status == "online"?"success":"danger")+"'>"+name+"<br/><span class='position'>"+position+"</span></td>" +
+            "</tr>";
+    }
+
+    function roomRequestList(id, name, roomId, position, accepterId) {
+        return "<tr>" +
+            "<td>" +
+            name +
+            "<br/><span>" +
+            "<div class='col-xs-6'><button class='btn btn-success' onclick='acceptUserToRoom(\""+id+"\", \""+roomId+"\", \""+position+"\", \""+accepterId+"\")'>accept</button></div>" +
+            "<div class='col-xs-6'><button class='btn btn-danger' onclick='rejectUser(\""+id+"\", \""+roomId+"\")'>reject</button></div>" +
+            "</span>" +
+            "</td>" +
+            "</tr>";
+    }
+
+    function rejectUser(uid, roomId) {
+        setValue("request_pending_list/"+uid+"/"+roomId, null);
+        setValue("room/"+roomId+"/request_member/"+uid, null);
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+
+    function chatLayout(name, time, profile, content, html, color) {
+
+        return    "<div style=\"text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;\">" +
+            "<div>" +
+            "<div class=\"profile-preview\" style=\"display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('"+profile+"')\">" +
+            "</div>" +
+            "<div style=\"margin-left: 20px; display: inline-block\">" +
+            "<div class=\"user_name row\" style=\"text-align: left; font-weight: bolder;\">" +
+            name +
+            "</div>" +
+            "<div class=\"row\" style=\"color: grey; font-style: italic; font-size: 10px;\">" +
+            time +
+            "</div>"+
+            "</div>"+
+            "</div>" +
+            "<div class=\"user_message\" style=\"padding: 15px 10px 15px 20px; background-color: "+color+"; border-radius: 10px; box-shadow: 2px 1px 2px rgba(0,0,0,0.5);\">" +
+            content +
+            "<div style=\"margin-left: 30px;\">" +
+            html +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "";
     }
 </script>
 </body>

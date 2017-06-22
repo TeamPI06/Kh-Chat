@@ -68,7 +68,7 @@ h1 {
     text-align: center;
     color: #ffffff;
     font-weight: 300;
-    margin: 0 0 20px;
+    margin: 0 0 30px;
 }
 
 
@@ -98,7 +98,7 @@ textarea {
 
 .field-wrap {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .button {

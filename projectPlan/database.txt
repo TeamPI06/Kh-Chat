@@ -1,12 +1,12 @@
 {
-	"users": {
+	"user": {
 		"uid": {
 			"displayName": "",
 			"email": "",
 			"date_of_birth": "",
 			"profile": "",
 			"status": "I am a beginner",
-			"room": false;
+			"room": false/uid;
 		}
 		"reportBot": {
 			"profile": "",
