@@ -67,13 +67,16 @@
                     <div class="field-wrap">
                         <input id="signup-confirm" type="password"  placeholder="Confirm Password" required autocomplete="off"/>
                     </div>
+                    <div style="margin-bottom: 25px; text-align: center;">
+                       <span id="message"></span>
+                    </div>
 
                     <div class="" style="margin-bottom: 25px; text-align: center">
                         <span class="tab signin"><a href="#" id="login-link" onclick="replace('login')" >Already have an account?Sign in!</a></span>
                     </div>
 
                     <div class="row">
-                        <button type="submit" class="button button-block" onclick="signupwithemail()" style="border-radius: 5px"/>Get Started</button>
+                        <button id="signup_btn" type="submit" class="button button-block" onclick="signupwithemail()" style="border-radius: 5px"/>Get Started</button>
                     </div>
 
                 </form>
@@ -120,6 +123,15 @@
 
     </div> <!-- /form -->
     <script>
+        $('#signup-confirm').on('keyup', function () {
+            if ($('#signup-pwd').val() == $('#signup-confirm').val()) {
+                $('#message').html('Matching').css('color', 'green');
+//                $('#signup_btn').prop('disabled', false);
+            } else {
+                $('#message').html('Not Matching').css('color', 'red');
+//                ('#signup_btn').prop('disabled', true);
+            }
+        });
         $('#login-link').click(function () {
             $('#signup').css("display", "none");
             $('#login').css("display", "block");
