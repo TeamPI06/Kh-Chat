@@ -12,6 +12,9 @@
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
     <script src="emoji.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+
     <script>
         var config = {
             apiKey: "AIzaSyALVDBy0HWRoP273o-86bf6wnhs4DSg3Y8",
@@ -30,10 +33,10 @@
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (!user) {
-                window.location = "backend-signup.html";
+                window.location = "signup.html";
             } else {
                 if (!user.emailVerified) {
-                    window.location = "backend-signup.html";
+                    window.location = "signup.html";
                 }
                 else {
                     //                alert(getValue("user/"+user.uid, "room"))
@@ -178,6 +181,13 @@
 
         #room-member {
             width: auto;
+        }
+
+        body {
+            background-color: rgba(238, 232, 255, 0.8);
+            color: #636b6f;
+            font-family: 'Raleway', sans-serif;
+            font-weight: bold;
         }
 
         .chat-user {
