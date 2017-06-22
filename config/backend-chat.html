@@ -148,13 +148,11 @@
             width: auto;
         }
 
-        html, body {
-            background-color: rgba(234, 247, 230, 0.8);
+        body {
+            background-color: rgba(238, 232, 255, 0.8);
             color: #636b6f;
             font-family: 'Raleway', sans-serif;
             font-weight: bold;
-            height: 100vh;
-            margin: 0;
         }
     </style>
 </head>
@@ -227,14 +225,14 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div style="width: calc(100% - 50px); display: inline-block">
+            <div style="width: calc(100% - 250px); display: inline-block">
                 <input type="text" id="input_chat" class="form-control">
             </div>
             <div style="width: 10px; display: inline-block">
                 <button onclick="sendMessage()" id="input_send" class="btn btn-primary"><i class="fa fa-send"></i></button>
             </div>
         </div>
-        <div class="row" id="display-chat">
+        <div class="row" id="display-chat" style="width: calc(100% - 250px); margin-left: 120px;">
             <!--<div style="text-align: left; margin-left: 20px; margin-bottom: 30px; margin-top: 30px;">-->
                 <!--<div>-->
                     <!--<div class="profile-preview" style="display: inline-block; width: 25px; height: 25px; border-radius: 25px; background-image: url('https://organicthemes.com/demo/profile/files/2012/12/profile_img.png')">-->
