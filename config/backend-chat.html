@@ -108,16 +108,14 @@
                             database.ref("chat/"+room.val()).on("value", chats => {
                         var chatContent = "";
                                 chats.forEach(chat => {
-
                                     database.ref("user/"+chat.child("sender").val()).on("value", sender => {
                                         chatContent = chatLayout(sender.child("displayName").val(),
-                                        chat.child("time").val(), sender.child("profile").val(), chat.child("content").val(),
+                                            dateFormat(chat.child("time").val()), sender.child("profile").val(), chat.child("content").val(),
                                         chat.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA") + chatContent;
 
                                     })
                                 });
-                    $('#display-chat').html(chatContent);
-
+                                 $('#display-chat').html(chatContent);
                             });
                         });
                     });
@@ -170,8 +168,8 @@
             </tbody>
         </table>
     </div>
-
-    <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+    <div class="w3-sidebar
+ w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
         <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
         <table class="table">
             <tbody id="room-request">
@@ -358,11 +356,12 @@
     }
 
     function dateFormat(timeStamp) {
-        var d = new Date(timeStamp);
+        var time = timeStamp + 7*3600*1000;
+        var d = new Date(time);
         var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         return day[d.getUTCDay()] + ", "
             + d.getUTCDate() + "-"
-            + d.getUTCMonth() + "-"
+            + (d.getUTCMonth()+1) + "-"
             + d.getUTCFullYear() + ", "
             + d.getUTCHours() + ":"
             + d.getUTCMinutes() + ":"
