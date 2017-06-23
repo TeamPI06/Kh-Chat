@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="../public/css/font.css">
     <link rel="stylesheet" type="text/css" href="../public/css/signup.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
-    <script src="../public/vendors/jquery/jquery-3.1.1.min.js"></script>
     <script src="../public/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
     <script>
@@ -72,11 +71,11 @@
                     </div>
 
                     <div class="" style="margin-bottom: 25px; text-align: center">
-                        <span class="tab signin"><a href="#" id="login-link" onclick="replace('login')" >Already have an account?Sign in!</a></span>
+                        <span class="tab signin"><a href="#" id="login-link" >Already have an account?Sign in!</a></span>
                     </div>
 
                     <div class="row">
-                        <button id="signup_btn" type="submit" class="button button-block" onclick="signupwithemail()" style="border-radius: 5px"/>Get Started</button>
+                        <button onclick="signupwithemail()" id="signup_btn" type="button" class="button button-block" value="Sign Up" style="border-radius: 5px"/>Get Started</button>
                     </div>
 
                 </form>
@@ -95,27 +94,27 @@
                     </button>
                 </div>
             <hr/>
-                <form action="/" method="post">
+
 
                     <div class="field-wrap">
                         <input id="email" type="email" placeholder="Email Address" required autocomplete="off"/>
                     </div>
 
                     <div class="field-wrap" style="margin-bottom: 20px">
-                        <input type="password" placeholder="Password" required autocomplete="off"/>
+                        <input id="password" type="password" placeholder="Password" required autocomplete="off"/>
                     </div>
 
                     <div style="margin-bottom: 10px; text-align: center">
                         <a href="#" id="forgot-link">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" class="button button-block" onclick="signinwithemail()" style="border-radius: 5px; margin-bottom: 15px">Log In</button>
+                    <button class="button button-block" type="button"  value="Sign In" onclick="signinwithemail()" style="border-radius: 5px; margin-bottom: 15px">Log In</button>
 
                     <div style="text-align: center" >
                         <a href="#" id="signup-link" onclick="replace('signup')">Sign up for free!</a>
                     </div>
 
-                </form>
+
 
             </div>
 
@@ -141,15 +140,7 @@
             $('#login').css("display", "none");
             $('#signup').css("display", "block");
         });
-//        function replace(id) {
-//            if(id== 'signup'){
-//            document.getElementById("login").style.display="none";
-//            document.getElementById("signup").style.display="block";}
-//            else if(id == 'login' ){
-//                document.getElementById("login").style.display="block";
-//                document.getElementById("signup").style.display="none";
-//            }
-//        }
+
 
     </script>
 </body>
@@ -170,6 +161,7 @@
             ifSuccess = false;
         });
     }
+
 
     function signinwithgoogle() {
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -195,8 +187,10 @@
     }
 
     function signinwithemail() {
+
         var email = $("#email").val();
         var password = $("#password").val();
+//        alert(password+"hrello"+email);
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
