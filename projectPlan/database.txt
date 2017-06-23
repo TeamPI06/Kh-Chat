@@ -54,6 +54,8 @@
 				"since": "timestamp"
 				"position"
 				"accepted_by"
+				name
+				status
 		}
 	},
 	
@@ -79,7 +81,7 @@
 	"online_user": {
 		"uid": true
 	},
-	
+
 	"game": {
 		"gameid": {
 			"title": "",

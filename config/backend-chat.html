@@ -41,7 +41,7 @@
                 }
                 else {
 
-                    checkOnline(user.uid);
+
                     //                alert(getValue("user/"+user.uid, "room"))
                     firebase.database().ref("user/" + user.uid).child("room").on("value", snap => {
                         if (snap.val() == false){
@@ -65,22 +65,34 @@
                         var roomId = snap.child("room").val();
                         database.ref("room/"+roomId).once("value").then(room => {
                             $("#roomName").html(room.child("name").val());
+                    checkOnline(user.uid, room.key);
                         });
 
                         //room member
-                        database.ref("room/"+roomId+"/member").on("value", roomsnap => {
-                            var roomMember = "";
-                            roomsnap.forEach(member => {
-                                database.ref("user/"+member.key+"/displayName").once("value").then( name => {
-                                    database.ref("online_user/"+member.key).once("value").then(online => {
-                                        roomMember += roomMemberList(member.key, name.val(), member.val(), (online.val()==true ? "online": "offline")); //edit here
-                                        $("#room-member").html(roomMember);
-                                        showPage();
-                                    })
-                                });
-                            });
+//                    database.ref("online_user").on("value", function () {
+//                        $("#room-member").html("");
+//                        database.ref("room/"+roomId+"/member").on("child_added", roomsnap => {
+//
+//                        database.ref("online_user/"+roomsnap.key).on("value", online => {
+//                            database.ref("user/"+roomsnap.key+"/displayName").once("value").then( name => {
+//                        showPage();
+//
+//                    });
+//                    });
+//                    });
+//                    })
 
-                        });
+                    database.ref("room_member/"+roomId).on("value", members => {
+                        $("#room-member").html("");
+                        members.forEach(member => {
+                            database.ref("user/"+member.key+"/displayName").on("value", name => {
+                                $("#room-member").prepend(roomMemberList(member.key, name.val(), member.child("position").val(), (member.child("status").val()==true ? "online": "offline")));
+
+                            })
+                        })
+                        showPage();
+                    })
+
 
                         database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
                             $("#room-request").html("");
@@ -366,13 +378,16 @@
 </div>
 <script>
 
-    function checkOnline(userId){
+    function checkOnline(userId, roomId){
         var amOnline = database.ref(".info/connected");
         var userRef = database.ref("online_user/"+userId);
+        var roomRef = database.ref("room_member/"+roomId+"/"+userId+"/status");
         amOnline.on('value', function (snapshot) {
             if (snapshot.val()) {
                 userRef.onDisconnect().remove();
+                roomRef.onDisconnect().remove();
                 userRef.set(true);
+                roomRef.set(true);
             }
         })
     }
@@ -571,10 +586,11 @@
 //        firebase.database().ref("request_pending_list/"+uid).remove();
             removePending(firebase.database().ref(), uid);
 
+
             var roomUser = {
                 since: timeStamp,
                 position: position,
-                accepted_by: accepterId
+                accepted_by: accepterId,
             };
 
             firebase.database().ref("room_member/"+rid+"/"+uid).update(roomUser);
