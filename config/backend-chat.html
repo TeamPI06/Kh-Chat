@@ -127,7 +127,7 @@
 
                     //chat
                     database.ref("chat").on("value", rooms => {
-                        database.ref("user/"+user.uid+"/room").once("value").then( room => {
+                        database.ref("user/"+user.uid+"/room").on("value", room => {
                             $('#display-chat').html("");
                             database.ref("chat/"+room.val()).on("child_added", chats => {
 
@@ -297,7 +297,7 @@
         <div class="row">
             <div style="width: calc(100% - 50px); display: inline-block;">
                 <!--<input type="text" id="input_chat" class="form-control">-->
-                <div class="flex-kid message" id="input_chat" contenteditable="true" onkeypress="checkSend(event)" spellcheck="false" style="background: white; text-align: left ;width: 100%; padding: 5px; border-radius: 5px; border: 1px solid lightgrey"></div>
+                <div class="flex-kid message" id="input_chat" placeholder="Write your message" contenteditable="true" onkeypress="checkSend(event)" spellcheck="false" style="background: white; text-align: left ;width: 100%; padding: 5px; border-radius: 5px; border: 1px solid lightgrey"></div>
             </div>
             <div style="width: 10px; display: inline-block">
                 <button onclick="sendMessage()" id="input_send" class="btn btn-primary"><i class="fa fa-send"></i></button>
