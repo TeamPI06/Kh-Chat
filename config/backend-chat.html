@@ -134,7 +134,7 @@
                                 database.ref("user/"+chats.child("sender").val()).on("value", sender => {
                                 $('#display-chat').prepend(chatLayout(sender.child("displayName").val(),
                                     dateFormat(chats.child("time").val()), sender.child("profile").val(), chats.child("content").val(),
-                                    chats.child("html").val(), (sender.key == user.uid)?"#F1F6FF":"#FAFAFA"));
+                                    chats.child("html").val(), (sender.key == user.uid)?"#CFD9F8":"#FAFAFA"));
                                 })
 
         //                        console.log(chats.val());
@@ -179,6 +179,7 @@
     </script>
     <style>
         .profile-preview {
+            color: black;
             background-repeat: no-repeat;
             background-position: center;
             -webkit-background-size: cover;
@@ -296,7 +297,7 @@
         <div class="row">
             <div style="width: calc(100% - 50px); display: inline-block;">
                 <!--<input type="text" id="input_chat" class="form-control">-->
-                <div class="flex-kid message" id="input_chat" contenteditable="true" onkeypress="checkSend(event)" spellcheck="false" style="text-align: left ;width: 100%; padding: 5px; border-radius: 5px; border: 1px solid lightgrey"></div>
+                <div class="flex-kid message" id="input_chat" contenteditable="true" onkeypress="checkSend(event)" spellcheck="false" style="background: white; text-align: left ;width: 100%; padding: 5px; border-radius: 5px; border: 1px solid lightgrey"></div>
             </div>
             <div style="width: 10px; display: inline-block">
                 <button onclick="sendMessage()" id="input_send" class="btn btn-primary"><i class="fa fa-send"></i></button>
