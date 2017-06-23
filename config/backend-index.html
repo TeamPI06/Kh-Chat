@@ -328,6 +328,7 @@ function requestUserToRoom(uid, rid) {
     user[uid] = timeStamp;
 
     firebase.database().ref("room/"+rid+"/request_member").update(user);
+    alert("Request Sent");
 }
 
 function acceptUserToRoom(uid, rid, position, accepterId) {
