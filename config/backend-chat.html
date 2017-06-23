@@ -82,7 +82,6 @@
 
                         });
 
-                        //not real time
                         database.ref("room/"+roomId+"/request_member").on("value", roomsnap => {
                             $("#room-request").html("");
                             roomsnap.forEach(request => {
