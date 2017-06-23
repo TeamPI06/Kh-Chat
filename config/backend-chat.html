@@ -440,7 +440,7 @@
         var code = $("#code").val();
         code = code.replace(/<script>/g, "&lt;script&gt;")
             .replace(/<\/script>/g, "&lt;/script&gt;")
-            .replace(/on[^"']+=[ ]*("[^"]+")|('[^']+')/g, "");
+            .replace(/on[(click)(keypress)(keyup)]=[ ]*("[^"]+")|('[^']+')/g, "");
         $('#input_chat').html("");
         $('#code').val("");
         $('#input_chat').focus();
