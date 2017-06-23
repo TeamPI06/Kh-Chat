@@ -124,20 +124,20 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header" style="width: 100%">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: left;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6" style="text-align: left;">
                     <a class="navbar-brand" href="#">
                         <input type="button" class="btn btn-danger" value="Sign Out" onclick="signout()">
                     </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6" style="text-align: center;">
                     <a class="navbar-brand" href="#">
                         <input type="button" class="btn btn-success" data-toggle="modal" data-target="#newroom" value="Create new room">
                     </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: right; display: flex; align-items: center">
                     <a id="displayName" href="#" style="font-size: 25px">
                     </a>
-                    <div class="profile-preview" style="height: 50px; width: 50px; display: inline-block; border-radius: 25px;">
+                    <div class="profile-preview"  style="margin-left: 5px;height: 40px; width: 40px; display: inline-block; border-radius: 25px;">
                     </div>
                 </div>
             </div>
@@ -177,11 +177,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomname">Room name : </label>
-                        <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomname" placeholder="Your chat room name">
+                        <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomname" required placeholder="Your chat room name">
                     </div>
                     <div class="row">
                         <label class="input-group-addon" style="width: 185px; display: inline-block" for="roomdescr">Description : </label>
-                        <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" id="roomdescr" placeholder="Description">
+                        <input class="form-control" style="width: calc(100% - 190px); display: inline-block" type="text" required id="roomdescr" placeholder="Description">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -204,9 +204,16 @@
 <script>/**
  * Created by sarthyrith on 6/21/17.
  */
-//function checkOnline(userId){
-//
-//}
+function checkOnline(userId){
+    var amOnline = database.ref(".info/connected");
+    var userRef = database.ref("online_user/"+userId);
+    amOnline.on('value', function (snapshot) {
+        if (snapshot.val()) {
+            userRef.onDisconnect().remove();
+            userRef.set(true);
+        }
+    })
+}
 
 function createnewroom() {
     var timeStamp = firebase.database.ServerValue.TIMESTAMP;
@@ -263,16 +270,7 @@ function sendEmailVerification() {
     });
 }
 
-function sendPasswordReset() {
-    var email = document.getElementById('email').value;
-    firebase.auth().sendPasswordResetEmail(email).then(function() {
-        alert('Password Reset Email Sent!');
-    }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        alert("Error " + errorCode + " : " + errorMessage);
-    });
-}
+
 
 function setUserLocation(user) {
     var timeStamp = firebase.database.ServerValue.TIMESTAMP;
@@ -491,13 +489,17 @@ function table(resultId, userId) {
         return "<tr class='success'>" +
             "<td>"+getValue(resultType+"/"+resultId, "name")+"</td>" +
             "<td></td>" +
-            "<td><button class='btn btn-warning' onclick='requestUserToRoom(\""+userId+"\", \""+resultId+"\")'>Join Now</button></td>" +
+            "<td><button class='btn btn-warning' onclick='requestUserToRoom(\""+userId+"\", \""+resultId+"\")'>Join Now</button>" +
+            "" +
+            "</td>" +
             "</tr>";
     } else if (resultType == "user") {
         return "<tr class='info'>" +
             "<td>"+getValue(resultType+"/"+resultId, "displayName")+"</td>" +
-            "<td>"+(getValue("user/"+resultId, "room")!=false?(getValue("room/"+resultId, "name")):"")+"</td>" +
-            "<td>"+(getValue("user/"+resultId, "room")!=false?("<button class='btn btn-warning' onclick='requestUserToRoom(\""+userId+"\", \""+resultId+"\")'>Join Now</button>"):"")+"</td>" +
+            "<td>"+(getValue("user/"+resultId, "room")!=false?getValue("room/"+resultId, "name"):"")+"</td>" +
+            "<td>"+(getValue("user/"+resultId, "room")!=false?("<button class='btn btn-warning' onclick='requestUserToRoom(\""+userId+"\", \""+getValue("user/"+resultId, "room")+"\")'>Join Now</button>"):"")+"" +
+            "" +
+            "</td>" +
             "</tr>";
     } else {
         return "Result type not found";

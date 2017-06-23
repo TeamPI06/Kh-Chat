@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="" style="margin-bottom: 25px; text-align: center">
-                        <span class="tab signin"><a href="#" id="login-link" onclick="replace('login')" >Already have an account?Sign in!</a></span>
+                        <span class="tab signin"><a href="#" id="login-link">Already have an account?Sign in!</a></span>
                     </div>
 
                     <div class="row">
@@ -102,17 +102,17 @@
                     </div>
 
                     <div class="field-wrap" style="margin-bottom: 20px">
-                        <input type="password" placeholder="Password" required autocomplete="off"/>
+                        <input type="password" placeholder="Password" autocomplete="off"/>
                     </div>
 
                     <div style="margin-bottom: 10px; text-align: center">
-                        <a href="#" id="forgot-link">Forgot Password?</a>
+                        <a onclick="sendPasswordReset();" href="#" id="forgot-link">Forgot Password?</a>
                     </div>
 
                     <button type="submit" class="button button-block" onclick="signinwithemail()" style="border-radius: 5px; margin-bottom: 15px">Log In</button>
 
                     <div style="text-align: center" >
-                        <a href="#" id="signup-link" onclick="replace('signup')">Sign up for free!</a>
+                        <a href="#" id="signup-link">Sign up for free!</a>
                     </div>
 
                 </form>
@@ -167,7 +167,6 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             alert("Error " + errorCode + " : " + errorMessage);
-            ifSuccess = false;
         });
     }
 
@@ -216,6 +215,17 @@
 
     function sendPasswordReset() {
         var email = $("#email").val();
+        firebase.auth().sendPasswordResetEmail(email).then(function() {
+            alert('Password Reset Email Sent!');
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Error " + errorCode + " : " + errorMessage);
+        });
+    }
+
+    function sendPasswordReset() {
+        var email = document.getElementById('email').value;
         firebase.auth().sendPasswordResetEmail(email).then(function() {
             alert('Password Reset Email Sent!');
         }).catch(function(error) {

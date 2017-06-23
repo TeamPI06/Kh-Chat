@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Basic function of KH Chat</title>
     <link rel="stylesheet" href="../public/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/vendors/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -39,6 +40,8 @@
                     window.location = "signup.html";
                 }
                 else {
+
+                    checkOnline(user.uid);
                     //                alert(getValue("user/"+user.uid, "room"))
                     firebase.database().ref("user/" + user.uid).child("room").on("value", snap => {
                         if (snap.val() == false){
@@ -69,9 +72,11 @@
                             var roomMember = "";
                             roomsnap.forEach(member => {
                                 database.ref("user/"+member.key+"/displayName").once("value").then( name => {
-                                    roomMember += roomMemberList(member.key, name.val(), member.val(), "online"); //edit here
-                                    $("#room-member").html(roomMember);
-                                    showPage();
+                                    database.ref("online_user/"+member.key).once("value").then(online => {
+                                        roomMember += roomMemberList(member.key, name.val(), member.val(), (online.val()==true ? "online": "offline")); //edit here
+                                        $("#room-member").html(roomMember);
+                                        showPage();
+                                    })
                                 });
                             });
 
@@ -128,7 +133,7 @@
                     });
                     setTimeout(function () {
                         setValue("chat/false/reload", firebase.database.ServerValue.TIMESTAMP);
-                    }, 500);
+                    }, 1000);
                     //chat
 //                    database.ref("chat").on("value", rooms => {
 //                        database.ref("user/"+user.uid+"/room").on("value", room => {
@@ -184,7 +189,7 @@
         }
 
         body {
-            background-color: rgba(238, 232, 255, 0.8);
+            background-color: rgba(239, 239, 239, 0.8);
             color: #636b6f;
             font-family: 'Raleway', sans-serif;
             font-weight: bold;
@@ -219,55 +224,43 @@
 <div id="loader"></div>
 <div id="main-body">
 
-    <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left" style="display:none" id="leftMenu">
-        <button onclick="closeLeftMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-        <table class="table">
-            <tbody id="room-member">
-            <!--<tr>-->
-                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">online</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Nimol</td><td class="btn-success">online</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Sokkang</td><td class="btn-danger">offline</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Phearoth</td><td class="btn-danger">offline</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Me</td><td class="btn-danger">offline</td>-->
-            <!--</tr>-->
-            </tbody>
-        </table>
-    </div>
-    <div class="w3-sidebar
- w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
-        <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-        <table class="table">
-            <tbody id="room-request">
-            <!--<tr>-->
-                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
-            <!--</tr><tr>-->
-                <!--<td class="btn-primary">Kimsour</td><td class="btn-success">accept</td><td class="btn-danger">reject</td>-->
-            <!--</tr>-->
-            </tbody>
-        </table>
-    </div>
 
-    <nav class="navbar navbar-default">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+        <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left" style="display:none" id="leftMenu">
+            <button onclick="closeLeftMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+            <table class="table">
+                <tbody id="room-member">
+                </tbody>
+            </table>
+        </div>
+        <div class="w3-sidebar
+ w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+            <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+            <table class="table">
+                <tbody id="room-request">
+                </tbody>
+            </table>
+            <div class="row hidden-md hidden-lg" style="text-align: center;">
+                <button class="btn btn-danger" onclick="signout()"><span class="">Sign Out</span>
+                </button>
+                <button class="btn btn-danger" onclick="removeFromRoom()"><span class="">Leave room</span>
+                </button>
+            </div>
+        </div>
+
+
         <button class="w3-button w3-teal w3-xlarge w3-left" onclick="openLeftMenu()">&#9776;</button>
         <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
-        <div class="container-fluid">
+        <div class="container-fluid" style="width: calc(100% - 100px)">
             <div class="navbar-header" style="width: 100%">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 hidden-xs" style="text-align: left;">
+                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs" style="text-align: left;">
                     <a class="navbar-brand" href="#">
-                        <button class="btn btn-danger" onclick="signout()"><span class="hidden-xs">Sign Out</span>
-                            <i class="hidden-sm hidden-md hidden-lg fa fa-sign-out"></i></button>
-                        <button class="btn btn-warning" onclick="removeFromRoom()"><span class="hidden-xs">Leave room</span>
-                            <i class="hidden-sm hidden-md hidden-lg fa fa-close"></i></button>
+                        <button class="btn btn-danger" onclick="signout()"><span class="">Sign Out</span>
+                            </button>
+                        <button class="btn btn-danger" onclick="removeFromRoom()"><span class="">Leave room</span>
+                            </button>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-9" style="text-align: center;">
@@ -286,7 +279,9 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="margin-top: 100px">
+        <div class="row hidden-xs" style="height: 20px;">
+        </div>
         <div class="row">
             <div style="width: calc(100% - 50px); display: inline-block;">
                 <!--<input type="text" id="input_chat" class="form-control">-->
@@ -371,6 +366,17 @@
     </div>
 </div>
 <script>
+
+    function checkOnline(userId){
+        var amOnline = database.ref(".info/connected");
+        var userRef = database.ref("online_user/"+userId);
+        amOnline.on('value', function (snapshot) {
+            if (snapshot.val()) {
+                userRef.onDisconnect().remove();
+                userRef.set(true);
+            }
+        })
+    }
 
     function htmlcode() {
         if ($("#code").css("display") == "none") {
@@ -595,11 +601,13 @@
     }
 
     function removeFromRoom() {
-        var uid = firebase.auth().currentUser.uid;
-        var rid = getValue("user/"+uid, "room");
-        setValue("user/"+uid+"/room", false);
-        setValue("room/"+rid+"/member/"+uid, null);
-        setValue("room_member/"+rid+"/"+uid, null);
+        if (confirm("You really want to leave this room?")) {
+            var uid = firebase.auth().currentUser.uid;
+            var rid = getValue("user/"+uid, "room");
+            setValue("user/"+uid+"/room", false);
+            setValue("room/"+rid+"/member/"+uid, null);
+            setValue("room_member/"+rid+"/"+uid, null);
+        }
     }
 
     function updateSearchResults() {
